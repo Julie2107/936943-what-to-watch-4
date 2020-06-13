@@ -1,7 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 
-const Main = ({movieName, movieGenre, movieReleaseDate, movieTitles}) => {
+const Main = ({movieName, movieGenre, movieReleaseDate, movieTitles, titleClickHandler}) => {
   return (
     <>
       <section className="movie-card">
@@ -103,7 +103,7 @@ const Main = ({movieName, movieGenre, movieReleaseDate, movieTitles}) => {
                   <div className="small-movie-card__image">
                     <img src="img/fantastic-beasts-the-crimes-of-grindelwald.jpg" alt={movieTitle} width="280" height="175" />
                   </div>
-                  <h3 className="small-movie-card__title">
+                  <h3 onClick={titleClickHandler} className="small-movie-card__title">
                     <a className="small-movie-card__link" href="movie-page.html">{movieTitle}</a>
                   </h3>
                 </article>
@@ -139,6 +139,7 @@ Main.propTypes = {
   movieGenre: PropTypes.string.isRequired,
   movieReleaseDate: PropTypes.number.isRequired,
   movieTitles: PropTypes.arrayOf(PropTypes.string).isRequired,
+  titleClickHandler: PropTypes.func.isRequired,
 };
 
 export default Main;
