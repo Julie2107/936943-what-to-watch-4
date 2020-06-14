@@ -3,6 +3,8 @@ import PropTypes from "prop-types";
 
 import Main from "../main/main.jsx";
 
+const titleClickHandler = () => {};
+
 const App = ({movieName, movieGenre, movieReleaseDate, movieTitles}) => {
   return (
     <Main
@@ -10,6 +12,7 @@ const App = ({movieName, movieGenre, movieReleaseDate, movieTitles}) => {
       movieGenre = {movieGenre}
       movieReleaseDate = {movieReleaseDate}
       movieTitles = {movieTitles}
+      titleClickHandler = {titleClickHandler}
     />
   );
 };
