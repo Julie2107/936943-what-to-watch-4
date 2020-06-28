@@ -1,9 +1,8 @@
 import {TITLES, POSTER} from "../consts.js";
 import {getRandomInteger} from "../utils.js";
 
-const MOVIES_COUNT = 8;
 
-export const generateMovie = () => {
+const generateMovie = () => {
 
   return {
     title: TITLES[getRandomInteger(MOVIES_COUNT)],
@@ -11,6 +10,6 @@ export const generateMovie = () => {
   };
 };
 
-const generateMovies = (count) => new Array(count)
+export const generateMovies = (count) => new Array(count)
     .fill(``)
     .map(generateMovie);
