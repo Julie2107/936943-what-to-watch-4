@@ -9,14 +9,14 @@ class MoviesList extends PureComponent {
 
   }
 
-  _createCardsList(movies, onMouseHover) {
+  _createCardsList(movies) {
     return movies.map((movie, i) => {
 
       return (
         <MovieSmallCard
           key={`${i}-${movie.title}`}
           movie={movie}
-          onMouseHover={onMouseHover}
+        //  onMouseHover={onMouseHover}
         />
       );
     });
@@ -26,7 +26,7 @@ class MoviesList extends PureComponent {
     const {movies} = this.props;
     return (
       <div className="catalog__movies-list">
-        {this._createCardsList}
+        {this._createCardsList(movies)}
       </div>
     )
   }
@@ -39,4 +39,7 @@ MoviesList.propTypes = {
         poster: PropTypes.string.isRequired,
       }).isRequired
   ).isRequired,
-}
+ // onMouseHover: PropTypes.func.isRequired,
+};
+
+export default MoviesList;

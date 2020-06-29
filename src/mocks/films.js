@@ -5,7 +5,7 @@ import {getRandomInteger} from "../utils.js";
 const generateMovie = () => {
 
   return {
-    title: TITLES[getRandomInteger(MOVIES_COUNT)],
+    title: TITLES[getRandomInteger(TITLES.length)],
     poster: POSTER
   };
 };
