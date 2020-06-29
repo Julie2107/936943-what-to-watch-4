@@ -3,7 +3,6 @@ import PropTypes from "prop-types";
 
 import Main from "../main/main.jsx";
 
-const titleClickHandler = () => {};
 
 const App = ({movieName, movieGenre, movieReleaseDate, movies}) => {
   return (

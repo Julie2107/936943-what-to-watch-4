@@ -7,6 +7,24 @@ class MoviesList extends PureComponent {
   constructor(props) {
     super(props);
 
+    this.state = {
+      currentCard: null,
+    };
+
+    this._onMouseCardHover = this._onMouseCardHover.bind(this);
+    this._onMouseCardHoverOff = this._onMouseCardHoverOff.bind(this);
+  }
+
+  _onMouseCardHover(movie) {
+    this.setState({
+      currentCard: movie,
+    });
+  }
+
+  _onMouseCardHoverOff() {
+    this.setState({
+      currentCard: null,
+    });
   }
 
   _createCardsList(movies) {
@@ -16,7 +34,8 @@ class MoviesList extends PureComponent {
         <MovieSmallCard
           key={`${i}-${movie.title}`}
           movie={movie}
-        //  onMouseHover={onMouseHover}
+          onMouseCardHover={this._onMouseCardHover}
+          onMouseCardHoverOff={this._onMouseCardHoverOff}
         />
       );
     });
@@ -28,7 +47,7 @@ class MoviesList extends PureComponent {
       <div className="catalog__movies-list">
         {this._createCardsList(movies)}
       </div>
-    )
+    );
   }
 }
 
@@ -39,7 +58,6 @@ MoviesList.propTypes = {
         poster: PropTypes.string.isRequired,
       }).isRequired
   ).isRequired,
- // onMouseHover: PropTypes.func.isRequired,
 };
 
 export default MoviesList;
