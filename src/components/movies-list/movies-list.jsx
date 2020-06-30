@@ -27,7 +27,7 @@ class MoviesList extends PureComponent {
     });
   }
 
-  _createCardsList(movies) {
+  _createCardsList(movies, titleClickHandler) {
     return movies.map((movie, i) => {
 
       return (
@@ -36,16 +36,17 @@ class MoviesList extends PureComponent {
           movie={movie}
           onMouseCardHover={this._onMouseCardHover}
           onMouseCardHoverOff={this._onMouseCardHoverOff}
+          titleClickHandler={titleClickHandler}
         />
       );
     });
   }
 
   render() {
-    const {movies} = this.props;
+    const {movies, titleClickHandler} = this.props;
     return (
       <div className="catalog__movies-list">
-        {this._createCardsList(movies)}
+        {this._createCardsList(movies, titleClickHandler)}
       </div>
     );
   }
@@ -58,6 +59,7 @@ MoviesList.propTypes = {
         poster: PropTypes.string.isRequired,
       }).isRequired
   ).isRequired,
+  titleClickHandler: PropTypes.func.isRequired,
 };
 
 export default MoviesList;
