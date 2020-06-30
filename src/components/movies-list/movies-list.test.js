@@ -1,8 +1,6 @@
 import React from "react";
 import renderer from "react-test-renderer";
-import App from "./app.jsx";
-
-import {PromoData} from "../../consts.js";
+import MoviesList from "./movies-list.jsx";
 
 const movies = [
   {title: `Mindhunter`, poster: `http://placekitten.com/245/175`},
@@ -15,13 +13,11 @@ const movies = [
   {title: `Macbeth`, poster: `http://placekitten.com/245/175`},
 ];
 
-it(`Render App`, () => {
+
+it(`Render movieslist`, () => {
   const tree = renderer
-    .create(<App
-      movieName = {PromoData.movieName}
-      movieGenre = {PromoData.movieGenre}
-      movieReleaseDate = {PromoData.movieReleaseDate}
-      movies = {movies}
+    .create(<MoviesList
+      movies={movies}
     />)
     .toJSON();
 
