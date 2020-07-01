@@ -13,7 +13,7 @@ const movies = [
   {title: `No Country for Old Men`, poster: `http://placekitten.com/245/175`},
   {title: `Orlando`, poster: `http://placekitten.com/245/175`},
   {title: `Macbeth`, poster: `http://placekitten.com/245/175`},
-]
+];
 
 
 it(`Render Main`, () => {
