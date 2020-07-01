@@ -18,7 +18,7 @@ it(`Render movieslist`, () => {
   const tree = renderer
     .create(<MoviesList
       movies={movies}
-      titleClickHandler={()=>{}}
+      onTitleClick={()=>{}}
       onMouseCardHover={()=>{}}
       onMouseCardHoverOff={()=>{}}
     />)

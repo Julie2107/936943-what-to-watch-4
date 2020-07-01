@@ -23,7 +23,7 @@ it(`Render Main`, () => {
       movieGenre = {PromoData.movieGenre}
       movieReleaseDate = {PromoData.movieReleaseDate}
       movies = {movies}
-      titleClickHandler = {() => {}}
+      onTitleClick = {() => {}}
     />)
     .toJSON();
 

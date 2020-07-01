@@ -20,7 +20,7 @@ it(`MovieCardHover gets info`, () => {
         movie = {movie}
         onMouseCardHover={onMouseCardHover}
         onMouseCardHoverOff={() => {}}
-        titleClickHandler={() => {}}
+        onTitleClick={() => {}}
       />
   );
 

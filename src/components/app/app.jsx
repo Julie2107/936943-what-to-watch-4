@@ -11,7 +11,7 @@ const App = ({movieName, movieGenre, movieReleaseDate, movies}) => {
       movieName = {movieName}
       movieGenre = {movieGenre}
       movieReleaseDate = {movieReleaseDate}
-      titleClickHandler = {titleClickHandler}
+      onTitleClick = {titleClickHandler}
       movies = {movies}
     />
   );

@@ -10,7 +10,7 @@ it(`Render moviesmallcard`, () => {
   const tree = renderer
     .create(<MovieSmallCard
       movie={movie}
-      titleClickHandler={()=>{}}
+      onTitleClick={()=>{}}
       onMouseCardHover={()=>{}}
       onMouseCardHoverOff={()=>{}}
     />)

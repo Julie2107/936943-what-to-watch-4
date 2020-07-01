@@ -22,7 +22,7 @@ Enzyme.configure({
 });
 
 it(`Movie card title clicked`, () => {
-  const titleClickHandler = jest.fn();
+  const onTitleClick = jest.fn();
 
   const mainPage = shallow(
       <Main
@@ -30,7 +30,7 @@ it(`Movie card title clicked`, () => {
         movieGenre = {PromoData.movieGenre}
         movieReleaseDate = {PromoData.movieReleaseDate}
         movies = {movies}
-        titleClickHandler = {titleClickHandler}
+        onTitleClick = {onTitleClick}
       />
   );
 
@@ -38,5 +38,5 @@ it(`Movie card title clicked`, () => {
 
   cardTitles.forEach((title) => title.props().onClick());
 
-  expect(titleClickHandler.mock.calls.length).toBe(cardTitles.length);
+  expect(onTitleClick.mock.calls.length).toBe(cardTitles.length);
 });

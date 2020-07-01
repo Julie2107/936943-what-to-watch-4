@@ -11,42 +11,45 @@ class MoviesList extends PureComponent {
       currentCard: null,
     };
 
-    this._onMouseCardHover = this._onMouseCardHover.bind(this);
-    this._onMouseCardHoverOff = this._onMouseCardHoverOff.bind(this);
+    this._handleCardHover = this._handleCardHover.bind(this);
+    this._handleCardHoverOff = this._handleCardHoverOff.bind(this);
   }
 
-  _onMouseCardHover(movie) {
+  _handleCardHover(movie) {
     this.setState({
       currentCard: movie,
     });
   }
 
-  _onMouseCardHoverOff() {
+  _handleCardHoverOff() {
     this.setState({
       currentCard: null,
     });
   }
 
-  _createCardsList(movies, titleClickHandler) {
-    return movies.map((movie, i) => {
+  _getMovie(movie, i, onTitleClick) {
+    const keyValue = `${i}-${movie.title}`;
+    return (
+      <MovieSmallCard
+        key={keyValue}
+        movie={movie}
+        onMouseCardHover={this._handleCardHover}
+        onMouseCardHoverOff={this._handleCardHoverOff}
+        onTitleClick={onTitleClick}
+      />
+    );
+  }
 
-      return (
-        <MovieSmallCard
-          key={`${i}-${movie.title}`}
-          movie={movie}
-          onMouseCardHover={this._onMouseCardHover}
-          onMouseCardHoverOff={this._onMouseCardHoverOff}
-          titleClickHandler={titleClickHandler}
-        />
-      );
-    });
+  _renderMovies(movies, onTitleClick) {
+
+    return movies.map((movie, i) => this._getMovie(movie, i, onTitleClick));
   }
 
   render() {
-    const {movies, titleClickHandler} = this.props;
+    const {movies, onTitleClick} = this.props;
     return (
       <div className="catalog__movies-list">
-        {this._createCardsList(movies, titleClickHandler)}
+        {this._renderMovies(movies, onTitleClick)}
       </div>
     );
   }
@@ -59,7 +62,7 @@ MoviesList.propTypes = {
         poster: PropTypes.string.isRequired,
       }).isRequired
   ).isRequired,
-  titleClickHandler: PropTypes.func.isRequired,
+  onTitleClick: PropTypes.func.isRequired,
 };
 
 export default MoviesList;
