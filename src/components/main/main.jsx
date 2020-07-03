@@ -1,7 +1,10 @@
 import React from "react";
 import PropTypes from "prop-types";
 
-const Main = ({movieName, movieGenre, movieReleaseDate, movieTitles, titleClickHandler}) => {
+import MoviesList from "../movies-list/movies-list.jsx";
+
+
+const Main = ({movieName, movieGenre, movieReleaseDate, onTitleClick, movies}) => {
   return (
     <>
       <section className="movie-card">
@@ -95,22 +98,10 @@ const Main = ({movieName, movieGenre, movieReleaseDate, movieTitles, titleClickH
               <a href="#" className="catalog__genres-link">Thrillers</a>
             </li>
           </ul>
-
-          <div className="catalog__movies-list">
-            {movieTitles.map((movieTitle) => {
-              return (
-                <article key={movieTitle} className="small-movie-card catalog__movies-card">
-                  <div className="small-movie-card__image">
-                    <img src="img/fantastic-beasts-the-crimes-of-grindelwald.jpg" alt={movieTitle} width="280" height="175" />
-                  </div>
-                  <h3 onClick={titleClickHandler} className="small-movie-card__title">
-                    <a className="small-movie-card__link" href="movie-page.html">{movieTitle}</a>
-                  </h3>
-                </article>
-              );
-            })}
-          </div>
-
+          <MoviesList
+            movies={movies}
+            onTitleClick={onTitleClick}
+          />
           <div className="catalog__more">
             <button className="catalog__button" type="button">Show more</button>
           </div>
@@ -138,8 +129,13 @@ Main.propTypes = {
   movieName: PropTypes.string.isRequired,
   movieGenre: PropTypes.string.isRequired,
   movieReleaseDate: PropTypes.number.isRequired,
-  movieTitles: PropTypes.arrayOf(PropTypes.string).isRequired,
-  titleClickHandler: PropTypes.func.isRequired,
+  movies: PropTypes.arrayOf(
+      PropTypes.shape({
+        title: PropTypes.string.isRequired,
+        poster: PropTypes.string.isRequired,
+      }).isRequired
+  ).isRequired,
+  onTitleClick: PropTypes.func.isRequired,
 };
 
 export default Main;

@@ -3,14 +3,16 @@ import ReactDOM from "react-dom";
 
 import App from "./components/app/app.jsx";
 
-import {PromoData, TITLES} from "./consts.js";
+import {PromoData} from "./consts.js";
+import {smallMovies} from "./mocks/films.js";
+
 
 ReactDOM.render(
     <App
       movieName = {PromoData.movieName}
       movieGenre = {PromoData.movieGenre}
       movieReleaseDate = {PromoData.movieReleaseDate}
-      movieTitles = {TITLES}
+      movies = {smallMovies}
     />,
     document.querySelector(`#root`)
 );
