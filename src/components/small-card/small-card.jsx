@@ -14,8 +14,8 @@ const MovieSmallCard = ({movie, onMouseCardHover, onMouseCardHoverOff, onTitleCl
       onMouseEnter={handleMouseHover}
       onMouseLeave={onMouseCardHoverOff}
     >
-      <div className="small-movie-card__image">
-        <img src={poster} alt={title} width="280" height="175" />
+      <div className="small-movie-card__image" onClick={handleTitleClick}>
+        <img src={poster} alt={title} width="280" height="175"/>
       </div>
       <h3 className="small-movie-card__title" onClick={handleTitleClick}>
         <a className="small-movie-card__link" href="movie-page.html">{title}</a>

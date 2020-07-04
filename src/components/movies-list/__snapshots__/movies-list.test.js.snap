@@ -11,6 +11,7 @@ exports[`Render movieslist 1`] = `
   >
     <div
       className="small-movie-card__image"
+      onClick={[Function]}
     >
       <img
         alt="Mindhunter"
@@ -38,6 +39,7 @@ exports[`Render movieslist 1`] = `
   >
     <div
       className="small-movie-card__image"
+      onClick={[Function]}
     >
       <img
         alt="Aviator"
@@ -65,6 +67,7 @@ exports[`Render movieslist 1`] = `
   >
     <div
       className="small-movie-card__image"
+      onClick={[Function]}
     >
       <img
         alt="Pulp Fiction"
@@ -92,6 +95,7 @@ exports[`Render movieslist 1`] = `
   >
     <div
       className="small-movie-card__image"
+      onClick={[Function]}
     >
       <img
         alt="Midnight Special"
@@ -119,6 +123,7 @@ exports[`Render movieslist 1`] = `
   >
     <div
       className="small-movie-card__image"
+      onClick={[Function]}
     >
       <img
         alt="Fantastic Beasts: The Crimes of Grindelwald"
@@ -146,6 +151,7 @@ exports[`Render movieslist 1`] = `
   >
     <div
       className="small-movie-card__image"
+      onClick={[Function]}
     >
       <img
         alt="No Country for Old Men"
@@ -173,6 +179,7 @@ exports[`Render movieslist 1`] = `
   >
     <div
       className="small-movie-card__image"
+      onClick={[Function]}
     >
       <img
         alt="Orlando"
@@ -200,6 +207,7 @@ exports[`Render movieslist 1`] = `
   >
     <div
       className="small-movie-card__image"
+      onClick={[Function]}
     >
       <img
         alt="Macbeth"
