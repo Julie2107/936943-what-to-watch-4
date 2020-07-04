@@ -1,8 +1,9 @@
 import React from "react";
 import PropTypes from "prop-types";
 
-const MoviePage = (movie) => {
+const MoviePage = ({movie}) => {
   const {title, genre, releaseYear, poster, cover} = movie;
+
   return (
     <>
       <section className="movie-card movie-card--full">

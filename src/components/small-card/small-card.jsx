@@ -7,8 +7,6 @@ const MovieSmallCard = ({movie, onMouseCardHover, onMouseCardHoverOff, onTitleCl
   const handleTitleClick = (evt) => {
     evt.preventDefault();
     onTitleClick(movie);
-
-    console.log(movie);
   };
 
   return (

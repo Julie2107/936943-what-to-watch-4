@@ -17,11 +17,11 @@ class App extends PureComponent {
   }
 
   _titleClickHandler(movie) {
-    this.setState = ({
+
+    this.setState({
       currentCard: movie,
     });
 
-    console.log(this.state);
   }
 
   _renderMain() {
