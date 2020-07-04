@@ -1,13 +1,14 @@
 import React from "react";
 import PropTypes from "prop-types";
 
-const MoviePage = () => {
+const MoviePage = (movie) => {
+  const {title, genre, releaseYear, poster, cover} = movie;
   return (
     <>
       <section className="movie-card movie-card--full">
         <div className="movie-card__hero">
           <div className="movie-card__bg">
-            <img src="img/bg-the-grand-budapest-hotel.jpg" alt="The Grand Budapest Hotel" />
+            <img src={cover} alt={title} />
           </div>
 
           <h1 className="visually-hidden">WTW</h1>
@@ -30,10 +31,10 @@ const MoviePage = () => {
 
           <div className="movie-card__wrap">
             <div className="movie-card__desc">
-              <h2 className="movie-card__title">The Grand Budapest Hotel</h2>
+              <h2 className="movie-card__title">{title}</h2>
               <p className="movie-card__meta">
-                <span className="movie-card__genre">Drama</span>
-                <span className="movie-card__year">2014</span>
+                <span className="movie-card__genre">{genre}</span>
+                <span className="movie-card__year">{releaseYear}</span>
               </p>
 
               <div className="movie-card__buttons">
@@ -58,7 +59,7 @@ const MoviePage = () => {
         <div className="movie-card__wrap movie-card__translate-top">
           <div className="movie-card__info">
             <div className="movie-card__poster movie-card__poster--big">
-              <img src="img/the-grand-budapest-hotel-poster.jpg" alt="The Grand Budapest Hotel poster" width="218" height="327" />
+              <img src={poster} alt="{title}" width="218" height="327" />
             </div>
 
             <div className="movie-card__desc">
@@ -144,3 +145,15 @@ const MoviePage = () => {
   </>
   );
 };
+
+MoviePage.propTypes = {
+  movie: PropTypes.shape({
+    title: PropTypes.string.isRequired,
+    poster: PropTypes.string.isRequired,
+    cover: PropTypes.string.isRequired,
+    genre: PropTypes.string.isRequired,
+    releaseYear: PropTypes.number.isRequired,
+  })
+};
+
+export default MoviePage;

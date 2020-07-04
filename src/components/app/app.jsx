@@ -5,14 +5,26 @@ import {BrowserRouter, Route, Switch} from "react-router-dom";
 import Main from "../main/main.jsx";
 import MoviePage from "../movie-page/movie-page.jsx";
 
-const titleClickHandler = () => {};
-
 class App extends PureComponent {
   constructor(props) {
     super(props);
+
+    this.state = {
+      currentCard: null,
+    };
+
+    this._titleClickHandler = this._titleClickHandler.bind(this);
   }
 
-  _renderApp() {
+  _titleClickHandler(movie) {
+    this.setState = ({
+      currentCard: movie,
+    });
+
+    console.log(this.state);
+  }
+
+  _renderMain() {
     const {movieName, movieGenre, movieReleaseDate, movies} = this.props;
 
     return (
@@ -20,10 +32,32 @@ class App extends PureComponent {
         movieName = {movieName}
         movieGenre = {movieGenre}
         movieReleaseDate = {movieReleaseDate}
-        onTitleClick = {titleClickHandler}
+        onTitleClick = {this._titleClickHandler}
         movies = {movies}
       />
     );
+  }
+
+  _renderMoviePage() {
+    const {movies} = this.props;
+    const {currentCard} = this.state;
+
+    return (
+      <MoviePage
+        movies = {movies}
+        movie = {currentCard}
+      />
+    );
+  }
+
+  _renderApp() {
+    const {currentCard} = this.state;
+
+    if (currentCard) {
+      return this._renderMoviePage();
+    }
+
+    return this._renderMain();
   }
 
   render() {
@@ -34,8 +68,8 @@ class App extends PureComponent {
           <Route exact path="/">
             {this._renderApp()}
           </Route>
-          <Route exact path="/dev-component">
-            <MoviePage />
+          <Route exact path="/movie-page">
+            {this._renderMoviePage()}
           </Route>
         </Switch>
       </BrowserRouter>
@@ -51,8 +85,18 @@ App.propTypes = {
       PropTypes.shape({
         title: PropTypes.string.isRequired,
         poster: PropTypes.string.isRequired,
+        cover: PropTypes.string.isRequired,
+        genre: PropTypes.string.isRequired,
+        releaseYear: PropTypes.number.isRequired,
       }).isRequired
   ).isRequired,
+  movie: PropTypes.shape({
+    title: PropTypes.string.isRequired,
+    poster: PropTypes.string.isRequired,
+    cover: PropTypes.string.isRequired,
+    genre: PropTypes.string.isRequired,
+    releaseYear: PropTypes.number.isRequired,
+  })
 };
 
 export default App;
