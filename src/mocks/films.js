@@ -34,5 +34,3 @@ const generateMovies = (count) => new Array(count)
 
 
 export const smallMovies = generateMovies(MOVIES_COUNT);
-
-console.log(smallMovies);
