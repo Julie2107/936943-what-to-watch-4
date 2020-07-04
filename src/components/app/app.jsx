@@ -45,6 +45,7 @@ class App extends PureComponent {
     return (
       <MoviePage
         movies = {movies}
+        onTitleClick = {this._titleClickHandler}
         movie = {currentCard}
       />
     );
