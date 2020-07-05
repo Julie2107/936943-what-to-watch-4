@@ -1,19 +1,15 @@
 import React, {PureComponent, createRef} from "react";
 import PropTypes from "prop-types";
 
-class VideoPlayer extends PureComponent {
+export default class VideoPlayer extends PureComponent {
   constructor(props) {
     super(props);
 
     this._videoref = createRef();
-
-    this.state = {
-      currentView: this.props.poster,
-    };
   }
 
   componentDidMount() {
-    const {src, poster} = this.props;
+    const {src, poster, muted} = this.props;
     const video = this._videoref.current;
 
     if (video) {
@@ -36,21 +32,30 @@ class VideoPlayer extends PureComponent {
   componentDidUpdate() {
     const video = this._videoref.current;
 
-    this._video.play();
     if (this.props.isPlaying) {
       video.play();
     } else {
-      video.pause();
+      video.load();
     }
   }
 
   render() {
-    const {isLoading, isPlaying} = this.state;
+    const {src, poster, muted} = this.props;
 
     return (
-      <audio
-        ref = {this._videoref}
+      <video
+        ref={this._videoref}
+        src={src}
+        poster={poster}
+        muted={muted}
       />
     );
   }
 }
+
+VideoPlayer.propTypes = {
+  poster: PropTypes.string.isRequired,
+  src: PropTypes.string.isRequired,
+  isPlaying: PropTypes.bool.isRequired,
+  muted: PropTypes.bool.isRequired,
+};
