@@ -28,3 +28,26 @@ it(`MovieCardHover gets info`, () => {
   expect(onMouseCardHover).toHaveBeenCalledTimes(1);
   expect(onMouseCardHover.mock.calls[0][0]).toBe(movie);
 });
+
+
+it(`onTitleClick works`, () => {
+  const onTitleClick = jest.fn();
+
+  const mockEvent = {
+    preventDefault() {}
+  };
+
+  const smallMovieCard = shallow(
+      <MovieSmallCard
+        movie = {movie}
+        onMouseCardHover={() => {}}
+        onMouseCardHoverOff={() => {}}
+        onTitleClick={onTitleClick}
+      />
+  );
+
+  const cardTitle = smallMovieCard.find(`.small-movie-card__title`);
+
+  cardTitle.simulate(`click`, mockEvent);
+  expect(onTitleClick).toHaveBeenCalledTimes(1);
+});
