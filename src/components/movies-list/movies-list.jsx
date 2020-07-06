@@ -29,6 +29,7 @@ class MoviesList extends PureComponent {
 
   _getMovie(movie, i, onTitleClick) {
     const keyValue = `${i}-${movie.title}`;
+
     return (
       <MovieSmallCard
         key={keyValue}

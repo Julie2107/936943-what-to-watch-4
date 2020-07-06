@@ -64,6 +64,7 @@ class MovieSmallCard extends PureComponent {
         <div className="small-movie-card__image" onClick={this._handleTitleClick}>
 
           <VideoPlayer
+            className="player__video"
             isPlaying = {isPlaying}
             src={movie.src}
             poster={movie.poster}

@@ -32,11 +32,9 @@ export default class VideoPlayer extends PureComponent {
   componentDidUpdate() {
     const video = this._videoref.current;
 
-    if (this.props.isPlaying) {
-      video.play();
-    } else {
-      video.load();
-    }
+    const videoState = this.props.isPlaying ? video.play() : video.load();
+
+    return videoState;
   }
 
   render() {
@@ -44,6 +42,7 @@ export default class VideoPlayer extends PureComponent {
 
     return (
       <video
+        className="player__video"
         ref={this._videoref}
         src={src}
         poster={poster}
