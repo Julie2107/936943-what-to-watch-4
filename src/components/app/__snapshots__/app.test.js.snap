@@ -267,6 +267,7 @@ Array [
             onClick={[Function]}
           >
             <video
+              className="player__video"
               muted={true}
               poster="http://placekitten.com/245/175"
             />
@@ -293,6 +294,7 @@ Array [
             onClick={[Function]}
           >
             <video
+              className="player__video"
               muted={true}
               poster="http://placekitten.com/245/175"
             />
@@ -319,6 +321,7 @@ Array [
             onClick={[Function]}
           >
             <video
+              className="player__video"
               muted={true}
               poster="http://placekitten.com/245/175"
             />
@@ -345,6 +348,7 @@ Array [
             onClick={[Function]}
           >
             <video
+              className="player__video"
               muted={true}
               poster="http://placekitten.com/245/175"
             />
@@ -371,6 +375,7 @@ Array [
             onClick={[Function]}
           >
             <video
+              className="player__video"
               muted={true}
               poster="http://placekitten.com/245/175"
             />
@@ -397,6 +402,7 @@ Array [
             onClick={[Function]}
           >
             <video
+              className="player__video"
               muted={true}
               poster="http://placekitten.com/245/175"
             />
@@ -423,6 +429,7 @@ Array [
             onClick={[Function]}
           >
             <video
+              className="player__video"
               muted={true}
               poster="http://placekitten.com/245/175"
             />
@@ -449,6 +456,7 @@ Array [
             onClick={[Function]}
           >
             <video
+              className="player__video"
               muted={true}
               poster="http://placekitten.com/245/175"
             />

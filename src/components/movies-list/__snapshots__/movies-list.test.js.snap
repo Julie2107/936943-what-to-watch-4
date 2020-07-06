@@ -14,6 +14,7 @@ exports[`Render movieslist 1`] = `
       onClick={[Function]}
     >
       <video
+        className="player__video"
         muted={true}
         poster="http://placekitten.com/245/175"
       />
@@ -40,6 +41,7 @@ exports[`Render movieslist 1`] = `
       onClick={[Function]}
     >
       <video
+        className="player__video"
         muted={true}
         poster="http://placekitten.com/245/175"
       />
@@ -66,6 +68,7 @@ exports[`Render movieslist 1`] = `
       onClick={[Function]}
     >
       <video
+        className="player__video"
         muted={true}
         poster="http://placekitten.com/245/175"
       />
@@ -92,6 +95,7 @@ exports[`Render movieslist 1`] = `
       onClick={[Function]}
     >
       <video
+        className="player__video"
         muted={true}
         poster="http://placekitten.com/245/175"
       />
@@ -118,6 +122,7 @@ exports[`Render movieslist 1`] = `
       onClick={[Function]}
     >
       <video
+        className="player__video"
         muted={true}
         poster="http://placekitten.com/245/175"
       />
@@ -144,6 +149,7 @@ exports[`Render movieslist 1`] = `
       onClick={[Function]}
     >
       <video
+        className="player__video"
         muted={true}
         poster="http://placekitten.com/245/175"
       />
@@ -170,6 +176,7 @@ exports[`Render movieslist 1`] = `
       onClick={[Function]}
     >
       <video
+        className="player__video"
         muted={true}
         poster="http://placekitten.com/245/175"
       />
@@ -196,6 +203,7 @@ exports[`Render movieslist 1`] = `
       onClick={[Function]}
     >
       <video
+        className="player__video"
         muted={true}
         poster="http://placekitten.com/245/175"
       />
