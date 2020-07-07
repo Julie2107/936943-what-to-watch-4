@@ -10,11 +10,10 @@ exports[`Render moviesmallcard 1`] = `
     className="small-movie-card__image"
     onClick={[Function]}
   >
-    <img
-      alt="Pulp Fiction"
-      height="175"
-      src="http://placekitten.com/245/175"
-      width="280"
+    <video
+      className="player__video"
+      muted={true}
+      poster="http://placekitten.com/245/175"
     />
   </div>
   <h3

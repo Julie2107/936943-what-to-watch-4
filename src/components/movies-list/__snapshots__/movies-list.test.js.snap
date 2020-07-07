@@ -13,11 +13,10 @@ exports[`Render movieslist 1`] = `
       className="small-movie-card__image"
       onClick={[Function]}
     >
-      <img
-        alt="Mindhunter"
-        height="175"
-        src="http://placekitten.com/245/175"
-        width="280"
+      <video
+        className="player__video"
+        muted={true}
+        poster="http://placekitten.com/245/175"
       />
     </div>
     <h3
@@ -41,11 +40,10 @@ exports[`Render movieslist 1`] = `
       className="small-movie-card__image"
       onClick={[Function]}
     >
-      <img
-        alt="Aviator"
-        height="175"
-        src="http://placekitten.com/245/175"
-        width="280"
+      <video
+        className="player__video"
+        muted={true}
+        poster="http://placekitten.com/245/175"
       />
     </div>
     <h3
@@ -69,11 +67,10 @@ exports[`Render movieslist 1`] = `
       className="small-movie-card__image"
       onClick={[Function]}
     >
-      <img
-        alt="Pulp Fiction"
-        height="175"
-        src="http://placekitten.com/245/175"
-        width="280"
+      <video
+        className="player__video"
+        muted={true}
+        poster="http://placekitten.com/245/175"
       />
     </div>
     <h3
@@ -97,11 +94,10 @@ exports[`Render movieslist 1`] = `
       className="small-movie-card__image"
       onClick={[Function]}
     >
-      <img
-        alt="Midnight Special"
-        height="175"
-        src="http://placekitten.com/245/175"
-        width="280"
+      <video
+        className="player__video"
+        muted={true}
+        poster="http://placekitten.com/245/175"
       />
     </div>
     <h3
@@ -125,11 +121,10 @@ exports[`Render movieslist 1`] = `
       className="small-movie-card__image"
       onClick={[Function]}
     >
-      <img
-        alt="Fantastic Beasts: The Crimes of Grindelwald"
-        height="175"
-        src="http://placekitten.com/245/175"
-        width="280"
+      <video
+        className="player__video"
+        muted={true}
+        poster="http://placekitten.com/245/175"
       />
     </div>
     <h3
@@ -153,11 +148,10 @@ exports[`Render movieslist 1`] = `
       className="small-movie-card__image"
       onClick={[Function]}
     >
-      <img
-        alt="No Country for Old Men"
-        height="175"
-        src="http://placekitten.com/245/175"
-        width="280"
+      <video
+        className="player__video"
+        muted={true}
+        poster="http://placekitten.com/245/175"
       />
     </div>
     <h3
@@ -181,11 +175,10 @@ exports[`Render movieslist 1`] = `
       className="small-movie-card__image"
       onClick={[Function]}
     >
-      <img
-        alt="Orlando"
-        height="175"
-        src="http://placekitten.com/245/175"
-        width="280"
+      <video
+        className="player__video"
+        muted={true}
+        poster="http://placekitten.com/245/175"
       />
     </div>
     <h3
@@ -209,11 +202,10 @@ exports[`Render movieslist 1`] = `
       className="small-movie-card__image"
       onClick={[Function]}
     >
-      <img
-        alt="Macbeth"
-        height="175"
-        src="http://placekitten.com/245/175"
-        width="280"
+      <video
+        className="player__video"
+        muted={true}
+        poster="http://placekitten.com/245/175"
       />
     </div>
     <h3

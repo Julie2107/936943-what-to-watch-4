@@ -17,7 +17,6 @@ class App extends PureComponent {
   }
 
   _titleClickHandler(movie) {
-
     this.setState({
       currentCard: movie,
     });
@@ -54,11 +53,9 @@ class App extends PureComponent {
   _renderApp() {
     const {currentCard} = this.state;
 
-    if (currentCard) {
-      return this._renderMoviePage();
-    }
+    const renderPage = currentCard ? this._renderMoviePage() : this._renderMain();
 
-    return this._renderMain();
+    return renderPage;
   }
 
   render() {
