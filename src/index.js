@@ -6,7 +6,6 @@ import App from "./components/app/app.jsx";
 import {PromoData} from "./consts.js";
 import {smallMovies} from "./mocks/films.js";
 
-
 ReactDOM.render(
     <App
       movieName = {PromoData.movieName}

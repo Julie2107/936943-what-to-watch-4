@@ -1,0 +1,82 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Render reviews tab 1`] = `
+<div
+  className="movie-card__reviews movie-card__row"
+>
+  <div
+    className="movie-card__reviews-col"
+  >
+    <div
+      className="review"
+    >
+      <blockquote
+        className="review__quote"
+      >
+        <p
+          className="review__text"
+        >
+          The mannered, madcap proceedings are often delightful, occasionally silly, and here and there, gruesome and/or heartbreaking.
+        </p>
+        <footer
+          className="review__details"
+        >
+          <cite
+            className="review__author"
+          >
+            Amanda Greever
+          </cite>
+          <time
+            className="review__date"
+            dateTime="2016-12-24"
+          >
+            November 18, 2015
+          </time>
+        </footer>
+      </blockquote>
+      <div
+        className="review__rating"
+      >
+        2
+      </div>
+    </div>
+  </div>
+  <div
+    className="movie-card__reviews-col"
+  >
+    <div
+      className="review"
+    >
+      <blockquote
+        className="review__quote"
+      >
+        <p
+          className="review__text"
+        >
+          The mannered, madcap proceedings are often delightful, occasionally silly, and here and there, gruesome and/or heartbreaking.
+        </p>
+        <footer
+          className="review__details"
+        >
+          <cite
+            className="review__author"
+          >
+            Amanda Greever
+          </cite>
+          <time
+            className="review__date"
+            dateTime="2016-12-24"
+          >
+            November 18, 2015
+          </time>
+        </footer>
+      </blockquote>
+      <div
+        className="review__rating"
+      >
+        2
+      </div>
+    </div>
+  </div>
+</div>
+`;

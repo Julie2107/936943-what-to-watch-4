@@ -145,7 +145,7 @@ Array [
           className="movie-card__poster movie-card__poster--big"
         >
           <img
-            alt="{title}"
+            alt="Mindhunter"
             height="327"
             src="http://placekitten.com/245/175"
             width="218"
@@ -161,7 +161,7 @@ Array [
               className="movie-nav__list"
             >
               <li
-                className="movie-nav__item movie-nav__item--active"
+                className="movie-nav__item"
               >
                 <a
                   className="movie-nav__link"
@@ -181,7 +181,7 @@ Array [
                 </a>
               </li>
               <li
-                className="movie-nav__item"
+                className="movie-nav__item movie-nav__item--active"
               >
                 <a
                   className="movie-nav__link"
@@ -198,7 +198,7 @@ Array [
             <div
               className="movie-rating__score"
             >
-              8,9
+              5
             </div>
             <p
               className="movie-rating__meta"
@@ -206,12 +206,13 @@ Array [
               <span
                 className="movie-rating__level"
               >
-                Very good
+                
               </span>
               <span
                 className="movie-rating__count"
               >
-                240 ratings
+                100
+                 ratings
               </span>
             </p>
           </div>
@@ -228,16 +229,187 @@ Array [
               className="movie-card__director"
             >
               <strong>
-                Director: Wes Andreson
+                Director: 
+                
               </strong>
             </p>
             <p
               className="movie-card__starring"
             >
               <strong>
-                Starring: Bill Murray, Edward Norton, Jude Law, Willem Dafoe and other
+                Starring: 
+                , 1, 3
+                 and other
               </strong>
             </p>
+          </div>
+          <div
+            className="movie-card__text movie-card__row"
+          >
+            <div
+              className="movie-card__text-col"
+            >
+              <p
+                className="movie-card__details-item"
+              >
+                <strong
+                  className="movie-card__details-name"
+                >
+                  Director
+                </strong>
+                <span
+                  className="movie-card__details-value"
+                >
+                  
+                </span>
+              </p>
+              <p
+                className="movie-card__details-item"
+              >
+                <strong
+                  className="movie-card__details-name"
+                >
+                  Starring
+                </strong>
+                <span
+                  className="movie-card__details-value"
+                >
+                  
+                   
+                  <br />
+                  1
+                   
+                  <br />
+                  3
+                   
+                  <br />
+                </span>
+              </p>
+            </div>
+            <div
+              className="movie-card__text-col"
+            >
+              <p
+                className="movie-card__details-item"
+              >
+                <strong
+                  className="movie-card__details-name"
+                >
+                  Run Time
+                </strong>
+                <span
+                  className="movie-card__details-value"
+                >
+                  1h 39m
+                </span>
+              </p>
+              <p
+                className="movie-card__details-item"
+              >
+                <strong
+                  className="movie-card__details-name"
+                >
+                  Genre
+                </strong>
+                <span
+                  className="movie-card__details-value"
+                >
+                  drama
+                </span>
+              </p>
+              <p
+                className="movie-card__details-item"
+              >
+                <strong
+                  className="movie-card__details-name"
+                >
+                  Released
+                </strong>
+                <span
+                  className="movie-card__details-value"
+                >
+                  2000
+                </span>
+              </p>
+            </div>
+          </div>
+          <div
+            className="movie-card__reviews movie-card__row"
+          >
+            <div
+              className="movie-card__reviews-col"
+            >
+              <div
+                className="review"
+              >
+                <blockquote
+                  className="review__quote"
+                >
+                  <p
+                    className="review__text"
+                  >
+                    The mannered, madcap proceedings are often delightful, occasionally silly, and here and there, gruesome and/or heartbreaking.
+                  </p>
+                  <footer
+                    className="review__details"
+                  >
+                    <cite
+                      className="review__author"
+                    >
+                      Amanda Greever
+                    </cite>
+                    <time
+                      className="review__date"
+                      dateTime="2016-12-24"
+                    >
+                      November 18, 2015
+                    </time>
+                  </footer>
+                </blockquote>
+                <div
+                  className="review__rating"
+                >
+                  2
+                </div>
+              </div>
+            </div>
+            <div
+              className="movie-card__reviews-col"
+            >
+              <div
+                className="review"
+              >
+                <blockquote
+                  className="review__quote"
+                >
+                  <p
+                    className="review__text"
+                  >
+                    The mannered, madcap proceedings are often delightful, occasionally silly, and here and there, gruesome and/or heartbreaking.
+                  </p>
+                  <footer
+                    className="review__details"
+                  >
+                    <cite
+                      className="review__author"
+                    >
+                      Amanda Greever
+                    </cite>
+                    <time
+                      className="review__date"
+                      dateTime="2016-12-24"
+                    >
+                      November 18, 2015
+                    </time>
+                  </footer>
+                </blockquote>
+                <div
+                  className="review__rating"
+                >
+                  2
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </div>

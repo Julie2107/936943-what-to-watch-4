@@ -72,5 +72,4 @@ const generateMovies = (count) => new Array(count)
     .fill(``)
     .map(generateMovie);
 
-
 export const smallMovies = generateMovies(MOVIES_COUNT);
