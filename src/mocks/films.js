@@ -6,6 +6,7 @@ const GENRES = [`Drama`, `Comedy`, `Thriller`, `Fantasy`, `Horror`];
 const COVER = `img/bg-the-grand-budapest-hotel.jpg`;
 const DIRECTORS = [`Wes Anderson`, `Kevin Smith`, `Tim Burton`, `Quentine Tarantino`];
 const STARRING = [`Bill Murray`, `Edward Norton`, `Jude Law`, `Willem Dafoe`];
+const NAMES = [`Kate Muir`, `Matthew Lickona`, `Bill Goodykoontz`, `Amanda Greever`, `Paula Fleri-Soler`];
 
 const getPosterSrc = (title) => {
   let src = ``;
@@ -35,6 +36,19 @@ const getRatingValue = (rating) => {
   return `Bad`;
 };
 
+const generateComment = () => {
+  return {
+    message: `The mannered, madcap proceedings are often delightful, occasionally silly, and here and there, gruesome and/or heartbreaking.`,
+    rating: getRandomInteger(10),
+    author: NAMES[getRandomInteger(NAMES.length)],
+    date: `November 18, 2015`,
+  };
+};
+
+const generateComments = (count) => new Array(count)
+.fill(``)
+.map(generateComment);
+
 const generateMovie = () => {
   const movieTitle = TITLES[getRandomInteger(TITLES.length)];
   const movieRating = getRandomInteger(10);
@@ -50,7 +64,7 @@ const generateMovie = () => {
     ratingValue: getRatingValue(movieRating),
     starring: STARRING,
     director: DIRECTORS[getRandomInteger(DIRECTORS.length)],
-
+    reviews: generateComments(6)
   };
 };
 

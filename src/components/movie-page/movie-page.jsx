@@ -82,7 +82,7 @@ const MoviePage = ({movie, movies, onTitleClick}) => {
               />
 
               <ReviewsTab
-                movie={movie}
+                reviews={movie.reviews}
               />
 
             </div>
@@ -119,6 +119,14 @@ MoviePage.propTypes = {
       ratingValue: PropTypes.string.isRequired,
       starring: PropTypes.arrayOf(PropTypes.string.isRequired),
       director: PropTypes.string.isRequired,
+      reviews: PropTypes.arrayOf(
+          PropTypes.shape({
+            message: PropTypes.string.isRequired,
+            rating: PropTypes.number.isRequired,
+            date: PropTypes.string.isRequired,
+            author: PropTypes.string.isRequired,
+          })
+      ).isRequired
     })
   ]),
   movies: PropTypes.arrayOf(
