@@ -270,6 +270,7 @@ Array [
               className="player__video"
               muted={true}
               poster="http://placekitten.com/245/175"
+              src=""
             />
           </div>
           <h3
@@ -297,6 +298,7 @@ Array [
               className="player__video"
               muted={true}
               poster="http://placekitten.com/245/175"
+              src=""
             />
           </div>
           <h3
@@ -324,6 +326,7 @@ Array [
               className="player__video"
               muted={true}
               poster="http://placekitten.com/245/175"
+              src=""
             />
           </div>
           <h3
@@ -351,6 +354,7 @@ Array [
               className="player__video"
               muted={true}
               poster="http://placekitten.com/245/175"
+              src=""
             />
           </div>
           <h3
@@ -378,6 +382,7 @@ Array [
               className="player__video"
               muted={true}
               poster="http://placekitten.com/245/175"
+              src=""
             />
           </div>
           <h3
@@ -405,6 +410,7 @@ Array [
               className="player__video"
               muted={true}
               poster="http://placekitten.com/245/175"
+              src=""
             />
           </div>
           <h3
@@ -432,6 +438,7 @@ Array [
               className="player__video"
               muted={true}
               poster="http://placekitten.com/245/175"
+              src=""
             />
           </div>
           <h3
@@ -459,6 +466,7 @@ Array [
               className="player__video"
               muted={true}
               poster="http://placekitten.com/245/175"
+              src=""
             />
           </div>
           <h3

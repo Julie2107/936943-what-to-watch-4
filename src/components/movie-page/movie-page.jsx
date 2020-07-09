@@ -117,13 +117,16 @@ const MoviePage = ({movie, movies, onTitleClick}) => {
 };
 
 MoviePage.propTypes = {
-  movie: PropTypes.shape({
-    title: PropTypes.string.isRequired,
-    poster: PropTypes.string.isRequired,
-    cover: PropTypes.string.isRequired,
-    genre: PropTypes.string.isRequired,
-    releaseYear: PropTypes.number.isRequired,
-  }).isRequired,
+  movie: PropTypes.oneOfType([
+    PropTypes.number,
+    PropTypes.shape({
+      title: PropTypes.string.isRequired,
+      poster: PropTypes.string.isRequired,
+      cover: PropTypes.string.isRequired,
+      genre: PropTypes.string.isRequired,
+      releaseYear: PropTypes.number.isRequired,
+    })
+  ]),
   movies: PropTypes.arrayOf(
       PropTypes.shape({
         title: PropTypes.string.isRequired,

@@ -88,13 +88,17 @@ App.propTypes = {
         releaseYear: PropTypes.number.isRequired,
       }).isRequired
   ).isRequired,
-  movie: PropTypes.shape({
-    title: PropTypes.string.isRequired,
-    poster: PropTypes.string.isRequired,
-    cover: PropTypes.string.isRequired,
-    genre: PropTypes.string.isRequired,
-    releaseYear: PropTypes.number.isRequired,
-  })
+  movie: PropTypes.oneOfType([
+    PropTypes.number,
+    PropTypes.shape({
+      title: PropTypes.string.isRequired,
+      poster: PropTypes.string.isRequired,
+      cover: PropTypes.string.isRequired,
+      genre: PropTypes.string.isRequired,
+      releaseYear: PropTypes.number.isRequired,
+    })
+  ])
+
 };
 
 export default App;
