@@ -4,16 +4,17 @@ import PropTypes from "prop-types";
 import MoviesList from "../movies-list/movies-list.jsx";
 import Tabs from "../tabs/tabs.jsx";
 import OverviewTab from "../overview-tab/overview-tab.jsx";
+import DetailsTab from "../details-tab/details-tab.jsx";
+import ReviewsTab from "../reviews-tab/reviews-tab.jsx";
 
 const MoviePage = ({movie, movies, onTitleClick}) => {
-  const {title, genre, releaseYear, poster, cover} = movie;
 
   return (
     <>
       <section className="movie-card movie-card--full">
         <div className="movie-card__hero">
           <div className="movie-card__bg">
-            <img src={cover} alt={title} />
+            <img src={movie.cover} alt={movie.title} />
           </div>
 
           <h1 className="visually-hidden">WTW</h1>
@@ -36,10 +37,10 @@ const MoviePage = ({movie, movies, onTitleClick}) => {
 
           <div className="movie-card__wrap">
             <div className="movie-card__desc">
-              <h2 className="movie-card__title">{title}</h2>
+              <h2 className="movie-card__title">{movie.title}</h2>
               <p className="movie-card__meta">
-                <span className="movie-card__genre">{genre}</span>
-                <span className="movie-card__year">{releaseYear}</span>
+                <span className="movie-card__genre">{movie.genre}</span>
+                <span className="movie-card__year">{movie.releaseYear}</span>
               </p>
 
               <div className="movie-card__buttons">
@@ -64,7 +65,7 @@ const MoviePage = ({movie, movies, onTitleClick}) => {
         <div className="movie-card__wrap movie-card__translate-top">
           <div className="movie-card__info">
             <div className="movie-card__poster movie-card__poster--big">
-              <img src={poster} alt="{title}" width="218" height="327" />
+              <img src={movie.poster} alt={movie.title} width="218" height="327" />
             </div>
 
             <div className="movie-card__desc">
@@ -74,6 +75,14 @@ const MoviePage = ({movie, movies, onTitleClick}) => {
 
               <OverviewTab
                 movie = {movie}
+              />
+
+              <DetailsTab
+                movie={movie}
+              />
+
+              <ReviewsTab
+                movie={movie}
               />
 
             </div>
