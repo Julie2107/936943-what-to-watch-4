@@ -96,6 +96,12 @@ App.propTypes = {
       cover: PropTypes.string.isRequired,
       genre: PropTypes.string.isRequired,
       releaseYear: PropTypes.number.isRequired,
+      src: PropTypes.string.isRequired,
+      rating: PropTypes.number.isRequired,
+      ratingNumber: PropTypes.number.isRequired,
+      ratingValue: PropTypes.string.isRequired,
+      starring: PropTypes.arrayOf(PropTypes.string.isRequired),
+      director: PropTypes.string.isRequired,
     })
   ])
 

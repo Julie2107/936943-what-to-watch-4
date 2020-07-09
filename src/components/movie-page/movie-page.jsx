@@ -2,6 +2,8 @@ import React from "react";
 import PropTypes from "prop-types";
 
 import MoviesList from "../movies-list/movies-list.jsx";
+import Tabs from "../tabs/tabs.jsx";
+import OverviewTab from "../overview-tab/overview-tab.jsx";
 
 const MoviePage = ({movie, movies, onTitleClick}) => {
   const {title, genre, releaseYear, poster, cover} = movie;
@@ -67,36 +69,13 @@ const MoviePage = ({movie, movies, onTitleClick}) => {
 
             <div className="movie-card__desc">
               <nav className="movie-nav movie-card__nav">
-                <ul className="movie-nav__list">
-                  <li className="movie-nav__item movie-nav__item--active">
-                    <a href="#" className="movie-nav__link">Overview</a>
-                  </li>
-                  <li className="movie-nav__item">
-                    <a href="#" className="movie-nav__link">Details</a>
-                  </li>
-                  <li className="movie-nav__item">
-                    <a href="#" className="movie-nav__link">Reviews</a>
-                  </li>
-                </ul>
+                <Tabs />
               </nav>
 
-              <div className="movie-rating">
-                <div className="movie-rating__score">8,9</div>
-                <p className="movie-rating__meta">
-                  <span className="movie-rating__level">Very good</span>
-                  <span className="movie-rating__count">240 ratings</span>
-                </p>
-              </div>
+              <OverviewTab
+                movie = {movie}
+              />
 
-              <div className="movie-card__text">
-                <p>In the 1930s, the Grand Budapest Hotel is a popular European ski resort, presided over by concierge Gustave H. (Ralph Fiennes). Zero, a junior lobby boy, becomes Gustave&apos;s friend and protege.</p>
-
-                <p>Gustave prides himself on providing first-class service to the hotel&apos;s guests, including satisfying the sexual needs of the many elderly women who stay there. When one of Gustave&apos;s lovers dies mysteriously, Gustave finds himself the recipient of a priceless painting and the chief suspect in her murder.</p>
-
-                <p className="movie-card__director"><strong>Director: Wes Andreson</strong></p>
-
-                <p className="movie-card__starring"><strong>Starring: Bill Murray, Edward Norton, Jude Law, Willem Dafoe and other</strong></p>
-              </div>
             </div>
           </div>
         </div>
@@ -125,6 +104,12 @@ MoviePage.propTypes = {
       cover: PropTypes.string.isRequired,
       genre: PropTypes.string.isRequired,
       releaseYear: PropTypes.number.isRequired,
+      src: PropTypes.string.isRequired,
+      rating: PropTypes.number.isRequired,
+      ratingNumber: PropTypes.number.isRequired,
+      ratingValue: PropTypes.string.isRequired,
+      starring: PropTypes.arrayOf(PropTypes.string.isRequired),
+      director: PropTypes.string.isRequired,
     })
   ]),
   movies: PropTypes.arrayOf(
