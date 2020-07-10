@@ -1,4 +1,4 @@
-import React from "react";
+import React, {PureComponent} from "react";
 import PropTypes from "prop-types";
 
 import MoviesList from "../movies-list/movies-list.jsx";
@@ -6,103 +6,142 @@ import Tabs from "../tabs/tabs.jsx";
 import OverviewTab from "../overview-tab/overview-tab.jsx";
 import DetailsTab from "../details-tab/details-tab.jsx";
 import ReviewsTab from "../reviews-tab/reviews-tab.jsx";
+import {TabType} from "../../consts";
 
-const MoviePage = ({movie, movies, onTitleClick}) => {
 
-  return (
-    <>
-      <section className="movie-card movie-card--full">
-        <div className="movie-card__hero">
-          <div className="movie-card__bg">
-            <img src={movie.cover} alt={movie.title} />
-          </div>
+class MoviePage extends PureComponent {
+  constructor(props) {
+    super(props);
 
-          <h1 className="visually-hidden">WTW</h1>
+    this.state = {
+      currentTab: TabType.OVERVIEW,
+    };
 
-          <header className="page-header movie-card__head">
-            <div className="logo">
-              <a href="main.html" className="logo__link">
-                <span className="logo__letter logo__letter--1">W</span>
-                <span className="logo__letter logo__letter--2">T</span>
-                <span className="logo__letter logo__letter--3">W</span>
-              </a>
+    this._handleTabClick = this._handleTabClick.bind(this);
+  }
+
+  _handleTabClick(tab) {
+    this.setState({
+      currentTab: tab,
+    });
+  }
+
+  _renderTab() {
+    const {currentTab} = this.state;
+    const {movie} = this.props;
+
+    switch (currentTab) {
+      case TabType.OVERVIEW:
+        return <OverviewTab
+          movie = {movie}
+        />;
+
+      case TabType.DETAILS:
+        return <DetailsTab
+          movie={movie}
+        />;
+
+      case TabType.REVIEWS:
+        return <ReviewsTab
+          reviews={movie.reviews}
+        />;
+
+      default:
+        return ``;
+    }
+  }
+
+  render() {
+    const {movie, movies, onTitleClick} = this.props;
+
+    return (
+      <>
+        <section className="movie-card movie-card--full">
+          <div className="movie-card__hero">
+            <div className="movie-card__bg">
+              <img src={movie.cover} alt={movie.title} />
             </div>
 
-            <div className="user-block">
-              <div className="user-block__avatar">
-                <img src="img/avatar.jpg" alt="User avatar" width="63" height="63" />
+            <h1 className="visually-hidden">WTW</h1>
+
+            <header className="page-header movie-card__head">
+              <div className="logo">
+                <a href="main.html" className="logo__link">
+                  <span className="logo__letter logo__letter--1">W</span>
+                  <span className="logo__letter logo__letter--2">T</span>
+                  <span className="logo__letter logo__letter--3">W</span>
+                </a>
+              </div>
+
+              <div className="user-block">
+                <div className="user-block__avatar">
+                  <img src="img/avatar.jpg" alt="User avatar" width="63" height="63" />
+                </div>
+              </div>
+            </header>
+
+            <div className="movie-card__wrap">
+              <div className="movie-card__desc">
+                <h2 className="movie-card__title">{movie.title}</h2>
+                <p className="movie-card__meta">
+                  <span className="movie-card__genre">{movie.genre}</span>
+                  <span className="movie-card__year">{movie.releaseYear}</span>
+                </p>
+
+                <div className="movie-card__buttons">
+                  <button className="btn btn--play movie-card__button" type="button">
+                    <svg viewBox="0 0 19 19" width="19" height="19">
+                      <use xlinkHref="#play-s"></use>
+                    </svg>
+                    <span>Play</span>
+                  </button>
+                  <button className="btn btn--list movie-card__button" type="button">
+                    <svg viewBox="0 0 19 20" width="19" height="20">
+                      <use xlinkHref="#add" />
+                    </svg>
+                    <span>My list</span>
+                  </button>
+                  <a href="add-review.html" className="btn movie-card__button">Add review</a>
+                </div>
               </div>
             </div>
-          </header>
+          </div>
 
-          <div className="movie-card__wrap">
-            <div className="movie-card__desc">
-              <h2 className="movie-card__title">{movie.title}</h2>
-              <p className="movie-card__meta">
-                <span className="movie-card__genre">{movie.genre}</span>
-                <span className="movie-card__year">{movie.releaseYear}</span>
-              </p>
+          <div className="movie-card__wrap movie-card__translate-top">
+            <div className="movie-card__info">
+              <div className="movie-card__poster movie-card__poster--big">
+                <img src={movie.poster} alt={movie.title} width="218" height="327" />
+              </div>
 
-              <div className="movie-card__buttons">
-                <button className="btn btn--play movie-card__button" type="button">
-                  <svg viewBox="0 0 19 19" width="19" height="19">
-                    <use xlinkHref="#play-s"></use>
-                  </svg>
-                  <span>Play</span>
-                </button>
-                <button className="btn btn--list movie-card__button" type="button">
-                  <svg viewBox="0 0 19 20" width="19" height="20">
-                    <use xlinkHref="#add" />
-                  </svg>
-                  <span>My list</span>
-                </button>
-                <a href="add-review.html" className="btn movie-card__button">Add review</a>
+              <div className="movie-card__desc">
+                <nav className="movie-nav movie-card__nav">
+                  <Tabs
+                    onTabClick = {this._handleTabClick}
+                    activeTab = {this.state.currentTab}
+                  />
+                </nav>
+
+                {this._renderTab()}
+
               </div>
             </div>
           </div>
-        </div>
-
-        <div className="movie-card__wrap movie-card__translate-top">
-          <div className="movie-card__info">
-            <div className="movie-card__poster movie-card__poster--big">
-              <img src={movie.poster} alt={movie.title} width="218" height="327" />
-            </div>
-
-            <div className="movie-card__desc">
-              <nav className="movie-nav movie-card__nav">
-                <Tabs />
-              </nav>
-
-              <OverviewTab
-                movie = {movie}
-              />
-
-              <DetailsTab
-                movie={movie}
-              />
-
-              <ReviewsTab
-                reviews={movie.reviews}
-              />
-
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <div className="page-content">
-        <section className="catalog catalog--like-this">
-          <h2 className="catalog__title">More like this</h2>
-
-          <MoviesList
-            movies={movies}
-            onTitleClick={onTitleClick}
-          />
         </section>
-      </div>
-  </>
-  );
-};
+
+        <div className="page-content">
+          <section className="catalog catalog--like-this">
+            <h2 className="catalog__title">More like this</h2>
+
+            <MoviesList
+              movies={movies}
+              onTitleClick={onTitleClick}
+            />
+          </section>
+        </div>
+    </>
+    );
+  }
+}
 
 MoviePage.propTypes = {
   movie: PropTypes.oneOfType([

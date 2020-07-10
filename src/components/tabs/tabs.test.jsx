@@ -6,6 +6,8 @@ import Tabs from "./tabs.jsx";
 it(`Render movieslist`, () => {
   const tree = renderer
     .create(<Tabs
+      onTabClick={() => {}}
+      activeTab={`Overview`}
     />)
     .toJSON();
 

@@ -1,27 +1,44 @@
-import React, {PureComponent} from "react";
+import React from "react";
 import PropTypes from "prop-types";
+import {TabType} from "../../consts";
 
-export default class Tabs extends PureComponent {
-  constructor(props) {
-    super(props);
-  }
+const Tabs = ({onTabClick, activeTab}) => {
+  const tabValues = Object.values(TabType);
 
-  render() {
+  const tabClickHandler = (evt, value) => {
+    evt.preventDefault();
+    onTabClick(value);
+  };
+
+
+  const renderTab = (value, i) => {
+    const tabClassName = `movie-nav__item ${value === activeTab ? `movie-nav__item--active` : ``}`;
+
     return (
-      <ul className="movie-nav__list">
-        <li className="movie-nav__item">
-          <a href="#" className="movie-nav__link">Overview</a>
-        </li>
-        <li className="movie-nav__item">
-          <a href="#" className="movie-nav__link">Details</a>
-        </li>
-        <li className="movie-nav__item movie-nav__item--active">
-          <a href="#" className="movie-nav__link">Reviews</a>
-        </li>
-      </ul>
+      <li key={value + i} className={tabClassName}>
+        <a href="#" className="movie-nav__link" onClick={
+          (evt) => {
+            tabClickHandler(evt, value);
+          }
+        }>{value}</a>
+      </li>
     );
-  }
-}
+  };
+
+  const renderTabsList = () => {
+
+    return tabValues.map((value, i) => {
+
+      return renderTab(value, i);
+    });
+  };
+
+  return (
+    <ul className="movie-nav__list">
+      {renderTabsList()}
+    </ul>
+  );
+};
 
 Tabs.propTypes = {
   movie: PropTypes.oneOfType([
@@ -40,4 +57,8 @@ Tabs.propTypes = {
       director: PropTypes.string.isRequired,
     })
   ]),
+  onTabClick: PropTypes.func.isRequired,
+  activeTab: PropTypes.string.isRequired,
 };
+
+export default Tabs;
