@@ -8,6 +8,7 @@ import DetailsTab from "../details-tab/details-tab.jsx";
 import ReviewsTab from "../reviews-tab/reviews-tab.jsx";
 import {TabType} from "../../consts";
 
+const SIMILAR_MOVIES_NUMBER = 4;
 
 class MoviePage extends PureComponent {
   constructor(props) {
@@ -51,8 +52,14 @@ class MoviePage extends PureComponent {
     }
   }
 
+  _getSimilarMovies() {
+    const {movies, movie} = this.props;
+
+    return movies.filter((film) => film.genre === movie.genre).slice(0, SIMILAR_MOVIES_NUMBER);
+  }
+
   render() {
-    const {movie, movies, onTitleClick} = this.props;
+    const {movie, onTitleClick} = this.props;
 
     return (
       <>
@@ -133,7 +140,7 @@ class MoviePage extends PureComponent {
             <h2 className="catalog__title">More like this</h2>
 
             <MoviesList
-              movies={movies}
+              movies={this._getSimilarMovies()}
               onTitleClick={onTitleClick}
             />
           </section>
