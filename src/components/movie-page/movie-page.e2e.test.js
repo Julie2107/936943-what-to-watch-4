@@ -88,7 +88,7 @@ it(`onTabClick gets equal state`, () => {
         onTitleClick={() => {}}
         activeTab={`Overview`}
       />
-  )
+  );
 
   const tabLink = moviePage.find(`.movie-nav__link`).at(0);
 
