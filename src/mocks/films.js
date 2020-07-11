@@ -20,38 +20,42 @@ const getPosterSrc = (title) => {
   return `img/${src}.jpg`;
 };
 
+const Rating = {
+  AWESOME: 10,
+  VERY_GOOD: 8,
+  GOOD: 5,
+  NORMAL: 3,
+};
+
 const getRatingValue = (rating) => {
-  if (rating === 10) {
+  if (rating === Rating.AWESOME) {
     return `Awesome`;
   }
-  if (rating < 10 && rating >= 8) {
+  if (rating < Rating.AWESOME && rating >= Rating.VERY_GOOD) {
     return `Very good`;
   }
-  if (rating < 8 && rating >= 5) {
+  if (rating < Rating.VERY_GOOD && rating >= Rating.GOOD) {
     return `Good`;
   }
-  if (rating < 5 && rating >= 3) {
+  if (rating < Rating.GOOD && rating >= Rating.NORMAL) {
     return `Normal`;
   }
   return `Bad`;
 };
 
-const generateComment = () => {
-  return {
-    message: `The mannered, madcap proceedings are often delightful, occasionally silly, and here and there, gruesome and/or heartbreaking.`,
-    rating: getRandomInteger(10),
-    author: NAMES[getRandomInteger(NAMES.length)],
-    date: `November 18, 2015`,
-  };
-};
+const generateComment = () => ({
+  message: `The mannered, madcap proceedings are often delightful, occasionally silly, and here and there, gruesome and/or heartbreaking.`,
+  rating: getRandomInteger(10),
+  author: NAMES[getRandomInteger(NAMES.length)],
+  date: `November 18, 2015`,
+});
 
-const generateComments = (count) => new Array(count)
-.fill(``)
-.map(generateComment);
+const generateComments = (count) => new Array(count).fill(``).map(generateComment);
 
 const generateMovie = () => {
   const movieTitle = TITLES[getRandomInteger(TITLES.length)];
   const movieRating = getRandomInteger(10);
+
   return {
     title: movieTitle,
     poster: getPosterSrc(movieTitle),

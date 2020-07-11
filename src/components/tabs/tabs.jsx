@@ -5,33 +5,27 @@ import {TabType} from "../../consts";
 const Tabs = ({onTabClick, activeTab}) => {
   const tabValues = Object.values(TabType);
 
-  const tabClickHandler = (evt, value) => {
-    evt.preventDefault();
-    onTabClick(value);
+  const tabClickHandler = (value) => {
+    return (evt) => {
+      evt.preventDefault();
+      onTabClick(value);
+    };
   };
-
 
   const renderTab = (value, i) => {
     const tabClassName = `movie-nav__item ${value === activeTab ? `movie-nav__item--active` : ``}`;
+    const navKey = value + i;
 
     return (
-      <li key={value + i} className={tabClassName}>
-        <a href="#" className="movie-nav__link" onClick={
-          (evt) => {
-            tabClickHandler(evt, value);
-          }
-        }>{value}</a>
+      <li key={navKey} className={tabClassName}>
+        <a href="#" className="movie-nav__link"
+          onClick={tabClickHandler(value)}
+        >{value}</a>
       </li>
     );
   };
 
-  const renderTabsList = () => {
-
-    return tabValues.map((value, i) => {
-
-      return renderTab(value, i);
-    });
-  };
+  const renderTabsList = () => tabValues.map(renderTab);
 
   return (
     <ul className="movie-nav__list">

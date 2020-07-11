@@ -10,6 +10,7 @@ import {TabType} from "../../consts";
 
 const SIMILAR_MOVIES_NUMBER = 4;
 
+
 class MoviePage extends PureComponent {
   constructor(props) {
     super(props);
@@ -19,43 +20,6 @@ class MoviePage extends PureComponent {
     };
 
     this._handleTabClick = this._handleTabClick.bind(this);
-  }
-
-  _handleTabClick(tab) {
-    this.setState({
-      currentTab: tab,
-    });
-  }
-
-  _renderTab() {
-    const {currentTab} = this.state;
-    const {movie} = this.props;
-
-    switch (currentTab) {
-      case TabType.OVERVIEW:
-        return <OverviewTab
-          movie = {movie}
-        />;
-
-      case TabType.DETAILS:
-        return <DetailsTab
-          movie={movie}
-        />;
-
-      case TabType.REVIEWS:
-        return <ReviewsTab
-          reviews={movie.reviews}
-        />;
-
-      default:
-        return ``;
-    }
-  }
-
-  _getSimilarMovies() {
-    const {movies, movie} = this.props;
-
-    return movies.filter((film) => film.genre === movie.genre).slice(0, SIMILAR_MOVIES_NUMBER);
   }
 
   render() {
@@ -145,9 +109,44 @@ class MoviePage extends PureComponent {
             />
           </section>
         </div>
-    </>
+      </>
     );
   }
+
+  _handleTabClick(tab) {
+    this.setState({
+      currentTab: tab,
+    });
+  }
+
+  _renderTab() {
+    const {currentTab} = this.state;
+    const {movie} = this.props;
+
+    const TabPages = {
+      'Overview':
+        <OverviewTab
+          movie = {movie}
+        />,
+      'Details':
+        <DetailsTab
+          movie={movie}
+        />,
+      'Reviews':
+        <ReviewsTab
+          reviews={movie.reviews}
+        />
+    };
+
+    return TabPages[currentTab];
+  }
+
+  _getSimilarMovies() {
+    const {movies, movie} = this.props;
+
+    return movies.filter((film) => film.genre === movie.genre).slice(0, SIMILAR_MOVIES_NUMBER);
+  }
+
 }
 
 MoviePage.propTypes = {

@@ -3,9 +3,11 @@ import PropTypes from "prop-types";
 
 
 const ReviewsTab = ({reviews}) => {
-  const createComment = (review, i) => {
+  const renderComment = (review, i) => {
+    const reviewKey = i + review.date;
+
     return (
-      <div key={i + review.date} className="review">
+      <div key={reviewKey} className="review">
         <blockquote className="review__quote">
           <p className="review__text">{review.message}</p>
 
@@ -20,12 +22,10 @@ const ReviewsTab = ({reviews}) => {
     );
   };
 
-  const createCommentsList = (comments) => comments.map((comment, i) => {
-    return createComment(comment, i);
-  });
+  const renderCommentsList = (comments) => comments.map(renderComment);
 
-  const firstCommentColumn = createCommentsList(reviews.slice(0, reviews.length / 2));
-  const secondCommentColumn = createCommentsList(reviews.slice(reviews.length / 2, reviews.length));
+  const firstCommentColumn = renderCommentsList(reviews.slice(0, reviews.length / 2));
+  const secondCommentColumn = renderCommentsList(reviews.slice(reviews.length / 2, reviews.length));
 
   return (
     <div className="movie-card__reviews movie-card__row">
