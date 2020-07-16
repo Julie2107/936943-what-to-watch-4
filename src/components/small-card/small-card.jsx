@@ -27,14 +27,16 @@ class MovieSmallCard extends PureComponent {
     onTitleClick(movie);
   }
 
+  _getStateForMouseHover() {
+    this.setState({
+      isPlaying: true,
+    });
+  }
+
   _handleMouseHover() {
     const {movie, onMouseCardHover} = this.props;
 
-    this._timeout = setTimeout(() => {
-      this.setState({
-        isPlaying: true,
-      });
-    }, START_PLAY_TIMEOUT);
+    this._timeout = setTimeout(() => this._getStateForMouseHover(), START_PLAY_TIMEOUT);
 
     onMouseCardHover(movie);
   }
@@ -49,7 +51,6 @@ class MovieSmallCard extends PureComponent {
     });
 
     onMouseCardHoverOff();
-
   }
 
   render() {

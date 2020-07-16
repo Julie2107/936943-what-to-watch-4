@@ -14,6 +14,8 @@ it(`VideoPlayer is rendered correctly`, () => {
       <VideoPlayer
         isPlaying={false}
         src={movie.src}
+        poster={movie.poster}
+        muted={true}
       />, {
         createNodeMock: () => {
           return {};

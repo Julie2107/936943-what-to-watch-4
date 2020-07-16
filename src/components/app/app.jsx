@@ -88,13 +88,31 @@ App.propTypes = {
         releaseYear: PropTypes.number.isRequired,
       }).isRequired
   ).isRequired,
-  movie: PropTypes.shape({
-    title: PropTypes.string.isRequired,
-    poster: PropTypes.string.isRequired,
-    cover: PropTypes.string.isRequired,
-    genre: PropTypes.string.isRequired,
-    releaseYear: PropTypes.number.isRequired,
-  })
+  movie: PropTypes.oneOfType([
+    PropTypes.number,
+    PropTypes.shape({
+      title: PropTypes.string.isRequired,
+      poster: PropTypes.string.isRequired,
+      cover: PropTypes.string.isRequired,
+      genre: PropTypes.string.isRequired,
+      releaseYear: PropTypes.number.isRequired,
+      src: PropTypes.string.isRequired,
+      rating: PropTypes.number.isRequired,
+      ratingNumber: PropTypes.number.isRequired,
+      ratingValue: PropTypes.string.isRequired,
+      starring: PropTypes.arrayOf(PropTypes.string.isRequired),
+      director: PropTypes.string.isRequired,
+      reviews: PropTypes.arrayOf(
+          PropTypes.shape({
+            message: PropTypes.string.isRequired,
+            rating: PropTypes.number.isRequired,
+            date: PropTypes.string.isRequired,
+            author: PropTypes.string.isRequired,
+          })
+      ).isRequired
+    })
+  ])
+
 };
 
 export default App;

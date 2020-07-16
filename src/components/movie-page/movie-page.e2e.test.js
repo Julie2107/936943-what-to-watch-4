@@ -1,6 +1,7 @@
 import React from "react";
-import renderer from "react-test-renderer";
-import MoviePage from "./movie-page.jsx";
+import Enzyme, {mount} from "enzyme";
+import Adapter from "enzyme-adapter-react-16";
+import MoviePage from "./movie-page";
 
 const movie = {title: `Mindhunter`, poster: `http://placekitten.com/245/175`, cover: `img/bg-the-grand-budapest-hotel.jpg`, genre: `drama`, releaseYear: 2000, src: ``, rating: 5, ratingNumber: 100, ratingValue: ``, starring: [``, `1`, `3`], director: ``, reviews: [{author: `Amanda Greever`,
   date: `November 18, 2015`,
@@ -72,14 +73,27 @@ const movies = [
     rating: 2}]},
 ];
 
-it(`Render movie-page`, () => {
-  const tree = renderer
-    .create(<MoviePage
-      movie={movie}
-      movies={movies}
-      onTitleClick={()=>{}}
-    />)
-    .toJSON();
 
-  expect(tree).toMatchSnapshot();
+Enzyme.configure({
+  adapter: new Adapter(),
+});
+
+it(`onTabClick gets equal state`, () => {
+
+
+  const moviePage = mount(
+      <MoviePage
+        movie={movie}
+        movies={movies}
+        onTitleClick={() => {}}
+        activeTab={`Overview`}
+      />
+  );
+
+  const tabLink = moviePage.find(`.movie-nav__link`).at(0);
+
+  tabLink.simulate(`click`);
+
+  expect(moviePage.state().currentTab).toEqual(`Overview`);
+
 });
