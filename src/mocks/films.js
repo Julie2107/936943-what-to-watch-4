@@ -44,6 +44,7 @@ const getRatingValue = (rating) => {
 };
 
 const generateComment = () => ({
+  id: Math.random(),
   message: `The mannered, madcap proceedings are often delightful, occasionally silly, and here and there, gruesome and/or heartbreaking.`,
   rating: getRandomInteger(10),
   author: NAMES[getRandomInteger(NAMES.length)],

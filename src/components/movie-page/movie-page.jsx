@@ -124,15 +124,15 @@ class MoviePage extends PureComponent {
     const {movie} = this.props;
 
     const TabPages = {
-      'Overview':
+      Overview:
         <OverviewTab
           movie = {movie}
         />,
-      'Details':
+      Details:
         <DetailsTab
           movie={movie}
         />,
-      'Reviews':
+      Reviews:
         <ReviewsTab
           reviews={movie.reviews}
         />
