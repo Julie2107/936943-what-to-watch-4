@@ -2,14 +2,23 @@ import React from "react";
 import PropTypes from "prop-types";
 
 
-const GenresList = ({genresList}) => {
+const GenresList = ({genresList, onFilterChange, currentGenre}) => {
 
   const renderGenreItem = (genre, i) => {
     const genreKey = genre + i;
+    const genreItemClass = genre === currentGenre ? `catalog__genres-item catalog__genres-item--active` : `catalog__genres-item`;
 
     return (
-      <li key={genreKey} className="catalog__genres-item">
-        <a href="#" className="catalog__genres-link">{genre}</a>
+      <li key={genreKey} className={genreItemClass}>
+        <a href="#" className="catalog__genres-link"
+          onClick={
+            (evt) => {
+              evt.preventDefault();
+              onFilterChange(genre);
+            }
+          }
+
+        >{genre}</a>
       </li>
     );
   };
@@ -28,6 +37,8 @@ const GenresList = ({genresList}) => {
 
 GenresList.propTypes = {
   genresList: PropTypes.arrayOf(PropTypes.string.isRequired).isRequired,
+  onFilterChange: PropTypes.func.isRequired,
+  currentGenre: PropTypes.string.isRequired,
 };
 
 export default GenresList;

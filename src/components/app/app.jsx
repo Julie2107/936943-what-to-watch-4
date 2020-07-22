@@ -26,7 +26,7 @@ class App extends PureComponent {
   }
 
   _renderMain() {
-    const {movieName, movieGenre, movieReleaseDate, movies, genresList} = this.props;
+    const {movieName, movieGenre, movieReleaseDate, movies, genresList, onFilterChange, currentGenre} = this.props;
 
     return (
       <Main
@@ -36,6 +36,8 @@ class App extends PureComponent {
         onTitleClick = {this._titleClickHandler}
         movies = {movies}
         genresList = {genresList}
+        onFilterChange = {onFilterChange}
+        currentGenre = {currentGenre}
       />
     );
   }
@@ -91,6 +93,8 @@ App.propTypes = {
         releaseYear: PropTypes.number.isRequired,
       }).isRequired
   ).isRequired,
+  currentGenre: PropTypes.string.isRequired,
+  onFilterChange: PropTypes.func.isRequired,
   genresList: PropTypes.arrayOf(PropTypes.string.isRequired).isRequired,
   movie: PropTypes.oneOfType([
     PropTypes.number,
@@ -120,10 +124,17 @@ App.propTypes = {
 };
 
 const mapStateToProps = (state) => ({
-  currentGenre: state.genre,
+  currentGenre: state.currentGenre,
   genresList: state.genresList,
   movies: state.movies,
 });
 
+const mapDispatchToProps = (dispatch) => ({
+  onFilterChange(genre) {
+    dispatch(ActionCreator.getCurrentFilter(genre));
+    dispatch(ActionCreator.getFilteredMovies(genre));
+  }
+});
+
 export {App};
-export default connect(mapStateToProps)(App);
+export default connect(mapStateToProps, mapDispatchToProps)(App);

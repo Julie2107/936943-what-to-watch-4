@@ -5,7 +5,7 @@ import MoviesList from "../movies-list/movies-list.jsx";
 import GenresList from "../genres-list/genres-list.jsx";
 
 
-const Main = ({movieName, movieGenre, movieReleaseDate, onTitleClick, movies, genresList}) => {
+const Main = ({movieName, movieGenre, movieReleaseDate, onTitleClick, movies, genresList, onFilterChange, currentGenre}) => {
 
   return (
     <>
@@ -69,6 +69,8 @@ const Main = ({movieName, movieGenre, movieReleaseDate, onTitleClick, movies, ge
           <h2 className="catalog__title visually-hidden">Catalog</h2>
           <GenresList
             genresList={genresList}
+            onFilterChange={onFilterChange}
+            currentGenre={currentGenre}
           />
           <MoviesList
             movies={movies}
@@ -107,8 +109,10 @@ Main.propTypes = {
         poster: PropTypes.string.isRequired,
       }).isRequired
   ).isRequired,
+  currentGenre: PropTypes.string.isRequired,
   onTitleClick: PropTypes.func.isRequired,
   genresList: PropTypes.arrayOf(PropTypes.string.isRequired).isRequired,
+  onFilterChange: PropTypes.func.isRequired,
 };
 
 export default Main;
