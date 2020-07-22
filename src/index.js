@@ -7,9 +7,12 @@ import App from "./components/app/app.jsx";
 
 import {PromoData} from "./consts.js";
 import {smallMovies} from "./mocks/films.js";
-import {reducer} from "./reducer.js";
+import {reducer} from "./reducer/reducer.js";
 
-const store = createStore(reducer);
+const store = createStore(
+    reducer,
+    window.__REDUX_DEVTOOLS_EXTENSION__ ? window.__REDUX_DEVTOOLS_EXTENSION__() : (f) => f
+);
 
 ReactDOM.render(
     <Provider store={store}>
@@ -19,6 +22,6 @@ ReactDOM.render(
         movieReleaseDate = {PromoData.movieReleaseDate}
         movies = {smallMovies}
       />,
-      document.querySelector(`#root`)
-    </Provider>
+    </Provider>,
+    document.querySelector(`#root`)
 );

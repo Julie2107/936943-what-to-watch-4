@@ -1,8 +1,9 @@
-import {smallMovies} from "../mocks.films.js";
+import {smallMovies} from "../mocks/films.js";
 import {getFilteredMovies, getGenresList} from "../utils.js";
 
 const initialState = {
-  genre: `All genres`,
+  currentGenre: `All genres`,
+  genresList: getGenresList(smallMovies),
   movies: smallMovies,
 };
 

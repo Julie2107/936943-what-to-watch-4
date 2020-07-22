@@ -1,6 +1,8 @@
 import React, {PureComponent} from "react";
 import PropTypes from "prop-types";
 import {BrowserRouter, Route, Switch} from "react-router-dom";
+import {connect} from "react-redux";
+import {ActionCreator} from "../../reducer/reducer.js";
 
 import Main from "../main/main.jsx";
 import MoviePage from "../movie-page/movie-page.jsx";
@@ -24,7 +26,7 @@ class App extends PureComponent {
   }
 
   _renderMain() {
-    const {movieName, movieGenre, movieReleaseDate, movies} = this.props;
+    const {movieName, movieGenre, movieReleaseDate, movies, genresList} = this.props;
 
     return (
       <Main
@@ -33,6 +35,7 @@ class App extends PureComponent {
         movieReleaseDate = {movieReleaseDate}
         onTitleClick = {this._titleClickHandler}
         movies = {movies}
+        genresList = {genresList}
       />
     );
   }
@@ -88,6 +91,7 @@ App.propTypes = {
         releaseYear: PropTypes.number.isRequired,
       }).isRequired
   ).isRequired,
+  genresList: PropTypes.arrayOf(PropTypes.string.isRequired).isRequired,
   movie: PropTypes.oneOfType([
     PropTypes.number,
     PropTypes.shape({
@@ -115,4 +119,11 @@ App.propTypes = {
 
 };
 
-export default App;
+const mapStateToProps = (state) => ({
+  currentGenre: state.genre,
+  genresList: state.genresList,
+  movies: state.movies,
+});
+
+export {App};
+export default connect(mapStateToProps)(App);
