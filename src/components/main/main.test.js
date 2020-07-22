@@ -15,6 +15,8 @@ const movies = [
   {title: `Macbeth`, poster: `http://placekitten.com/245/175`, cover: `img/bg-the-grand-budapest-hotel.jpg`, genre: `drama`, releaseYear: 2000, src: ``, rating: 5, ratingNumber: 100, ratingValue: ``, starring: [``, `1`, `3`], director: ``, reviews: []},
 ];
 
+const mockGenres = [`All genres`, `Drama`, `Comedy`, `Thriller`, `Fantasy`, `Horror`];
+
 it(`Render Main`, () => {
   const tree = renderer
     .create(<Main
@@ -23,6 +25,9 @@ it(`Render Main`, () => {
       movieReleaseDate = {PromoData.movieReleaseDate}
       movies = {movies}
       onTitleClick = {() => {}}
+      genresList = {mockGenres}
+      onFilterChange = {() => {}}
+      currentGenre = {`All genres`}
     />)
     .toJSON();
 

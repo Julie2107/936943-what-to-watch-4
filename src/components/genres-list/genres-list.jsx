@@ -7,7 +7,6 @@ const GenresList = ({genresList, onFilterChange, currentGenre}) => {
   const renderGenreItem = (genre, i) => {
     const genreKey = genre + i;
     const genreItemClass = genre === currentGenre ? `catalog__genres-item catalog__genres-item--active` : `catalog__genres-item`;
-
     return (
       <li key={genreKey} className={genreItemClass}>
         <a href="#" className="catalog__genres-link"

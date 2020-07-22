@@ -1,21 +1,7 @@
-import React from "react";
-import Enzyme, {mount} from "enzyme";
-import Adapter from "enzyme-adapter-react-16";
-import MoviePage from "./movie-page";
+import {reducer, ActionCreator, ActionType, initialState} from "./reducer.js";
+import {getFilteredMovies} from "../utils.js";
 
-const movie = {title: `Mindhunter`, poster: `http://placekitten.com/245/175`, cover: `img/bg-the-grand-budapest-hotel.jpg`, genre: `drama`, releaseYear: 2000, src: ``, rating: 5, ratingNumber: 100, ratingValue: ``, starring: [``, `1`, `3`], director: ``, reviews: [{author: `Amanda Greever`,
-  id: 2,
-  date: `November 18, 2015`,
-  message: `The mannered, madcap proceedings are often delightful, occasionally silly, and here and there, gruesome and/or heartbreaking.`,
-  rating: 2},
-{author: `Amanda Greever`,
-  id: 1,
-  date: `November 18, 2015`,
-  message: `The mannered, madcap proceedings are often delightful, occasionally silly, and here and there, gruesome and/or heartbreaking.`,
-  rating: 2}]};
-
-
-const movies = [
+const mockMovies = [
   {title: `Mindhunter`, poster: `http://placekitten.com/245/175`, cover: `img/bg-the-grand-budapest-hotel.jpg`, genre: `drama`, releaseYear: 2000, src: ``, rating: 5, ratingNumber: 100, ratingValue: ``, starring: [``, `1`, `3`], director: ``, reviews: [{author: `Amanda Greever`,
     date: `November 18, 2015`,
     message: `The mannered, madcap proceedings are often delightful, occasionally silly, and here and there, gruesome and/or heartbreaking.`,
@@ -32,7 +18,7 @@ const movies = [
     date: `November 18, 2015`,
     message: `The mannered, madcap proceedings are often delightful, occasionally silly, and here and there, gruesome and/or heartbreaking.`,
     rating: 2}]},
-  {title: `Pulp Fiction`, poster: `http://placekitten.com/245/175`, cover: `img/bg-the-grand-budapest-hotel.jpg`, genre: `drama`, releaseYear: 2000, src: ``, rating: 5, ratingNumber: 100, ratingValue: ``, starring: [``, `1`, `3`], director: ``, reviews: [{author: `Amanda Greever`,
+  {title: `Pulp Fiction`, poster: `http://placekitten.com/245/175`, cover: `img/bg-the-grand-budapest-hotel.jpg`, genre: `comedy`, releaseYear: 2000, src: ``, rating: 5, ratingNumber: 100, ratingValue: ``, starring: [``, `1`, `3`], director: ``, reviews: [{author: `Amanda Greever`,
     date: `November 18, 2015`,
     message: `The mannered, madcap proceedings are often delightful, occasionally silly, and here and there, gruesome and/or heartbreaking.`,
     rating: 2},
@@ -40,7 +26,7 @@ const movies = [
     date: `November 18, 2015`,
     message: `The mannered, madcap proceedings are often delightful, occasionally silly, and here and there, gruesome and/or heartbreaking.`,
     rating: 2}]},
-  {title: `Midnight Special`, poster: `http://placekitten.com/245/175`, cover: `img/bg-the-grand-budapest-hotel.jpg`, genre: `drama`, releaseYear: 2000, src: ``, rating: 5, ratingNumber: 100, ratingValue: ``, starring: [``, `1`, `3`], director: ``, reviews: [{author: `Amanda Greever`,
+  {title: `Midnight Special`, poster: `http://placekitten.com/245/175`, cover: `img/bg-the-grand-budapest-hotel.jpg`, genre: `comedy`, releaseYear: 2000, src: ``, rating: 5, ratingNumber: 100, ratingValue: ``, starring: [``, `1`, `3`], director: ``, reviews: [{author: `Amanda Greever`,
     date: `November 18, 2015`,
     message: `The mannered, madcap proceedings are often delightful, occasionally silly, and here and there, gruesome and/or heartbreaking.`,
     rating: 2},
@@ -65,7 +51,7 @@ const movies = [
     date: `November 18, 2015`,
     message: `The mannered, madcap proceedings are often delightful, occasionally silly, and here and there, gruesome and/or heartbreaking.`,
     rating: 2}]},
-  {title: `Macbeth`, poster: `http://placekitten.com/245/175`, cover: `img/bg-the-grand-budapest-hotel.jpg`, genre: `drama`, releaseYear: 2000, src: ``, rating: 5, ratingNumber: 100, ratingValue: ``, starring: [``, `1`, `3`], director: ``, reviews: [{author: `Amanda Greever`,
+  {title: `Macbeth`, poster: `http://placekitten.com/245/175`, cover: `img/bg-the-grand-budapest-hotel.jpg`, genre: `comedy`, releaseYear: 2000, src: ``, rating: 5, ratingNumber: 100, ratingValue: ``, starring: [``, `1`, `3`], director: ``, reviews: [{author: `Amanda Greever`,
     date: `November 18, 2015`,
     message: `The mannered, madcap proceedings are often delightful, occasionally silly, and here and there, gruesome and/or heartbreaking.`,
     rating: 2},
@@ -75,27 +61,27 @@ const movies = [
     rating: 2}]},
 ];
 
+const mockGenres = [`All genres`, `Drama`, `Comedy`, `Thriller`, `Fantasy`, `Horror`];
 
-Enzyme.configure({
-  adapter: new Adapter(),
+it(`Reducer without additional parameters should return initial state`, () => {
+  expect(reducer(void 0, {})).toEqual(initialState);
 });
 
-it(`onTabClick gets equal state`, () => {
-
-
-  const moviePage = mount(
-      <MoviePage
-        movie={movie}
-        movies={movies}
-        onTitleClick={() => {}}
-        activeTab={`Overview`}
-      />
-  );
-
-  const tabLink = moviePage.find(`.movie-nav__link`).at(0);
-
-  tabLink.simulate(`click`);
-
-  expect(moviePage.state().currentTab).toEqual(`Overview`);
-
+it(`reducer returns the right genre value`, () => {
+  expect(reducer({
+    currentGenre: `All genres`
+  }, {
+    type: ActionType.FILTER_CHANGE,
+    payload: `Drama`,
+  })).toEqual({
+    currentGenre: `Drama`,
+  });
 });
+
+it(`Action creators work correctly`, () => {
+  expect(ActionCreator.getCurrentFilter(`Comedy`)).toEqual({
+    type: ActionType.FILTER_CHANGE,
+    payload: `Comedy`
+  });
+});
+
