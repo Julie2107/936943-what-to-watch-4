@@ -3,8 +3,8 @@ import PropTypes from "prop-types";
 
 
 const ReviewsTab = ({reviews}) => {
-  const renderComment = (review, i) => {
-    const reviewKey = i + review.date;
+  const renderComment = (review) => {
+    const reviewKey = review.id;
 
     return (
       <div key={reviewKey} className="review">
@@ -43,6 +43,7 @@ const ReviewsTab = ({reviews}) => {
 ReviewsTab.propTypes = {
   reviews: PropTypes.arrayOf(
       PropTypes.shape({
+        id: PropTypes.number.isRequired,
         message: PropTypes.string.isRequired,
         rating: PropTypes.number.isRequired,
         date: PropTypes.string.isRequired,

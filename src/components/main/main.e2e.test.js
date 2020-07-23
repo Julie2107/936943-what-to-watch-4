@@ -16,6 +16,7 @@ const movies = [
   {title: `Macbeth`, poster: `http://placekitten.com/245/175`},
 ];
 
+const mockGenres = [`All genres`, `Drama`, `Comedy`, `Thriller`, `Fantasy`, `Horror`];
 
 Enzyme.configure({
   adapter: new Adapter(),
@@ -31,6 +32,9 @@ it(`Movie card title clicked`, () => {
         movieReleaseDate = {PromoData.movieReleaseDate}
         movies = {movies}
         onTitleClick = {onTitleClick}
+        genresList = {mockGenres}
+        onFilterChange = {() => {}}
+        currentGenre = {`All genres`}
       />
   );
 
