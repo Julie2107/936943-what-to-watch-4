@@ -3,20 +3,21 @@ import PropTypes from "prop-types";
 
 
 const GenresList = ({genresList, onFilterChange, currentGenre}) => {
+  const handleFilterChange = (genre) => {
+    return (evt) => {
+      evt.preventDefault();
+      onFilterChange(genre);
+    };
+  };
 
   const renderGenreItem = (genre, i) => {
     const genreKey = genre + i;
     const genreItemClass = genre === currentGenre ? `catalog__genres-item catalog__genres-item--active` : `catalog__genres-item`;
+
     return (
       <li key={genreKey} className={genreItemClass}>
         <a href="#" className="catalog__genres-link"
-          onClick={
-            (evt) => {
-              evt.preventDefault();
-              onFilterChange(genre);
-            }
-          }
-
+          onClick={handleFilterChange(genre)}
         >{genre}</a>
       </li>
     );

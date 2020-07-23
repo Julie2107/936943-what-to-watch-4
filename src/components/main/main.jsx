@@ -1,8 +1,10 @@
 import React from "react";
 import PropTypes from "prop-types";
+import {connect} from "react-redux";
 
 import MoviesList from "../movies-list/movies-list.jsx";
 import GenresList from "../genres-list/genres-list.jsx";
+import {ActionCreator} from "../../reducer/reducer.js";
 
 
 const Main = ({movieName, movieGenre, movieReleaseDate, onTitleClick, movies, genresList, onFilterChange, currentGenre}) => {
@@ -115,4 +117,17 @@ Main.propTypes = {
   onFilterChange: PropTypes.func.isRequired,
 };
 
-export default Main;
+const mapStateToProps = (state) => ({
+  currentGenre: state.currentGenre,
+  genresList: state.genresList,
+  movies: state.movies,
+});
+
+const mapDispatchToProps = (dispatch) => ({
+  onFilterChange(genre) {
+    dispatch(ActionCreator.getCurrentFilter(genre));
+    dispatch(ActionCreator.getFilteredMovies(genre));
+  }
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(Main);
