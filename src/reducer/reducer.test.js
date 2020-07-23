@@ -1,4 +1,5 @@
 import {reducer, ActionCreator, ActionType, initialState} from "./reducer.js";
+import {MOVIES_TO_SHOW} from "../consts.js";
 
 
 it(`Reducer without additional parameters should return initial state`, () => {
@@ -16,10 +17,17 @@ it(`reducer returns the right genre value`, () => {
   });
 });
 
-it(`Action creators work correctly`, () => {
+it(`Action creator gets the right genre`, () => {
   expect(ActionCreator.getCurrentFilter(`Comedy`)).toEqual({
     type: ActionType.FILTER_CHANGE,
     payload: `Comedy`
+  });
+});
+
+it(`Action creator gives th right number of shownMoviesNumber`, () => {
+  expect(ActionCreator.showMoreMovies()).toEqual({
+    type: ActionType.SHOW_MORE,
+    payload: MOVIES_TO_SHOW,
   });
 });
 
