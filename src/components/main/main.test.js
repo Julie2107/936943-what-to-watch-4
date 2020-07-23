@@ -1,10 +1,14 @@
 import React from "react";
 import renderer from "react-test-renderer";
 import Main from "./main.jsx";
+import {Provider} from 'react-redux';
+import configureStore from 'redux-mock-store';
 
 import {PromoData} from "../../consts.js";
 
-const movies = [
+const mockStore = configureStore([]);
+
+const mockMovies = [
   {title: `Mindhunter`, poster: `http://placekitten.com/245/175`, cover: `img/bg-the-grand-budapest-hotel.jpg`, genre: `drama`, releaseYear: 2000, src: ``, rating: 5, ratingNumber: 100, ratingValue: ``, starring: [``, `1`, `3`], director: ``, reviews: []},
   {title: `Aviator`, poster: `http://placekitten.com/245/175`, cover: `img/bg-the-grand-budapest-hotel.jpg`, genre: `drama`, releaseYear: 2000, src: ``, rating: 5, ratingNumber: 100, ratingValue: ``, starring: [``, `1`, `3`], director: ``, reviews: []},
   {title: `Pulp Fiction`, poster: `http://placekitten.com/245/175`, cover: `img/bg-the-grand-budapest-hotel.jpg`, genre: `drama`, releaseYear: 2000, src: ``, rating: 5, ratingNumber: 100, ratingValue: ``, starring: [``, `1`, `3`], director: ``, reviews: []},
@@ -18,17 +22,32 @@ const movies = [
 const mockGenres = [`All genres`, `Drama`, `Comedy`, `Thriller`, `Fantasy`, `Horror`];
 
 it(`Render Main`, () => {
+  const store = mockStore({
+    currentGenre: `All genres`,
+    movies: mockMovies,
+    genresList: mockGenres,
+    shownMoviesNumber: 8,
+  });
   const tree = renderer
-    .create(<Main
-      movieName = {PromoData.movieName}
-      movieGenre = {PromoData.movieGenre}
-      movieReleaseDate = {PromoData.movieReleaseDate}
-      movies = {movies}
-      onTitleClick = {() => {}}
-      genresList = {mockGenres}
-      onFilterChange = {() => {}}
-      currentGenre = {`All genres`}
-    />)
+    .create(
+        <Provider store={store}>
+          <Main
+            movieName = {PromoData.movieName}
+            movieGenre = {PromoData.movieGenre}
+            movieReleaseDate = {PromoData.movieReleaseDate}
+            movies = {mockMovies}
+            onTitleClick = {() => {}}
+            genresList = {mockGenres}
+            onFilterChange = {() => {}}
+            currentGenre = {`All genres`}
+            onButtonClick = {() => {}}
+            shownMoviesNumber = {8}
+          />
+        </Provider>, {
+          createNodeMock: () => {
+            return {};
+          }
+        })
     .toJSON();
 
   expect(tree).toMatchSnapshot();
