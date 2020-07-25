@@ -48,6 +48,7 @@ class MoviesList extends PureComponent {
 
   render() {
     const {movies, onTitleClick} = this.props;
+
     return (
       <div className="catalog__movies-list">
         {this._renderMovies(movies, onTitleClick)}

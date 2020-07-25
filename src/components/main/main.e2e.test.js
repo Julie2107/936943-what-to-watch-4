@@ -1,11 +1,15 @@
 import React from "react";
 import Enzyme, {shallow} from "enzyme";
 import Adapter from "enzyme-adapter-react-16";
+import {Provider} from 'react-redux';
+import configureStore from 'redux-mock-store';
 
 import Main from "./main.jsx";
 import {PromoData} from "../../consts.js";
 
-const movies = [
+const mockStore = configureStore([]);
+
+const mockMovies = [
   {title: `Mindhunter`, poster: `http://placekitten.com/245/175`},
   {title: `Aviator`, poster: `http://placekitten.com/245/175`},
   {title: `Pulp Fiction`, poster: `http://placekitten.com/245/175`},
@@ -23,19 +27,29 @@ Enzyme.configure({
 });
 
 it(`Movie card title clicked`, () => {
+  const store = mockStore({
+    currentGenre: `All genres`,
+    movies: mockMovies,
+    genresList: mockGenres,
+    shownMoviesNumber: 8,
+  });
   const onTitleClick = jest.fn();
 
   const mainPage = shallow(
-      <Main
-        movieName = {PromoData.movieName}
-        movieGenre = {PromoData.movieGenre}
-        movieReleaseDate = {PromoData.movieReleaseDate}
-        movies = {movies}
-        onTitleClick = {onTitleClick}
-        genresList = {mockGenres}
-        onFilterChange = {() => {}}
-        currentGenre = {`All genres`}
-      />
+      <Provider store={store}>
+        <Main
+          movieName = {PromoData.movieName}
+          movieGenre = {PromoData.movieGenre}
+          movieReleaseDate = {PromoData.movieReleaseDate}
+          movies = {mockMovies}
+          onTitleClick = {onTitleClick}
+          genresList = {mockGenres}
+          onFilterChange = {() => {}}
+          currentGenre = {`All genres`}
+          onButtonClick = {() => {}}
+          shownMoviesNumber = {8}
+        />
+      </Provider>
   );
 
   const cardTitles = mainPage.find(`small-movie-card__title`);

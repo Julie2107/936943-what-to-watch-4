@@ -1,11 +1,18 @@
 import React from "react";
 import PropTypes from "prop-types";
+import {connect} from "react-redux";
 
 import MoviesList from "../movies-list/movies-list.jsx";
 import GenresList from "../genres-list/genres-list.jsx";
+import {ActionCreator} from "../../reducer/reducer.js";
+import ShowMoreButton from "../show-more-button/show-more-button.jsx";
 
 
-const Main = ({movieName, movieGenre, movieReleaseDate, onTitleClick, movies, genresList, onFilterChange, currentGenre}) => {
+const Main = ({movieName, movieGenre, movieReleaseDate, onTitleClick, movies, genresList, onFilterChange, currentGenre, onButtonClick, shownMoviesNumber}) => {
+  const moviesToRender = movies.slice(0, shownMoviesNumber);
+  const isButtonToRender = shownMoviesNumber < movies.length ? <ShowMoreButton
+    onButtonClick={onButtonClick}
+  /> : ``;
 
   return (
     <>
@@ -73,12 +80,10 @@ const Main = ({movieName, movieGenre, movieReleaseDate, onTitleClick, movies, ge
             currentGenre={currentGenre}
           />
           <MoviesList
-            movies={movies}
+            movies={moviesToRender}
             onTitleClick={onTitleClick}
           />
-          <div className="catalog__more">
-            <button className="catalog__button" type="button">Show more</button>
-          </div>
+          {isButtonToRender}
         </section>
 
         <footer className="page-footer">
@@ -113,6 +118,26 @@ Main.propTypes = {
   onTitleClick: PropTypes.func.isRequired,
   genresList: PropTypes.arrayOf(PropTypes.string.isRequired).isRequired,
   onFilterChange: PropTypes.func.isRequired,
+  onButtonClick: PropTypes.func.isRequired,
+  shownMoviesNumber: PropTypes.number.isRequired,
 };
 
-export default Main;
+const mapStateToProps = (state) => ({
+  currentGenre: state.currentGenre,
+  genresList: state.genresList,
+  movies: state.movies,
+  shownMoviesNumber: state.shownMoviesNumber,
+});
+
+const mapDispatchToProps = (dispatch) => ({
+  onFilterChange(genre) {
+    dispatch(ActionCreator.getCurrentFilter(genre));
+    dispatch(ActionCreator.getFilteredMovies(genre));
+  },
+  onButtonClick() {
+    dispatch(ActionCreator.showMoreMovies());
+  }
+});
+
+
+export default connect(mapStateToProps, mapDispatchToProps)(Main);
