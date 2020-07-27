@@ -1,4 +1,4 @@
-import {smallMovies} from "../mocks/films.js";
+import {smallMovies, Movie} from "../mocks/films.js";
 import {getFilteredMovies, getGenresList, extend} from "../utils.js";
 import {MOVIES_TO_SHOW} from "../consts.js";
 
@@ -6,13 +6,16 @@ const initialState = {
   currentGenre: `All genres`,
   genresList: getGenresList(smallMovies),
   movies: smallMovies,
+  currentMovie: null,
+  promoMovie: Movie,
   shownMoviesNumber: MOVIES_TO_SHOW,
 };
 
 const ActionType = {
   FILTER_CHANGE: `FILTER_CHANGE`,
   FILTERED_MOVIES: `FILTERED_MOVIES`,
-  SHOW_MORE: `SHOW_MORE`
+  SHOW_MORE: `SHOW_MORE`,
+  CURRENT_MOVIE: `CURRENT_MOVIE`,
 };
 
 const ActionCreator = {
@@ -38,6 +41,14 @@ const ActionCreator = {
       type: ActionType.SHOW_MORE,
       payload: MOVIES_TO_SHOW,
     };
+  },
+
+  getCurrentMovie: (movie) => {
+    return {
+      type: ActionType.CURRENT_MOVIE,
+      payload: movie,
+    };
+
   }
 };
 
@@ -57,6 +68,11 @@ const reducer = (state = initialState, action) => {
     case ActionType.SHOW_MORE:
       return extend(state, {
         shownMoviesNumber: state.shownMoviesNumber + action.payload,
+      });
+
+    case ActionType.CURRENT_MOVIE:
+      return extend(state, {
+        currentMovie: action.payload,
       });
   }
 

@@ -5,16 +5,11 @@ import {connect} from "react-redux";
 
 import Main from "../main/main.jsx";
 import MoviePage from "../movie-page/movie-page.jsx";
+import {ActionCreator} from "../../reducer/reducer.js";
 
 class App extends PureComponent {
   constructor(props) {
     super(props);
-
-    this.state = {
-      currentCard: null,
-    };
-
-    this._titleClickHandler = this._titleClickHandler.bind(this);
   }
 
   _titleClickHandler(movie) {
@@ -25,36 +20,33 @@ class App extends PureComponent {
   }
 
   _renderMain() {
-    const {movieName, movieGenre, movieReleaseDate, movies} = this.props;
+    const {movie, movies, onTitleClick} = this.props;
 
     return (
       <Main
-        movieName = {movieName}
-        movieGenre = {movieGenre}
-        movieReleaseDate = {movieReleaseDate}
-        onTitleClick = {this._titleClickHandler}
+        movie={movie}
+        onTitleClick = {onTitleClick}
         movies = {movies}
       />
     );
   }
 
   _renderMoviePage() {
-    const {movies} = this.props;
-    const {currentCard} = this.state;
+    const {movies, movie, onTitleClick} = this.props;
 
     return (
       <MoviePage
         movies = {movies}
-        onTitleClick = {this._titleClickHandler}
-        movie = {currentCard}
+        onTitleClick = {onTitleClick}
+        movie = {movie}
       />
     );
   }
 
   _renderApp() {
-    const {currentCard} = this.state;
+    const {movie} = this.props;
 
-    const renderPage = currentCard ? this._renderMoviePage() : this._renderMain();
+    const renderPage = movie ? this._renderMoviePage() : this._renderMain();
 
     return renderPage;
   }
@@ -77,9 +69,6 @@ class App extends PureComponent {
 }
 
 App.propTypes = {
-  movieName: PropTypes.string.isRequired,
-  movieGenre: PropTypes.string.isRequired,
-  movieReleaseDate: PropTypes.number.isRequired,
   movies: PropTypes.arrayOf(
       PropTypes.shape({
         title: PropTypes.string.isRequired,
@@ -112,13 +101,20 @@ App.propTypes = {
           })
       ).isRequired
     })
-  ])
-
+  ]),
+  onTitleClick: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = (state) => ({
   movies: state.movies,
+  movie: state.currentMovie,
+});
+
+const mapDispatchToProps = (dispatch) => ({
+  onTitleClick(movie) {
+    dispatch(ActionCreator.getCurrentMovie(movie));
+  }
 });
 
 export {App};
-export default connect(mapStateToProps)(App);
+export default connect(mapStateToProps, mapDispatchToProps)(App);
