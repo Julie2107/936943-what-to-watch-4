@@ -1,22 +1,22 @@
 import React from "react";
 import PropTypes from "prop-types";
+import {connect} from "react-redux";
 
 import MoviesList from "../movies-list/movies-list.jsx";
 import Tabs from "../tabs/tabs.jsx";
 import withActiveTab from "../../hocs/with-active-tab.js";
+import {ActionCreator} from "../../reducer/reducer.js";
 
 
 const SIMILAR_MOVIES_NUMBER = 4;
 
 const WrappedTabs = withActiveTab(Tabs);
 
+const getSimilarMovies = (movies, movie) => {
+  return movies.filter((film) => film.genre === movie.genre).slice(0, SIMILAR_MOVIES_NUMBER);
+};
 
 const MoviePage = ({movies, movie, onTitleClick}) => {
-
-  const getSimilarMovies = () => {
-    return movies.filter((film) => film.genre === movie.genre).slice(0, SIMILAR_MOVIES_NUMBER);
-  };
-
   return (
     <>
       <section className="movie-card movie-card--full">
@@ -89,14 +89,13 @@ const MoviePage = ({movies, movie, onTitleClick}) => {
           <h2 className="catalog__title">More like this</h2>
 
           <MoviesList
-            movies={getSimilarMovies()}
+            movies={getSimilarMovies(movies, movie)}
             onTitleClick={onTitleClick}
           />
         </section>
       </div>
     </>
   );
-
 };
 
 MoviePage.propTypes = {
@@ -133,4 +132,15 @@ MoviePage.propTypes = {
   onTitleClick: PropTypes.func.isRequired,
 };
 
-export default MoviePage;
+const mapStateToProps = (state) => ({
+  movies: state.movies,
+});
+
+const mapDispatchToProps = (dispatch) => ({
+  onTitleClick(movie) {
+    dispatch(ActionCreator.getCurrentMovie(movie));
+  }
+});
+
+export {MoviePage};
+export default connect(mapStateToProps, mapDispatchToProps)(MoviePage);

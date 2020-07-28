@@ -3,9 +3,9 @@ import PropTypes from "prop-types";
 import {BrowserRouter, Route, Switch} from "react-router-dom";
 import {connect} from "react-redux";
 
+
 import Main from "../main/main.jsx";
 import MoviePage from "../movie-page/movie-page.jsx";
-import {ActionCreator} from "../../reducer/reducer.js";
 
 class App extends PureComponent {
   constructor(props) {
@@ -13,24 +13,20 @@ class App extends PureComponent {
   }
 
   _renderMain() {
-    const {movie, movies, onTitleClick} = this.props;
+    const {movie} = this.props;
 
     return (
       <Main
-        movie={movie}
-        onTitleClick = {onTitleClick}
-        movies = {movies}
+        movie = {movie}
       />
     );
   }
 
   _renderMoviePage() {
-    const {movies, movie, onTitleClick} = this.props;
+    const {movie} = this.props;
 
     return (
       <MoviePage
-        movies = {movies}
-        onTitleClick = {onTitleClick}
         movie = {movie}
       />
     );
@@ -62,15 +58,6 @@ class App extends PureComponent {
 }
 
 App.propTypes = {
-  movies: PropTypes.arrayOf(
-      PropTypes.shape({
-        title: PropTypes.string.isRequired,
-        poster: PropTypes.string.isRequired,
-        cover: PropTypes.string.isRequired,
-        genre: PropTypes.string.isRequired,
-        releaseYear: PropTypes.number.isRequired,
-      }).isRequired
-  ).isRequired,
   movie: PropTypes.oneOfType([
     PropTypes.number,
     PropTypes.shape({
@@ -95,19 +82,11 @@ App.propTypes = {
       ).isRequired
     })
   ]),
-  onTitleClick: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = (state) => ({
-  movies: state.movies,
   movie: state.currentMovie,
 });
 
-const mapDispatchToProps = (dispatch) => ({
-  onTitleClick(movie) {
-    dispatch(ActionCreator.getCurrentMovie(movie));
-  }
-});
-
 export {App};
-export default connect(mapStateToProps, mapDispatchToProps)(App);
+export default connect(mapStateToProps)(App);

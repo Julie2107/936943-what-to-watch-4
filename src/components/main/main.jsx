@@ -7,8 +7,8 @@ import GenresList from "../genres-list/genres-list.jsx";
 import {ActionCreator} from "../../reducer/reducer.js";
 import ShowMoreButton from "../show-more-button/show-more-button.jsx";
 
+const Main = ({promoMovie, movies, genresList, onFilterChange, currentGenre, onButtonClick, shownMoviesNumber, onTitleClick}) => {
 
-const Main = ({promoMovie, onTitleClick, movies, genresList, onFilterChange, currentGenre, onButtonClick, shownMoviesNumber}) => {
   const moviesToRender = movies.slice(0, shownMoviesNumber);
   const isButtonToRender = shownMoviesNumber < movies.length ? <ShowMoreButton
     onButtonClick={onButtonClick}
@@ -139,6 +139,9 @@ const mapDispatchToProps = (dispatch) => ({
   },
   onButtonClick() {
     dispatch(ActionCreator.showMoreMovies());
+  },
+  onTitleClick(movie) {
+    dispatch(ActionCreator.getCurrentMovie(movie));
   }
 });
 

@@ -6,6 +6,25 @@ import OverviewTab from "../overview-tab/overview-tab.jsx";
 import DetailsTab from "../details-tab/details-tab.jsx";
 import ReviewsTab from "../reviews-tab/reviews-tab.jsx";
 
+const renderTab = (currentTab, movie) => {
+
+  const tabPages = {
+    Overview:
+      <OverviewTab
+        movie = {movie}
+      />,
+    Details:
+      <DetailsTab
+        movie={movie}
+      />,
+    Reviews:
+      <ReviewsTab
+        reviews={movie.reviews}
+      />
+  };
+
+  return tabPages[currentTab];
+};
 
 const Tabs = ({onTabClick, activeTab, movie}) => {
   const tabValues = Object.values(TabType);
@@ -15,26 +34,6 @@ const Tabs = ({onTabClick, activeTab, movie}) => {
       evt.preventDefault();
       onTabClick(value);
     };
-  };
-
-  const renderTab = (currentTab) => {
-
-    const TabPages = {
-      Overview:
-        <OverviewTab
-          movie = {movie}
-        />,
-      Details:
-        <DetailsTab
-          movie={movie}
-        />,
-      Reviews:
-        <ReviewsTab
-          reviews={movie.reviews}
-        />
-    };
-
-    return TabPages[currentTab];
   };
 
   const renderTabLink = (value, i) => {
@@ -60,7 +59,7 @@ const Tabs = ({onTabClick, activeTab, movie}) => {
           {renderTabsList()}
         </ul>
       </nav>
-      {renderTab(activeTab)}
+      {renderTab(activeTab, movie)}
     </div>
   );
 };
