@@ -2,9 +2,9 @@ import React from "react";
 import PropTypes from "prop-types";
 
 import MovieSmallCard from "../small-card/small-card.jsx";
-// import withPlayer from "../../hocs/with-video-player.js";
+import withPlayer from "../../hocs/with-video-player.js";
 
-// const WrappedSmallCard = withPlayer(MovieSmallCard);
+const WrappedSmallCard = withPlayer(MovieSmallCard);
 
 const MoviesList = ({movies, onTitleClick}) => {
 
@@ -12,7 +12,7 @@ const MoviesList = ({movies, onTitleClick}) => {
     const keyValue = `${i}-${movie.title}`;
 
     return (
-      <MovieSmallCard
+      <WrappedSmallCard
         key={keyValue}
         movie={movie}
         onTitleClick={onTitleClick}
