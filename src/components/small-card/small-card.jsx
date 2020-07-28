@@ -7,8 +7,6 @@ class MovieSmallCard extends PureComponent {
   constructor(props) {
     super(props);
 
-    // this._timeout = null;
-
     this._handleTitleClick = this._handleTitleClick.bind(this);
   }
 
@@ -18,15 +16,6 @@ class MovieSmallCard extends PureComponent {
     evt.preventDefault();
     onTitleClick(movie);
   }
-
-
-  /* _handleMouseHoverOff() {
-    const {} = this.props;
-
-    clearTimeout(this._timeout);
-
-    onMouseLeave();
-  }*/
 
   render() {
     const {movie, isPlaying, onMouseHover, onMouseHoverOff} = this.props;
@@ -60,8 +49,6 @@ MovieSmallCard.propTypes = {
     poster: PropTypes.string.isRequired,
     src: PropTypes.string.isRequired,
   }).isRequired,
-  onMouseCardHover: PropTypes.func.isRequired,
-  onMouseCardHoverOff: PropTypes.func.isRequired,
   onTitleClick: PropTypes.func.isRequired,
   isPlaying: PropTypes.bool.isRequired,
   onMouseHover: PropTypes.func.isRequired,
