@@ -1,8 +1,12 @@
 import React from "react";
 import renderer from "react-test-renderer";
 import MoviePage from "./movie-page.jsx";
+import {Provider} from 'react-redux';
+import configureStore from 'redux-mock-store';
 
-const movie = {title: `Mindhunter`, poster: `http://placekitten.com/245/175`, cover: `img/bg-the-grand-budapest-hotel.jpg`, genre: `drama`, releaseYear: 2000, src: ``, rating: 5, ratingNumber: 100, ratingValue: ``, starring: [``, `1`, `3`], director: ``, reviews: [{author: `Amanda Greever`,
+const mockStore = configureStore([]);
+
+const mockMovie = {title: `Mindhunter`, poster: `http://placekitten.com/245/175`, cover: `img/bg-the-grand-budapest-hotel.jpg`, genre: `drama`, releaseYear: 2000, src: ``, rating: 5, ratingNumber: 100, ratingValue: ``, starring: [``, `1`, `3`], director: ``, reviews: [{author: `Amanda Greever`,
   date: `November 18, 2015`,
   id: 1,
   message: `The mannered, madcap proceedings are often delightful, occasionally silly, and here and there, gruesome and/or heartbreaking.`,
@@ -14,7 +18,7 @@ const movie = {title: `Mindhunter`, poster: `http://placekitten.com/245/175`, co
   rating: 2}]};
 
 
-const movies = [
+const mockMovies = [
   {title: `Mindhunter`, poster: `http://placekitten.com/245/175`, cover: `img/bg-the-grand-budapest-hotel.jpg`, genre: `drama`, releaseYear: 2000, src: ``, rating: 5, ratingNumber: 100, ratingValue: ``, starring: [``, `1`, `3`], director: ``, reviews: [{author: `Amanda Greever`,
     date: `November 18, 2015`,
     message: `The mannered, madcap proceedings are often delightful, occasionally silly, and here and there, gruesome and/or heartbreaking.`,
@@ -75,12 +79,24 @@ const movies = [
 ];
 
 it(`Render movie-page`, () => {
+  const store = mockStore({
+    currentGenre: `All genres`,
+    movies: mockMovies,
+    promoMovie: mockMovie,
+  });
   const tree = renderer
-    .create(<MoviePage
-      movie={movie}
-      movies={movies}
-      onTitleClick={()=>{}}
-    />)
+    .create(
+        <Provider store={store}>
+          <MoviePage
+            movie={mockMovie}
+            movies={mockMovies}
+            onTitleClick={()=>{}}
+          />
+        </Provider>, {
+          createNodeMock: () => {
+            return {};
+          }
+        })
     .toJSON();
 
   expect(tree).toMatchSnapshot();
