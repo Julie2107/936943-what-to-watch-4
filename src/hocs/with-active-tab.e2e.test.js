@@ -1,5 +1,5 @@
 import React from "react";
-import Enzyme, {shallow} from "enzyme";
+import Enzyme, {shallow, mount} from "enzyme";
 import Adapter from "enzyme-adapter-react-16";
 import PropTypes from 'prop-types';
 
@@ -45,3 +45,21 @@ it(`Tablink should be clicked`, () => {
   expect(onTabClick).toHaveBeenCalledTimes(tabLinks.length);
 
 });
+
+it(`onTabClick gets equal state`, () => {
+  const onTabClick = jest.fn();
+
+  const tabNav = mount(
+      <MockComponentWrapped
+        onTabClick={onTabClick}
+      />
+  );
+
+  const tabLink = tabNav.find(`.movie-nav__link`).at(0);
+
+  tabLink.simulate(`click`);
+
+  expect(tabNav.state().currentTab.target.textContent).toEqual(`Overview`);
+
+});
+

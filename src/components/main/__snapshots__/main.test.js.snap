@@ -81,7 +81,7 @@ Array [
           <h2
             className="movie-card__title"
           >
-            The Grand Budapest Hotel
+            Mindhunter
           </h2>
           <p
             className="movie-card__meta"
@@ -89,12 +89,12 @@ Array [
             <span
               className="movie-card__genre"
             >
-              Drama
+              drama
             </span>
             <span
               className="movie-card__year"
             >
-              2014
+              2000
             </span>
           </p>
           <div

@@ -4,8 +4,6 @@ import Main from "./main.jsx";
 import {Provider} from 'react-redux';
 import configureStore from 'redux-mock-store';
 
-import {PromoData} from "../../consts.js";
-
 const mockStore = configureStore([]);
 
 const mockMovies = [
@@ -38,6 +36,7 @@ it(`Render Main`, () => {
     movies: mockMovies,
     genresList: mockGenres,
     shownMoviesNumber: 8,
+    promoMovie: movie,
   });
   const tree = renderer
     .create(

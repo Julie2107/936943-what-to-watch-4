@@ -36,6 +36,8 @@ it(`Render App`, () => {
     currentGenre: `All genres`,
     movies: mockMovies,
     genresList: mockGenres,
+    promoMovie: movie,
+    shownMoviesNumber: 8,
   });
 
   const tree = renderer
@@ -43,10 +45,12 @@ it(`Render App`, () => {
         <Provider store={store}>
           <App
             movie={movie}
+            promoMovie={movie}
             movies = {mockMovies}
             genresList = {mockGenres}
             onFilterChange = {() => {}}
             currentGenre = {`All genres`}
+            shownMoviesNumber = {8}
           />
         </Provider>, {
           createNodeMock: () => {
