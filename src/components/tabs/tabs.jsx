@@ -49,14 +49,14 @@ const Tabs = ({onTabClick, activeTab, movie}) => {
     );
   };
 
-  const renderTabsList = () => tabValues.map(renderTabLink);
+  const tabsList = tabValues.map(renderTabLink);
 
   return (
     <div className="movie-card__desc">
 
       <nav className="movie-nav movie-card__nav">
         <ul className="movie-nav__list">
-          {renderTabsList()}
+          {tabsList}
         </ul>
       </nav>
       {renderTab(activeTab, movie)}

@@ -17,6 +17,17 @@ const withPlayer = (Component) => {
       this._handleMouseHoverOff = this._handleMouseHoverOff.bind(this);
     }
 
+    render() {
+      return (
+        <Component
+          {...this.props}
+          isPlaying={this.state.isPlaying}
+          onMouseHover={this._handleMouseHover}
+          onMouseHoverOff={this._handleMouseHoverOff}
+        />
+      );
+    }
+
     _getStateForMouseHover() {
       this.setState({
         isPlaying: true,
@@ -33,17 +44,6 @@ const withPlayer = (Component) => {
       this.setState({
         isPlaying: false,
       });
-    }
-
-    render() {
-      return (
-        <Component
-          {...this.props}
-          isPlaying={this.state.isPlaying}
-          onMouseHover={this._handleMouseHover}
-          onMouseHoverOff={this._handleMouseHoverOff}
-        />
-      );
     }
   }
 
