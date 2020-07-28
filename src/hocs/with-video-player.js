@@ -24,9 +24,7 @@ const withPlayer = (Component) => {
     }
 
     _handleMouseHover() {
-    // const {movie, onMouseCardHover} = this.props;
       this._timeout = setTimeout(() => this._getStateForMouseHover(), START_PLAY_TIMEOUT);
-      //  onMouseCardHover(movie);
     }
 
     _handleMouseHoverOff() {

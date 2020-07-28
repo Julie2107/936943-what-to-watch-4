@@ -12,13 +12,6 @@ class App extends PureComponent {
     super(props);
   }
 
-  _titleClickHandler(movie) {
-    this.setState({
-      currentCard: movie,
-    });
-
-  }
-
   _renderMain() {
     const {movie, movies, onTitleClick} = this.props;
 
