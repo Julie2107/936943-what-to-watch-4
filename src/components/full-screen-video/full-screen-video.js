@@ -37,7 +37,7 @@ export default class FullScreenVideo extends PureComponent {
 */
 
   render() {
-    const {movie} = this.props;
+    const {movie, onDeactivatePlayer} = this.props;
 
     return (
       <div className="player">
@@ -48,7 +48,9 @@ export default class FullScreenVideo extends PureComponent {
           poster={movie.poster}
         />
 
-        <button type="button" className="player__exit">Exit</button>
+        <button type="button"
+          className="player__exit"
+          onClick={onDeactivatePlayer}>Exit</button>
 
         <div className="player__controls">
           <div className="player__controls-row">
@@ -87,4 +89,5 @@ FullScreenVideo.propTypes = {
     src: PropTypes.string.isRequired,
     poster: PropTypes.string.isRequired,
   }).isRequired,
+  onDeactivatePlayer: PropTypes.func.isRequired,
 };

@@ -8,7 +8,7 @@ import {ActionCreator} from "../../reducer/reducer.js";
 import ShowMoreButton from "../show-more-button/show-more-button.jsx";
 import FullScreenVideo from "../full-screen-video/full-screen-video.js";
 
-const Main = ({promoMovie, movies, genresList, onFilterChange, currentGenre, onButtonClick, shownMoviesNumber, onTitleClick, isActivePlayer}) => {
+const Main = ({promoMovie, movies, genresList, onFilterChange, currentGenre, onButtonClick, shownMoviesNumber, onTitleClick, onActivatePlayer, onDeactivatePlayer, isActivePlayer}) => {
 
   const moviesToRender = movies.slice(0, shownMoviesNumber);
   const isButtonToRender = shownMoviesNumber < movies.length ? <ShowMoreButton
@@ -16,7 +16,9 @@ const Main = ({promoMovie, movies, genresList, onFilterChange, currentGenre, onB
   /> : ``;
 
   return (
-    isActivePlayer ? (<FullScreenVideo className="player__video" movie={promoMovie} />) : (
+    isActivePlayer ? (<FullScreenVideo className="player__video"
+      movie={promoMovie}
+      onDeactivatePlayer={onDeactivatePlayer}/>) : (
     <>
       <section className="movie-card">
         <div className="movie-card__bg">
@@ -56,7 +58,7 @@ const Main = ({promoMovie, movies, genresList, onFilterChange, currentGenre, onB
 
               <div className="movie-card__buttons">
                 <button className="btn btn--play movie-card__button" type="button"
-                onClick={onActivatePlayer}>
+                  onClick={onActivatePlayer}>
                   <svg viewBox="0 0 19 19" width="19" height="19">
                     <use xlinkHref="#play-s" />
                   </svg>
@@ -127,6 +129,8 @@ Main.propTypes = {
   onButtonClick: PropTypes.func.isRequired,
   shownMoviesNumber: PropTypes.number.isRequired,
   isActivePlayer: PropTypes.bool.isRequired,
+  onActivatePlayer: PropTypes.func.isRequired,
+  onDeactivatePlayer: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = (state) => ({
@@ -150,7 +154,10 @@ const mapDispatchToProps = (dispatch) => ({
     dispatch(ActionCreator.getCurrentMovie(movie));
   },
   onActivatePlayer() {
-    dispatch(ActionCreator.playMovie());
+    dispatch(ActionCreator.getFullScreenState(true));
+  },
+  onDeactivatePlayer() {
+    dispatch(ActionCreator.getFullScreenState(false));
   }
 });
 
