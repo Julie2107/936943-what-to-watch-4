@@ -1,61 +1,33 @@
-import React, {PureComponent} from "react";
+import React from "react";
 import PropTypes from "prop-types";
 
 import MovieSmallCard from "../small-card/small-card.jsx";
+import withPlayer from "../../hocs/with-video-player.js";
 
-class MoviesList extends PureComponent {
-  constructor(props) {
-    super(props);
+const WrappedSmallCard = withPlayer(MovieSmallCard);
 
-    this.state = {
-      currentCard: null,
-    };
+const MoviesList = ({movies, onTitleClick}) => {
 
-    this._handleCardHover = this._handleCardHover.bind(this);
-    this._handleCardHoverOff = this._handleCardHoverOff.bind(this);
-  }
-
-  _handleCardHover(movie) {
-    this.setState({
-      currentCard: movie,
-    });
-  }
-
-  _handleCardHoverOff() {
-    this.setState({
-      currentCard: null,
-    });
-  }
-
-  _getMovie(movie, i, onTitleClick) {
+  const getMovie = (movie, i) => {
     const keyValue = `${i}-${movie.title}`;
 
     return (
-      <MovieSmallCard
+      <WrappedSmallCard
         key={keyValue}
         movie={movie}
-        onMouseCardHover={this._handleCardHover}
-        onMouseCardHoverOff={this._handleCardHoverOff}
         onTitleClick={onTitleClick}
       />
     );
-  }
+  };
 
-  _renderMovies(movies, onTitleClick) {
+  const renderMovies = () => movies.map((movie, i) => getMovie(movie, i, onTitleClick));
 
-    return movies.map((movie, i) => this._getMovie(movie, i, onTitleClick));
-  }
-
-  render() {
-    const {movies, onTitleClick} = this.props;
-
-    return (
-      <div className="catalog__movies-list">
-        {this._renderMovies(movies, onTitleClick)}
-      </div>
-    );
-  }
-}
+  return (
+    <div className="catalog__movies-list">
+      {renderMovies(movies, onTitleClick)}
+    </div>
+  );
+};
 
 MoviesList.propTypes = {
   movies: PropTypes.arrayOf(

@@ -20,6 +20,13 @@ const getPosterSrc = (title) => {
   return `img/${src}.jpg`;
 };
 
+export const Movie = {
+  title: `The Grand Budapest Hotel`,
+  genre: `Drama`,
+  releaseYear: 2014
+};
+
+
 const Rating = {
   AWESOME: 10,
   VERY_GOOD: 8,

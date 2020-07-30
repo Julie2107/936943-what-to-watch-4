@@ -13,8 +13,9 @@ it(`Render moviesmallcard`, () => {
     .create(<MovieSmallCard
       movie={movie}
       onTitleClick={()=>{}}
-      onMouseCardHover={()=>{}}
-      onMouseCardHoverOff={()=>{}}
+      onMouseHover={()=>{}}
+      onMouseHoverOff={()=>{}}
+      isPlaying={false}
     />, {
       createNodeMock: () => {
         return {};

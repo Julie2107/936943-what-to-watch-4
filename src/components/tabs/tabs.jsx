@@ -2,7 +2,31 @@ import React from "react";
 import PropTypes from "prop-types";
 import {TabType} from "../../consts";
 
-const Tabs = ({onTabClick, activeTab}) => {
+import OverviewTab from "../overview-tab/overview-tab.jsx";
+import DetailsTab from "../details-tab/details-tab.jsx";
+import ReviewsTab from "../reviews-tab/reviews-tab.jsx";
+
+const renderTab = (currentTab, movie) => {
+
+  const tabPages = {
+    Overview:
+      <OverviewTab
+        movie = {movie}
+      />,
+    Details:
+      <DetailsTab
+        movie={movie}
+      />,
+    Reviews:
+      <ReviewsTab
+        reviews={movie.reviews}
+      />
+  };
+
+  return tabPages[currentTab];
+};
+
+const Tabs = ({onTabClick, activeTab, movie}) => {
   const tabValues = Object.values(TabType);
 
   const tabClickHandler = (value) => {
@@ -12,7 +36,7 @@ const Tabs = ({onTabClick, activeTab}) => {
     };
   };
 
-  const renderTab = (value, i) => {
+  const renderTabLink = (value, i) => {
     const tabClassName = `movie-nav__item ${value === activeTab ? `movie-nav__item--active` : ``}`;
     const navKey = value + i;
 
@@ -25,12 +49,18 @@ const Tabs = ({onTabClick, activeTab}) => {
     );
   };
 
-  const renderTabsList = () => tabValues.map(renderTab);
+  const tabsList = tabValues.map(renderTabLink);
 
   return (
-    <ul className="movie-nav__list">
-      {renderTabsList()}
-    </ul>
+    <div className="movie-card__desc">
+
+      <nav className="movie-nav movie-card__nav">
+        <ul className="movie-nav__list">
+          {tabsList}
+        </ul>
+      </nav>
+      {renderTab(activeTab, movie)}
+    </div>
   );
 };
 

@@ -4,8 +4,6 @@ import Main from "./main.jsx";
 import {Provider} from 'react-redux';
 import configureStore from 'redux-mock-store';
 
-import {PromoData} from "../../consts.js";
-
 const mockStore = configureStore([]);
 
 const mockMovies = [
@@ -19,6 +17,17 @@ const mockMovies = [
   {title: `Macbeth`, poster: `http://placekitten.com/245/175`, cover: `img/bg-the-grand-budapest-hotel.jpg`, genre: `drama`, releaseYear: 2000, src: ``, rating: 5, ratingNumber: 100, ratingValue: ``, starring: [``, `1`, `3`], director: ``, reviews: []},
 ];
 
+const movie = {title: `Mindhunter`, poster: `http://placekitten.com/245/175`, cover: `img/bg-the-grand-budapest-hotel.jpg`, genre: `drama`, releaseYear: 2000, src: ``, rating: 5, ratingNumber: 100, ratingValue: ``, starring: [``, `1`, `3`], director: ``, reviews: [{author: `Amanda Greever`,
+  date: `November 18, 2015`,
+  id: 1,
+  message: `The mannered, madcap proceedings are often delightful, occasionally silly, and here and there, gruesome and/or heartbreaking.`,
+  rating: 2},
+{author: `Amanda Greever`,
+  date: `November 18, 2015`,
+  id: 2,
+  message: `The mannered, madcap proceedings are often delightful, occasionally silly, and here and there, gruesome and/or heartbreaking.`,
+  rating: 2}]};
+
 const mockGenres = [`All genres`, `Drama`, `Comedy`, `Thriller`, `Fantasy`, `Horror`];
 
 it(`Render Main`, () => {
@@ -27,14 +36,13 @@ it(`Render Main`, () => {
     movies: mockMovies,
     genresList: mockGenres,
     shownMoviesNumber: 8,
+    promoMovie: movie,
   });
   const tree = renderer
     .create(
         <Provider store={store}>
           <Main
-            movieName = {PromoData.movieName}
-            movieGenre = {PromoData.movieGenre}
-            movieReleaseDate = {PromoData.movieReleaseDate}
+            promoMovie={movie}
             movies = {mockMovies}
             onTitleClick = {() => {}}
             genresList = {mockGenres}

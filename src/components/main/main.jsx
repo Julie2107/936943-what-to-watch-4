@@ -7,8 +7,8 @@ import GenresList from "../genres-list/genres-list.jsx";
 import {ActionCreator} from "../../reducer/reducer.js";
 import ShowMoreButton from "../show-more-button/show-more-button.jsx";
 
+const Main = ({promoMovie, movies, genresList, onFilterChange, currentGenre, onButtonClick, shownMoviesNumber, onTitleClick}) => {
 
-const Main = ({movieName, movieGenre, movieReleaseDate, onTitleClick, movies, genresList, onFilterChange, currentGenre, onButtonClick, shownMoviesNumber}) => {
   const moviesToRender = movies.slice(0, shownMoviesNumber);
   const isButtonToRender = shownMoviesNumber < movies.length ? <ShowMoreButton
     onButtonClick={onButtonClick}
@@ -46,10 +46,10 @@ const Main = ({movieName, movieGenre, movieReleaseDate, onTitleClick, movies, ge
             </div>
 
             <div className="movie-card__desc">
-              <h2 className="movie-card__title">{movieName}</h2>
+              <h2 className="movie-card__title">{promoMovie.title}</h2>
               <p className="movie-card__meta">
-                <span className="movie-card__genre">{movieGenre}</span>
-                <span className="movie-card__year">{movieReleaseDate}</span>
+                <span className="movie-card__genre">{promoMovie.genre}</span>
+                <span className="movie-card__year">{promoMovie.releaseYear}</span>
               </p>
 
               <div className="movie-card__buttons">
@@ -105,15 +105,17 @@ const Main = ({movieName, movieGenre, movieReleaseDate, onTitleClick, movies, ge
 };
 
 Main.propTypes = {
-  movieName: PropTypes.string.isRequired,
-  movieGenre: PropTypes.string.isRequired,
-  movieReleaseDate: PropTypes.number.isRequired,
   movies: PropTypes.arrayOf(
       PropTypes.shape({
         title: PropTypes.string.isRequired,
         poster: PropTypes.string.isRequired,
       }).isRequired
   ).isRequired,
+  promoMovie: PropTypes.shape({
+    title: PropTypes.string.isRequired,
+    genre: PropTypes.string.isRequired,
+    releaseYear: PropTypes.number.isRequired,
+  }).isRequired,
   currentGenre: PropTypes.string.isRequired,
   onTitleClick: PropTypes.func.isRequired,
   genresList: PropTypes.arrayOf(PropTypes.string.isRequired).isRequired,
@@ -126,6 +128,7 @@ const mapStateToProps = (state) => ({
   currentGenre: state.currentGenre,
   genresList: state.genresList,
   movies: state.movies,
+  promoMovie: state.promoMovie,
   shownMoviesNumber: state.shownMoviesNumber,
 });
 
@@ -136,6 +139,9 @@ const mapDispatchToProps = (dispatch) => ({
   },
   onButtonClick() {
     dispatch(ActionCreator.showMoreMovies());
+  },
+  onTitleClick(movie) {
+    dispatch(ActionCreator.getCurrentMovie(movie));
   }
 });
 
