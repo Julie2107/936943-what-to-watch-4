@@ -56,7 +56,7 @@ const ActionCreator = {
       type: ActionType.FULL_SCREEN_STATE,
       payload: status,
     };
-  }
+  },
 };
 
 const reducer = (state = initialState, action) => {

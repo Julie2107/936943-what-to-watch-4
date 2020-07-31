@@ -6,7 +6,10 @@ import MoviesList from "../movies-list/movies-list.jsx";
 import GenresList from "../genres-list/genres-list.jsx";
 import {ActionCreator} from "../../reducer/reducer.js";
 import ShowMoreButton from "../show-more-button/show-more-button.jsx";
-import FullScreenVideo from "../full-screen-video/full-screen-video.js";
+import FullScreenVideo from "../full-screen-video/full-screen-video.jsx";
+import withFullScreenVideo from "../../hocs/with-fullscreen-video.js";
+
+const WrappedFullscreen = withFullScreenVideo(FullScreenVideo);
 
 const Main = ({promoMovie, movies, genresList, onFilterChange, currentGenre, onButtonClick, shownMoviesNumber, onTitleClick, onActivatePlayer, onDeactivatePlayer, isActivePlayer}) => {
 
@@ -16,9 +19,10 @@ const Main = ({promoMovie, movies, genresList, onFilterChange, currentGenre, onB
   /> : ``;
 
   return (
-    isActivePlayer ? (<FullScreenVideo className="player__video"
+    isActivePlayer ? (<WrappedFullscreen className="player__video"
       movie={promoMovie}
-      onDeactivatePlayer={onDeactivatePlayer}/>) : (
+      onDeactivatePlayer={onDeactivatePlayer}
+    />) : (
     <>
       <section className="movie-card">
         <div className="movie-card__bg">
@@ -158,7 +162,7 @@ const mapDispatchToProps = (dispatch) => ({
   },
   onDeactivatePlayer() {
     dispatch(ActionCreator.getFullScreenState(false));
-  }
+  },
 });
 
 
