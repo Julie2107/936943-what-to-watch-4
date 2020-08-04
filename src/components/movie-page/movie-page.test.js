@@ -3,6 +3,7 @@ import renderer from "react-test-renderer";
 import MoviePage from "./movie-page.jsx";
 import {Provider} from 'react-redux';
 import configureStore from 'redux-mock-store';
+import NameSpace from "../../reducer/name-space.js";
 
 const mockStore = configureStore([]);
 
@@ -80,9 +81,13 @@ const mockMovies = [
 
 it(`Render movie-page`, () => {
   const store = mockStore({
-    currentGenre: `All genres`,
-    movies: mockMovies,
-    promoMovie: mockMovie,
+    [NameSpace.STATE]: {
+      currentGenre: `All genres`,
+    },
+    [NameSpace.DATA]: {
+      movies: mockMovies,
+      promoMovie: mockMovie,
+    }
   });
   const tree = renderer
     .create(

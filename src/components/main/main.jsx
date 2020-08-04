@@ -4,10 +4,12 @@ import {connect} from "react-redux";
 
 import MoviesList from "../movies-list/movies-list.jsx";
 import GenresList from "../genres-list/genres-list.jsx";
-import {ActionCreator} from "../../reducer/reducer.js";
+import {ActionCreator} from "../../reducer/state/state.js";
 import ShowMoreButton from "../show-more-button/show-more-button.jsx";
 import FullScreenVideo from "../full-screen-video/full-screen-video.jsx";
 import withFullScreenVideo from "../../hocs/with-fullscreen-video.js";
+import {getCurrentGenre, getShownMoviesNumber, getPlayerState, getMoviesByGenre} from "../../reducer/state/selectors.js";
+import {getGenres, getPromoMovie} from "../../reducer/data/selectors.js";
 
 const WrappedFullscreen = withFullScreenVideo(FullScreenVideo);
 
@@ -26,7 +28,7 @@ const Main = ({promoMovie, movies, genresList, onFilterChange, currentGenre, onB
     <>
       <section className="movie-card">
         <div className="movie-card__bg">
-          <img src="img/bg-the-grand-budapest-hotel.jpg" alt="The Grand Budapest Hotel" />
+          <img src={promoMovie.backgroundImage} alt={promoMovie.title} />
         </div>
 
         <h1 className="visually-hidden">WTW</h1>
@@ -50,7 +52,7 @@ const Main = ({promoMovie, movies, genresList, onFilterChange, currentGenre, onB
         <div className="movie-card__wrap">
           <div className="movie-card__info">
             <div className="movie-card__poster">
-              <img src="img/the-grand-budapest-hotel-poster.jpg" alt="The Grand Budapest Hotel poster" width="218" height="327" />
+              <img src={promoMovie.poster} alt={`${promoMovie.title} poster`} width="218" height="327" />
             </div>
 
             <div className="movie-card__desc">
@@ -125,6 +127,8 @@ Main.propTypes = {
     title: PropTypes.string.isRequired,
     genre: PropTypes.string.isRequired,
     releaseYear: PropTypes.number.isRequired,
+    poster: PropTypes.string.isRequired,
+    backgroundImage: PropTypes.string.isRequired,
   }).isRequired,
   currentGenre: PropTypes.string.isRequired,
   onTitleClick: PropTypes.func.isRequired,
@@ -138,12 +142,12 @@ Main.propTypes = {
 };
 
 const mapStateToProps = (state) => ({
-  currentGenre: state.currentGenre,
-  genresList: state.genresList,
-  movies: state.movies,
-  promoMovie: state.promoMovie,
-  shownMoviesNumber: state.shownMoviesNumber,
-  isActivePlayer: state.isActivePlayer,
+  currentGenre: getCurrentGenre(state),
+  genresList: getGenres(state),
+  movies: getMoviesByGenre(state),
+  promoMovie: getPromoMovie(state),
+  shownMoviesNumber: getShownMoviesNumber(state),
+  isActivePlayer: getPlayerState(state),
 });
 
 const mapDispatchToProps = (dispatch) => ({

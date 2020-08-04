@@ -6,6 +6,7 @@ import {connect} from "react-redux";
 
 import Main from "../main/main.jsx";
 import MoviePage from "../movie-page/movie-page.jsx";
+import {getCurrentMovie} from "../../reducer/state/selectors.js";
 
 class App extends PureComponent {
   constructor(props) {
@@ -85,7 +86,7 @@ App.propTypes = {
 };
 
 const mapStateToProps = (state) => ({
-  movie: state.currentMovie,
+  movie: getCurrentMovie(state),
 });
 
 export {App};

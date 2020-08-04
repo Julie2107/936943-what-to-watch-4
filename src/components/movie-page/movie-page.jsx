@@ -5,9 +5,11 @@ import {connect} from "react-redux";
 import MoviesList from "../movies-list/movies-list.jsx";
 import Tabs from "../tabs/tabs.jsx";
 import withActiveTab from "../../hocs/with-active-tab.js";
-import {ActionCreator} from "../../reducer/reducer.js";
+import {ActionCreator} from "../../reducer/state/state.js";
 import FullScreenVideo from "../full-screen-video/full-screen-video.jsx";
 import withFullScreenVideo from "../../hocs/with-fullscreen-video.js";
+import {getPlayerState} from "../../reducer/state/selectors.js";
+import {getMovies} from "../../reducer/data/selectors.js";
 
 const WrappedFullscreen = withFullScreenVideo(FullScreenVideo);
 
@@ -29,8 +31,8 @@ const MoviePage = ({movies, movie, onTitleClick, onActivatePlayer, onDeactivateP
     <>
       <section className="movie-card movie-card--full">
         <div className="movie-card__hero">
-          <div className="movie-card__bg">
-            <img src={movie.cover} alt={movie.title} />
+          <div className="movie-card__bg" style={{backgroundColor: movie.backgroundColor}}>
+            <img src={movie.backgroundImage} alt={movie.title}/>
           </div>
 
           <h1 className="visually-hidden">WTW</h1>
@@ -146,8 +148,8 @@ MoviePage.propTypes = {
 };
 
 const mapStateToProps = (state) => ({
-  movies: state.movies,
-  isActivePlayer: state.isActivePlayer,
+  movies: getMovies(state),
+  isActivePlayer: getPlayerState(state),
 });
 
 const mapDispatchToProps = (dispatch) => ({

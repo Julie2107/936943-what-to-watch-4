@@ -1,4 +1,4 @@
-import {reducer, ActionCreator, ActionType, initialState} from "./reducer.js";
+import {reducer, ActionCreator, ActionType, initialState} from "./state/state.js";
 import {MOVIES_TO_SHOW} from "../consts.js";
 
 
