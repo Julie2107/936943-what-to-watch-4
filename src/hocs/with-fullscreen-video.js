@@ -18,6 +18,22 @@ const withFullScreenVideo = (Component) => {
       this._handleFullScreenButton = this._handleFullScreenButton.bind(this);
     }
 
+    _handleTimeUpdate() {
+      const video = this._videoref.current;
+
+      return this.setState({
+        progress: Math.floor(video.currentTime),
+      });
+    }
+
+    _handleLoadedMetadata() {
+      const video = this._videoref.current;
+
+      return this.setState({
+        duration: Math.ceil(video.duration),
+      });
+    }
+
     componentDidMount() {
       const {movie} = this.props;
       const video = this._videoref.current;
@@ -26,12 +42,8 @@ const withFullScreenVideo = (Component) => {
         video.src = movie.src;
         video.poster = movie.poster;
         video.play();
-        video.ontimeupdate = () => this.setState({
-          progress: Math.floor(video.currentTime),
-        });
-        video.onloadedmetadata = () => this.setState({
-          duration: Math.ceil(video.duration),
-        });
+        video.ontimeupdate = () => this._handleTimeUpdate();
+        video.onloadedmetadata = () => this._handleLoadedMetadata();
       }
     }
 

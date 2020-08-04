@@ -3,6 +3,7 @@ import renderer from "react-test-renderer";
 import Main from "./main.jsx";
 import {Provider} from 'react-redux';
 import configureStore from 'redux-mock-store';
+import NameSpace from "../../reducer/name-space.js";
 
 const mockStore = configureStore([]);
 
@@ -32,11 +33,15 @@ const mockGenres = [`All genres`, `Drama`, `Comedy`, `Thriller`, `Fantasy`, `Hor
 
 it(`Render Main`, () => {
   const store = mockStore({
-    currentGenre: `All genres`,
-    movies: mockMovies,
-    genresList: mockGenres,
-    shownMoviesNumber: 8,
-    promoMovie: movie,
+    [NameSpace.STATE]: {
+      currentGenre: `All genres`,
+      shownMoviesNumber: 8,
+      genresList: mockGenres,
+    },
+    [NameSpace.DATA]: {
+      movies: mockMovies,
+      promoMovie: movie,
+    }
   });
   const tree = renderer
     .create(
