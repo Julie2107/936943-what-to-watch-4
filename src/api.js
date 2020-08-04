@@ -1,6 +1,7 @@
 import axios from "axios";
 
 const API_TIMEOUT = 5000;
+const BASE_URL = `https://4.react.pages.academy/wtw`;
 
 const Error = {
   UNAUTHORIZED: 401
@@ -8,7 +9,7 @@ const Error = {
 
 export const createAPI = () => {
   const api = axios.create({
-    baseURL: `https://4.react.pages.academy/wtw`,
+    baseURL: BASE_URL,
     timeout: API_TIMEOUT,
     withCredentials: true,
   });
@@ -21,7 +22,6 @@ export const createAPI = () => {
     const {response} = err;
 
     if (response.status === Error.UNAUTHORIZED) {
-
       throw err;
     }
 
