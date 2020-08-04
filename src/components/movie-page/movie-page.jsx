@@ -6,6 +6,10 @@ import MoviesList from "../movies-list/movies-list.jsx";
 import Tabs from "../tabs/tabs.jsx";
 import withActiveTab from "../../hocs/with-active-tab.js";
 import {ActionCreator} from "../../reducer/reducer.js";
+import FullScreenVideo from "../full-screen-video/full-screen-video.jsx";
+import withFullScreenVideo from "../../hocs/with-fullscreen-video.js";
+
+const WrappedFullscreen = withFullScreenVideo(FullScreenVideo);
 
 
 const SIMILAR_MOVIES_NUMBER = 4;
@@ -16,8 +20,12 @@ const getSimilarMovies = (movies, movie) => {
   return movies.filter((film) => film.genre === movie.genre).slice(0, SIMILAR_MOVIES_NUMBER);
 };
 
-const MoviePage = ({movies, movie, onTitleClick}) => {
+const MoviePage = ({movies, movie, onTitleClick, onActivatePlayer, onDeactivatePlayer, isActivePlayer}) => {
   return (
+    isActivePlayer ? (<WrappedFullscreen className="player__video"
+      movie={movie}
+      onDeactivatePlayer={onDeactivatePlayer}
+    />) : (
     <>
       <section className="movie-card movie-card--full">
         <div className="movie-card__hero">
@@ -52,7 +60,8 @@ const MoviePage = ({movies, movie, onTitleClick}) => {
               </p>
 
               <div className="movie-card__buttons">
-                <button className="btn btn--play movie-card__button" type="button">
+                <button className="btn btn--play movie-card__button" type="button"
+                  onClick={onActivatePlayer}>
                   <svg viewBox="0 0 19 19" width="19" height="19">
                     <use xlinkHref="#play-s"></use>
                   </svg>
@@ -95,6 +104,7 @@ const MoviePage = ({movies, movie, onTitleClick}) => {
         </section>
       </div>
     </>
+    )
   );
 };
 
@@ -130,16 +140,26 @@ MoviePage.propTypes = {
       }).isRequired
   ).isRequired,
   onTitleClick: PropTypes.func.isRequired,
+  isActivePlayer: PropTypes.bool.isRequired,
+  onActivatePlayer: PropTypes.func.isRequired,
+  onDeactivatePlayer: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = (state) => ({
   movies: state.movies,
+  isActivePlayer: state.isActivePlayer,
 });
 
 const mapDispatchToProps = (dispatch) => ({
   onTitleClick(movie) {
     dispatch(ActionCreator.getCurrentMovie(movie));
-  }
+  },
+  onActivatePlayer() {
+    dispatch(ActionCreator.getFullScreenState(true));
+  },
+  onDeactivatePlayer() {
+    dispatch(ActionCreator.getFullScreenState(false));
+  },
 });
 
 export {MoviePage};

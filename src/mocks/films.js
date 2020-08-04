@@ -23,7 +23,9 @@ const getPosterSrc = (title) => {
 export const Movie = {
   title: `The Grand Budapest Hotel`,
   genre: `Drama`,
-  releaseYear: 2014
+  releaseYear: 2014,
+  src: `https://upload.wikimedia.org/wikipedia/commons/transcoded/b/b3/Big_Buck_Bunny_Trailer_400p.ogv/Big_Buck_Bunny_Trailer_400p.ogv.360p.webm`,
+  poster: `img/the-grand-budapest-hotel-poster.jpg`,
 };
 
 

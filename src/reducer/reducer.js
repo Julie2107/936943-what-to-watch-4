@@ -9,6 +9,7 @@ const initialState = {
   currentMovie: null,
   promoMovie: Movie,
   shownMoviesNumber: MOVIES_TO_SHOW,
+  isActivePlayer: false,
 };
 
 const ActionType = {
@@ -16,11 +17,11 @@ const ActionType = {
   FILTERED_MOVIES: `FILTERED_MOVIES`,
   SHOW_MORE: `SHOW_MORE`,
   CURRENT_MOVIE: `CURRENT_MOVIE`,
+  FULL_SCREEN_STATE: `FULL_SCREEN_STATE`,
 };
 
 const ActionCreator = {
   getCurrentFilter: (currentGenre) => {
-
     return {
       type: ActionType.FILTER_CHANGE,
       payload: currentGenre
@@ -48,8 +49,14 @@ const ActionCreator = {
       type: ActionType.CURRENT_MOVIE,
       payload: movie,
     };
+  },
 
-  }
+  getFullScreenState: (status) => {
+    return {
+      type: ActionType.FULL_SCREEN_STATE,
+      payload: status,
+    };
+  },
 };
 
 const reducer = (state = initialState, action) => {
@@ -73,6 +80,11 @@ const reducer = (state = initialState, action) => {
     case ActionType.CURRENT_MOVIE:
       return extend(state, {
         currentMovie: action.payload,
+      });
+
+    case ActionType.FULL_SCREEN_STATE:
+      return extend(state, {
+        isActivePlayer: action.payload,
       });
   }
 

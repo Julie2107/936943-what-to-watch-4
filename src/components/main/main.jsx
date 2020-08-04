@@ -6,8 +6,12 @@ import MoviesList from "../movies-list/movies-list.jsx";
 import GenresList from "../genres-list/genres-list.jsx";
 import {ActionCreator} from "../../reducer/reducer.js";
 import ShowMoreButton from "../show-more-button/show-more-button.jsx";
+import FullScreenVideo from "../full-screen-video/full-screen-video.jsx";
+import withFullScreenVideo from "../../hocs/with-fullscreen-video.js";
 
-const Main = ({promoMovie, movies, genresList, onFilterChange, currentGenre, onButtonClick, shownMoviesNumber, onTitleClick}) => {
+const WrappedFullscreen = withFullScreenVideo(FullScreenVideo);
+
+const Main = ({promoMovie, movies, genresList, onFilterChange, currentGenre, onButtonClick, shownMoviesNumber, onTitleClick, onActivatePlayer, onDeactivatePlayer, isActivePlayer}) => {
 
   const moviesToRender = movies.slice(0, shownMoviesNumber);
   const isButtonToRender = shownMoviesNumber < movies.length ? <ShowMoreButton
@@ -15,6 +19,10 @@ const Main = ({promoMovie, movies, genresList, onFilterChange, currentGenre, onB
   /> : ``;
 
   return (
+    isActivePlayer ? (<WrappedFullscreen className="player__video"
+      movie={promoMovie}
+      onDeactivatePlayer={onDeactivatePlayer}
+    />) : (
     <>
       <section className="movie-card">
         <div className="movie-card__bg">
@@ -53,7 +61,8 @@ const Main = ({promoMovie, movies, genresList, onFilterChange, currentGenre, onB
               </p>
 
               <div className="movie-card__buttons">
-                <button className="btn btn--play movie-card__button" type="button">
+                <button className="btn btn--play movie-card__button" type="button"
+                  onClick={onActivatePlayer}>
                   <svg viewBox="0 0 19 19" width="19" height="19">
                     <use xlinkHref="#play-s" />
                   </svg>
@@ -101,6 +110,7 @@ const Main = ({promoMovie, movies, genresList, onFilterChange, currentGenre, onB
         </footer>
       </div>
     </>
+    )
   );
 };
 
@@ -122,6 +132,9 @@ Main.propTypes = {
   onFilterChange: PropTypes.func.isRequired,
   onButtonClick: PropTypes.func.isRequired,
   shownMoviesNumber: PropTypes.number.isRequired,
+  isActivePlayer: PropTypes.bool.isRequired,
+  onActivatePlayer: PropTypes.func.isRequired,
+  onDeactivatePlayer: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = (state) => ({
@@ -130,6 +143,7 @@ const mapStateToProps = (state) => ({
   movies: state.movies,
   promoMovie: state.promoMovie,
   shownMoviesNumber: state.shownMoviesNumber,
+  isActivePlayer: state.isActivePlayer,
 });
 
 const mapDispatchToProps = (dispatch) => ({
@@ -142,7 +156,13 @@ const mapDispatchToProps = (dispatch) => ({
   },
   onTitleClick(movie) {
     dispatch(ActionCreator.getCurrentMovie(movie));
-  }
+  },
+  onActivatePlayer() {
+    dispatch(ActionCreator.getFullScreenState(true));
+  },
+  onDeactivatePlayer() {
+    dispatch(ActionCreator.getFullScreenState(false));
+  },
 });
 
 

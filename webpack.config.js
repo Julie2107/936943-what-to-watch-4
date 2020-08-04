@@ -1,3 +1,4 @@
+/* eslint-disable no-undef */
 const path = require(`path`);
 
 module.exports = {
@@ -9,7 +10,6 @@ module.exports = {
   devServer: {
     contentBase: path.join(__dirname, `public`),
     open: true,
-   // hot: true,
     port: 1337,
     historyApiFallback: true
 
