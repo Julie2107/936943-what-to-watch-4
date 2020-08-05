@@ -1,12 +1,12 @@
 import React, {PureComponent} from "react";
 import PropTypes from "prop-types";
-import {BrowserRouter, Route, Switch} from "react-router-dom";
-import {connect} from "react-redux";
-
+import {Router, Route, Switch} from "react-router-dom";
 
 import Main from "../main/main.jsx";
 import MoviePage from "../movie-page/movie-page.jsx";
-import {getCurrentMovie} from "../../reducer/state/selectors.js";
+import {AppRoute} from "../../consts.js";
+import SignIn from "../sign-in/sign-in.jsx";
+import history from "../../history.js";
 
 class App extends PureComponent {
   constructor(props) {
@@ -23,37 +23,35 @@ class App extends PureComponent {
     );
   }
 
-  _renderMoviePage() {
-    const {movie} = this.props;
-
+  _renderMoviePage(id) {
     return (
       <MoviePage
-        movie = {movie}
+        id = {id}
       />
     );
-  }
-
-  _renderApp() {
-    const {movie} = this.props;
-
-    const renderPage = movie ? this._renderMoviePage() : this._renderMain();
-
-    return renderPage;
   }
 
   render() {
 
     return (
-      <BrowserRouter>
+      <Router history={history}>
         <Switch>
-          <Route exact path="/">
-            {this._renderApp()}
-          </Route>
-          <Route exact path="/movie-page">
-            {this._renderMoviePage()}
-          </Route>
+          <Route exact path={AppRoute.ROOT}
+            render={() => this._renderMain()}
+          />
+          <Route exact path={`${AppRoute.MOVIE}/:id`}
+            render={({match}) => {
+              const id = Number(match.params.id);
+              return this._renderMoviePage(id);
+            }}
+          />
+          <Route exact path={AppRoute.LOGIN}
+            render={() => {
+              return <SignIn />;
+            }}
+          />
         </Switch>
-      </BrowserRouter>
+      </Router>
     );
   }
 }
@@ -85,9 +83,4 @@ App.propTypes = {
   ]),
 };
 
-const mapStateToProps = (state) => ({
-  movie: getCurrentMovie(state),
-});
-
-export {App};
-export default connect(mapStateToProps)(App);
+export default App;

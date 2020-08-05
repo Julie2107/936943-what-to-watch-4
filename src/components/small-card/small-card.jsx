@@ -2,6 +2,8 @@ import React, {PureComponent} from "react";
 import PropTypes from "prop-types";
 
 import VideoPlayer from "../video-player/video-player.jsx";
+import {Link} from "react-router-dom";
+import {AppRoute} from "../../consts.js";
 
 class MovieSmallCard extends PureComponent {
   constructor(props) {
@@ -36,7 +38,9 @@ class MovieSmallCard extends PureComponent {
           />
         </div>
         <h3 className="small-movie-card__title" onClick={this._handleTitleClick}>
-          <a className="small-movie-card__link" href="movie-page.html">{movie.title}</a>
+          <Link className="small-movie-card__link" to={`${AppRoute.MOVIE}/${movie.id}`}>
+            {movie.title}
+          </Link>
         </h3>
       </article>
     );
@@ -45,6 +49,7 @@ class MovieSmallCard extends PureComponent {
 
 MovieSmallCard.propTypes = {
   movie: PropTypes.shape({
+    id: PropTypes.number.isRequired,
     title: PropTypes.string.isRequired,
     poster: PropTypes.string.isRequired,
     src: PropTypes.string.isRequired,

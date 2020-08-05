@@ -40,6 +40,7 @@ const movieAdapter = (movie) => ({
   runTime: movie.run_time,
   starring: movie.starring,
   src: movie.video_link,
+  isFavorite: movie.is_favorite
 });
 
 export default movieAdapter;

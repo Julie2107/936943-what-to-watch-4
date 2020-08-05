@@ -41,6 +41,14 @@ const Operation = {
 
       dispatch(ActionDataCreator.loadPromo(movieAdapter(response.data)));
     });
+  },
+
+  changeFavoriteState: (movie) => (dispatch, getState, api) => {
+    return api.post(`/favorite/${movie.id}/${movie.isFavorite ? 0 : 1}`)
+    .then(() => {
+      dispatch(Operation.loadMovies());
+      dispatch(Operation.loadPromoMovie());
+    });
   }
 };
 

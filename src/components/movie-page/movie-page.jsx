@@ -6,10 +6,13 @@ import MoviesList from "../movies-list/movies-list.jsx";
 import Tabs from "../tabs/tabs.jsx";
 import withActiveTab from "../../hocs/with-active-tab.js";
 import {ActionCreator} from "../../reducer/state/state.js";
+
 import FullScreenVideo from "../full-screen-video/full-screen-video.jsx";
 import withFullScreenVideo from "../../hocs/with-fullscreen-video.js";
 import {getPlayerState} from "../../reducer/state/selectors.js";
 import {getMovies} from "../../reducer/data/selectors.js";
+import Header from "../header/header.jsx";
+import {Operation} from "../../reducer/data/data.js";
 
 const WrappedFullscreen = withFullScreenVideo(FullScreenVideo);
 
@@ -22,7 +25,18 @@ const getSimilarMovies = (movies, movie) => {
   return movies.filter((film) => film.genre === movie.genre).slice(0, SIMILAR_MOVIES_NUMBER);
 };
 
-const MoviePage = ({movies, movie, onTitleClick, onActivatePlayer, onDeactivatePlayer, isActivePlayer}) => {
+const MoviePage = ({movies, id, onTitleClick, onActivatePlayer, onDeactivatePlayer, isActivePlayer, onAddToList}) => {
+
+  const movie = movies.find((movieItem) => movieItem.id === id);
+
+  const isInList = movie.isFavourite ?
+    (<svg viewBox="0 0 18 14" width="18" height="14">
+      <use xlinkHref="#in-list"></use>
+    </svg>) :
+    (<svg viewBox="0 0 19 20" width="19" height="20">
+      <use xlinkHref="#add" />
+    </svg>);
+
   return (
     isActivePlayer ?
       (<WrappedFullscreen className="player__video"
@@ -38,21 +52,7 @@ const MoviePage = ({movies, movie, onTitleClick, onActivatePlayer, onDeactivateP
 
             <h1 className="visually-hidden">WTW</h1>
 
-            <header className="page-header movie-card__head">
-              <div className="logo">
-                <a href="main.html" className="logo__link">
-                  <span className="logo__letter logo__letter--1">W</span>
-                  <span className="logo__letter logo__letter--2">T</span>
-                  <span className="logo__letter logo__letter--3">W</span>
-                </a>
-              </div>
-
-              <div className="user-block">
-                <div className="user-block__avatar">
-                  <img src="img/avatar.jpg" alt="User avatar" width="63" height="63" />
-                </div>
-              </div>
-            </header>
+            <Header />
 
             <div className="movie-card__wrap">
               <div className="movie-card__desc">
@@ -70,10 +70,10 @@ const MoviePage = ({movies, movie, onTitleClick, onActivatePlayer, onDeactivateP
                     </svg>
                     <span>Play</span>
                   </button>
-                  <button className="btn btn--list movie-card__button" type="button">
-                    <svg viewBox="0 0 19 20" width="19" height="20">
-                      <use xlinkHref="#add" />
-                    </svg>
+                  <button className="btn btn--list movie-card__button" type="button"
+                    onClick={onAddToList}
+                  >
+                    {isInList}
                     <span>My list</span>
                   </button>
                   <a href="add-review.html" className="btn movie-card__button">Add review</a>
@@ -111,9 +111,10 @@ const MoviePage = ({movies, movie, onTitleClick, onActivatePlayer, onDeactivateP
 };
 
 MoviePage.propTypes = {
-  movie: PropTypes.oneOfType([
+  /* movie: PropTypes.oneOfType([
     PropTypes.number,
     PropTypes.shape({
+      id: PropTypes.number.isRequired,
       title: PropTypes.string.isRequired,
       poster: PropTypes.string.isRequired,
       cover: PropTypes.string.isRequired,
@@ -134,7 +135,8 @@ MoviePage.propTypes = {
           })
       ).isRequired
     })
-  ]),
+  ]),*/
+  id: PropTypes.number.isRequired,
   movies: PropTypes.arrayOf(
       PropTypes.shape({
         title: PropTypes.string.isRequired,
@@ -145,6 +147,7 @@ MoviePage.propTypes = {
   isActivePlayer: PropTypes.bool.isRequired,
   onActivatePlayer: PropTypes.func.isRequired,
   onDeactivatePlayer: PropTypes.func.isRequired,
+  onAddToList: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = (state) => ({
@@ -162,6 +165,9 @@ const mapDispatchToProps = (dispatch) => ({
   onDeactivatePlayer() {
     dispatch(ActionCreator.getFullScreenState(false));
   },
+  onAddToList(movie) {
+    dispatch(Operation.changeFavoriteState(movie));
+  }
 });
 
 export {MoviePage};
