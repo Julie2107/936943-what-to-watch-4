@@ -42,6 +42,13 @@ it(`Render App`, () => {
       movies: mockMovies,
       genresList: mockGenres,
       promoMovie: movie,
+    },
+    [NameSpace.USER]: {
+      authorizationStatus: `AUTH`,
+      user: {
+        email: ``,
+        name: ``,
+      }
     }
   });
 

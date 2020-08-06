@@ -2,15 +2,16 @@ import React from "react";
 import PropTypes from "prop-types";
 import {connect} from "react-redux";
 
-import MoviesList from "../movies-list/movies-list.jsx";
-import GenresList from "../genres-list/genres-list.jsx";
-import {ActionCreator} from "../../reducer/state/state.js";
-import ShowMoreButton from "../show-more-button/show-more-button.jsx";
-import FullScreenVideo from "../full-screen-video/full-screen-video.jsx";
 import withFullScreenVideo from "../../hocs/with-fullscreen-video.js";
 import {getCurrentGenre, getShownMoviesNumber, getPlayerState, getMoviesByGenre} from "../../reducer/state/selectors.js";
 import {getGenres, getPromoMovie} from "../../reducer/data/selectors.js";
 import {Operation} from "../../reducer/data/data.js";
+import {ActionCreator} from "../../reducer/state/state.js";
+
+import MoviesList from "../movies-list/movies-list.jsx";
+import GenresList from "../genres-list/genres-list.jsx";
+import ShowMoreButton from "../show-more-button/show-more-button.jsx";
+import FullScreenVideo from "../full-screen-video/full-screen-video.jsx";
 import Header from "../header/header.jsx";
 
 const WrappedFullscreen = withFullScreenVideo(FullScreenVideo);

@@ -26,7 +26,8 @@ exports[`Render movieslist 1`] = `
     >
       <a
         className="small-movie-card__link"
-        href="movie-page.html"
+        href="/films/undefined"
+        onClick={[Function]}
       >
         Mindhunter
       </a>
@@ -54,7 +55,8 @@ exports[`Render movieslist 1`] = `
     >
       <a
         className="small-movie-card__link"
-        href="movie-page.html"
+        href="/films/undefined"
+        onClick={[Function]}
       >
         Aviator
       </a>
@@ -82,7 +84,8 @@ exports[`Render movieslist 1`] = `
     >
       <a
         className="small-movie-card__link"
-        href="movie-page.html"
+        href="/films/undefined"
+        onClick={[Function]}
       >
         Pulp Fiction
       </a>
@@ -110,7 +113,8 @@ exports[`Render movieslist 1`] = `
     >
       <a
         className="small-movie-card__link"
-        href="movie-page.html"
+        href="/films/undefined"
+        onClick={[Function]}
       >
         Midnight Special
       </a>
@@ -138,7 +142,8 @@ exports[`Render movieslist 1`] = `
     >
       <a
         className="small-movie-card__link"
-        href="movie-page.html"
+        href="/films/undefined"
+        onClick={[Function]}
       >
         Fantastic Beasts: The Crimes of Grindelwald
       </a>
@@ -166,7 +171,8 @@ exports[`Render movieslist 1`] = `
     >
       <a
         className="small-movie-card__link"
-        href="movie-page.html"
+        href="/films/undefined"
+        onClick={[Function]}
       >
         No Country for Old Men
       </a>
@@ -194,7 +200,8 @@ exports[`Render movieslist 1`] = `
     >
       <a
         className="small-movie-card__link"
-        href="movie-page.html"
+        href="/films/undefined"
+        onClick={[Function]}
       >
         Orlando
       </a>
@@ -222,7 +229,8 @@ exports[`Render movieslist 1`] = `
     >
       <a
         className="small-movie-card__link"
-        href="movie-page.html"
+        href="/films/undefined"
+        onClick={[Function]}
       >
         Macbeth
       </a>

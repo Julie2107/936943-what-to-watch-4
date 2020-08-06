@@ -4,6 +4,8 @@ import Main from "./main.jsx";
 import {Provider} from 'react-redux';
 import configureStore from 'redux-mock-store';
 import NameSpace from "../../reducer/name-space.js";
+import history from "../../history";
+import { Router } from "react-router-dom";
 
 const mockStore = configureStore([]);
 
@@ -45,18 +47,20 @@ it(`Render Main`, () => {
   });
   const tree = renderer
     .create(
-        <Provider store={store}>
-          <Main
-            promoMovie={movie}
-            movies = {mockMovies}
-            onTitleClick = {() => {}}
-            genresList = {mockGenres}
-            onFilterChange = {() => {}}
-            currentGenre = {`All genres`}
-            onButtonClick = {() => {}}
-            shownMoviesNumber = {8}
-          />
-        </Provider>, {
+        <Router history={history}>
+          <Provider store={store}>
+            <Main
+              promoMovie={movie}
+              movies = {mockMovies}
+              onTitleClick = {() => {}}
+              genresList = {mockGenres}
+              onFilterChange = {() => {}}
+              currentGenre = {`All genres`}
+              onButtonClick = {() => {}}
+              shownMoviesNumber = {8}
+            />
+          </Provider>
+        </Router>, {
           createNodeMock: () => {
             return {};
           }

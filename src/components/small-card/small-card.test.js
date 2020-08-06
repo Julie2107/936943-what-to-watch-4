@@ -1,6 +1,8 @@
 import React from "react";
 import renderer from "react-test-renderer";
 import MovieSmallCard from "./small-card.jsx";
+import {Router} from "react-router-dom";
+import history from "../../history";
 
 const movie = {
   title: `Pulp Fiction`,
@@ -10,17 +12,20 @@ const movie = {
 
 it(`Render moviesmallcard`, () => {
   const tree = renderer
-    .create(<MovieSmallCard
-      movie={movie}
-      onTitleClick={()=>{}}
-      onMouseHover={()=>{}}
-      onMouseHoverOff={()=>{}}
-      isPlaying={false}
-    />, {
-      createNodeMock: () => {
-        return {};
-      }
-    })
+    .create(
+        <Router history={history}>
+          <MovieSmallCard
+            movie={movie}
+            onTitleClick={()=>{}}
+            onMouseHover={()=>{}}
+            onMouseHoverOff={()=>{}}
+            isPlaying={false}
+          />
+        </Router>, {
+          createNodeMock: () => {
+            return {};
+          }
+        })
     .toJSON();
 
   expect(tree).toMatchSnapshot();

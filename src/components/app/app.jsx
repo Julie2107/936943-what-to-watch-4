@@ -2,14 +2,15 @@ import React, {PureComponent} from "react";
 import PropTypes from "prop-types";
 import {Router, Route, Switch} from "react-router-dom";
 
-import {AppRoute} from "../../consts.js";
-import Main from "../main/main.jsx";
-import MoviePage from "../movie-page/movie-page.jsx";
-import SignIn from "../sign-in/sign-in.jsx";
 import history from "../../history.js";
 import {getAuthorizationStatus, getUser} from "../../reducer/user/selectors.js";
 import {Operation as UserOperation} from "../../reducer/user/user.js";
 import {connect} from "react-redux";
+import {AppRoute} from "../../consts.js";
+
+import Main from "../main/main.jsx";
+import MoviePage from "../movie-page/movie-page.jsx";
+import SignIn from "../sign-in/sign-in.jsx";
 
 class App extends PureComponent {
   constructor(props) {
