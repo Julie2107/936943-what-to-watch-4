@@ -2,11 +2,14 @@ import React, {PureComponent} from "react";
 import PropTypes from "prop-types";
 import {Router, Route, Switch} from "react-router-dom";
 
+import {AppRoute} from "../../consts.js";
 import Main from "../main/main.jsx";
 import MoviePage from "../movie-page/movie-page.jsx";
-import {AppRoute} from "../../consts.js";
 import SignIn from "../sign-in/sign-in.jsx";
 import history from "../../history.js";
+import {getAuthorizationStatus} from "../../reducer/user/selectors.js";
+import {Operation as UserOperation} from "../../reducer/user/user.js";
+import {connect} from "react-redux";
 
 class App extends PureComponent {
   constructor(props) {
@@ -47,7 +50,9 @@ class App extends PureComponent {
           />
           <Route exact path={AppRoute.LOGIN}
             render={() => {
-              return <SignIn />;
+              return <SignIn
+                onSubmit={() => {}}
+              />;
             }}
           />
         </Switch>
@@ -83,4 +88,15 @@ App.propTypes = {
   ]),
 };
 
-export default App;
+const mapStateToProps = (state) => ({
+  authorizationStatus: getAuthorizationStatus(state),
+});
+
+const mapDispatchToProps = (dispatch) => ({
+  login(authData) {
+    dispatch(UserOperation.login(authData));
+  }
+});
+
+export {App};
+export default connect(mapStateToProps, mapDispatchToProps)(App);
