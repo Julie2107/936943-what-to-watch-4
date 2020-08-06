@@ -7,7 +7,7 @@ import Main from "../main/main.jsx";
 import MoviePage from "../movie-page/movie-page.jsx";
 import SignIn from "../sign-in/sign-in.jsx";
 import history from "../../history.js";
-import {getAuthorizationStatus} from "../../reducer/user/selectors.js";
+import {getAuthorizationStatus, getUser} from "../../reducer/user/selectors.js";
 import {Operation as UserOperation} from "../../reducer/user/user.js";
 import {connect} from "react-redux";
 
@@ -35,6 +35,7 @@ class App extends PureComponent {
   }
 
   render() {
+    const {login} = this.props;
 
     return (
       <Router history={history}>
@@ -51,7 +52,7 @@ class App extends PureComponent {
           <Route exact path={AppRoute.LOGIN}
             render={() => {
               return <SignIn
-                onSubmit={() => {}}
+                onSubmit={login}
               />;
             }}
           />
@@ -86,10 +87,12 @@ App.propTypes = {
       ).isRequired
     })
   ]),
+  login: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = (state) => ({
   authorizationStatus: getAuthorizationStatus(state),
+  user: getUser(state)
 });
 
 const mapDispatchToProps = (dispatch) => ({

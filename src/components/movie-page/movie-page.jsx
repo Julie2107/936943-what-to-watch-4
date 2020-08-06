@@ -29,13 +29,13 @@ const MoviePage = ({movies, id, onTitleClick, onActivatePlayer, onDeactivatePlay
 
   const movie = movies.find((movieItem) => movieItem.id === id);
 
-  const isInList = movie.isFavourite ?
-    (<svg viewBox="0 0 18 14" width="18" height="14">
+  const isInList = movie.isFavorite ?
+    <svg viewBox="0 0 18 14" width="18" height="14">
       <use xlinkHref="#in-list"></use>
-    </svg>) :
-    (<svg viewBox="0 0 19 20" width="19" height="20">
+    </svg> :
+    <svg viewBox="0 0 19 20" width="19" height="20">
       <use xlinkHref="#add" />
-    </svg>);
+    </svg>;
 
   return (
     isActivePlayer ?
@@ -71,7 +71,7 @@ const MoviePage = ({movies, id, onTitleClick, onActivatePlayer, onDeactivatePlay
                     <span>Play</span>
                   </button>
                   <button className="btn btn--list movie-card__button" type="button"
-                    onClick={onAddToList}
+                    onClick={() => onAddToList(movie)}
                   >
                     {isInList}
                     <span>My list</span>

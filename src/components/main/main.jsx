@@ -10,6 +10,7 @@ import FullScreenVideo from "../full-screen-video/full-screen-video.jsx";
 import withFullScreenVideo from "../../hocs/with-fullscreen-video.js";
 import {getCurrentGenre, getShownMoviesNumber, getPlayerState, getMoviesByGenre} from "../../reducer/state/selectors.js";
 import {getGenres, getPromoMovie} from "../../reducer/data/selectors.js";
+import {Operation} from "../../reducer/data/data.js";
 import Header from "../header/header.jsx";
 
 const WrappedFullscreen = withFullScreenVideo(FullScreenVideo);
@@ -25,12 +26,21 @@ const Main = ({
   onTitleClick,
   onActivatePlayer,
   onDeactivatePlayer,
-  isActivePlayer}) => {
+  isActivePlayer,
+  onAddToList}) => {
 
   const moviesToRender = movies.slice(0, shownMoviesNumber);
   const isButtonToRender = shownMoviesNumber < movies.length ? <ShowMoreButton
     onButtonClick={onButtonClick}
   /> : ``;
+
+  const isInList = promoMovie.isFavorite ?
+    <svg viewBox="0 0 18 14" width="18" height="14">
+      <use xlinkHref="#in-list"></use>
+    </svg> :
+    <svg viewBox="0 0 19 20" width="19" height="20">
+      <use xlinkHref="#add" />
+    </svg>;
 
   return (
     isActivePlayer ?
@@ -69,10 +79,10 @@ const Main = ({
                     </svg>
                     <span>Play</span>
                   </button>
-                  <button className="btn btn--list movie-card__button" type="button">
-                    <svg viewBox="0 0 19 20" width="19" height="20">
-                      <use xlinkHref="#add" />
-                    </svg>
+                  <button className="btn btn--list movie-card__button" type="button"
+                    onClick={() => onAddToList(promoMovie)}
+                  >
+                    {isInList}
                     <span>My list</span>
                   </button>
                 </div>
@@ -127,6 +137,7 @@ Main.propTypes = {
     releaseYear: PropTypes.number.isRequired,
     poster: PropTypes.string.isRequired,
     backgroundImage: PropTypes.string.isRequired,
+    isFavorite: PropTypes.bool.isRequired,
   }).isRequired,
   currentGenre: PropTypes.string.isRequired,
   onTitleClick: PropTypes.func.isRequired,
@@ -137,6 +148,7 @@ Main.propTypes = {
   isActivePlayer: PropTypes.bool.isRequired,
   onActivatePlayer: PropTypes.func.isRequired,
   onDeactivatePlayer: PropTypes.func.isRequired,
+  onAddToList: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = (state) => ({
@@ -165,6 +177,9 @@ const mapDispatchToProps = (dispatch) => ({
   onDeactivatePlayer() {
     dispatch(ActionCreator.getFullScreenState(false));
   },
+  onAddToList(movie) {
+    dispatch(Operation.changeFavoriteState(movie));
+  }
 });
 
 

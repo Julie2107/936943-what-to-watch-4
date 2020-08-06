@@ -1,24 +1,33 @@
+import {extend} from "../../utils";
 
 const AuthorizationStatus = {
   AUTH: `AUTH`,
   NO_AUTH: `NO_AUTH`,
+
 };
 
 const initialState = {
   authorizationStatus: AuthorizationStatus.NO_AUTH,
+  user: {
+    email: ``,
+    name: ``,
+  }
 };
 
 const ActionType = {
   REQUIRED_AUTHORIZATION: `REQUIRED_AUTHORIZATION`,
+  GET_USER_DATA: `GET_USER_DATA`
 };
 
 const ActionCreator = {
-  requireAuthorization: (status) => {
-    return {
-      type: ActionType.REQUIRED_AUTHORIZATION,
-      payload: status,
-    };
-  }
+  requireAuthorization: (status) => ({
+    type: ActionType.REQUIRED_AUTHORIZATION,
+    payload: status,
+  }),
+  getUserData: (user) => ({
+    type: ActionType.GET_USER_DATA,
+    payload: {user},
+  })
 };
 
 const reducer = (state = initialState, action) => {
@@ -27,31 +36,36 @@ const reducer = (state = initialState, action) => {
       return Object.assign({}, state, {
         authorizationStatus: action.payload,
       });
+
+    case ActionType.GET_USER_DATA:
+      return extend(state, {
+        user: action.payload
+      });
   }
 
   return state;
 };
 
 const Operation = {
-  checkAuth: () => (dispatch, getState, api) => {
-    return api.get(`/login`)
-      .then(() => {
+  checkAuth: () => (dispatch, getState, api) => (
+    api.get(`/login`)
+      .then((response) => {
         dispatch(ActionCreator.requireAuthorization(AuthorizationStatus.AUTH));
+        dispatch(ActionCreator.getUserData(response.data));
       })
-      .catch((err) => {
-        throw err;
-      });
-  },
 
-  login: (authData) => (dispatch, getState, api) => {
-    return api.post(`/login`, {
+  ),
+
+  login: (authData) => (dispatch, getState, api) => (
+    api.post(`/login`, {
       email: authData.login,
       password: authData.password,
     })
-      .then(() => {
+      .then((response) => {
         dispatch(ActionCreator.requireAuthorization(AuthorizationStatus.AUTH));
-      });
-  }
+        dispatch(ActionCreator.getUserData(response.data));
+      })
+  )
 };
 
 export {ActionCreator, ActionType, AuthorizationStatus, Operation, reducer};

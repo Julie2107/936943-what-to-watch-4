@@ -46,6 +46,7 @@ const Operation = {
   changeFavoriteState: (movie) => (dispatch, getState, api) => {
     return api.post(`/favorite/${movie.id}/${movie.isFavorite ? 0 : 1}`)
     .then(() => {
+
       dispatch(Operation.loadMovies());
       dispatch(Operation.loadPromoMovie());
     });
