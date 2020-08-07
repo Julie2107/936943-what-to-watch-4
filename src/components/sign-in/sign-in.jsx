@@ -1,18 +1,24 @@
 import React, {PureComponent, createRef} from "react";
 import PropTypes from "prop-types";
 import Header from "../header/header.jsx";
+import {getAuthorizationStatus, getAuthorizationError} from "../../reducer/user/selectors.js";
+import {connect} from "react-redux";
+import {Operation as UserOperation, AuthorizationStatus} from "../../reducer/user/user.js";
+import {Redirect} from "react-router-dom";
+import {AppRoute} from "../../consts.js";
 
-export default class SignIn extends PureComponent {
+
+class SignIn extends PureComponent {
   constructor(props) {
     super(props);
 
     this.loginRef = createRef();
     this.passwordRef = createRef();
 
-    this.handleSubmit = this.handleSubmit.bind(this);
+    this._handleSubmit = this._handleSubmit.bind(this);
   }
 
-  handleSubmit(evt) {
+  _handleSubmit(evt) {
     const {onSubmit} = this.props;
 
     evt.preventDefault();
@@ -23,7 +29,20 @@ export default class SignIn extends PureComponent {
     });
   }
 
+  _showError() {
+    return (
+      <h1>Incorrect email or password. Please, try again</h1>
+    );
+  }
+
   render() {
+    const {authorizationStatus, isAuthError} = this.props;
+    const isAuthorized = authorizationStatus === AuthorizationStatus.AUTH;
+
+    if (isAuthorized) {
+      return <Redirect to={AppRoute.ROOT} />;
+    }
+
     return (
       <div className="user-page">
         <Header />
@@ -32,8 +51,9 @@ export default class SignIn extends PureComponent {
           <form
             action=""
             className="sign-in__form"
-            onSubmit={this.handleSubmit}
+            onSubmit={this._handleSubmit}
           >
+            {isAuthError && this._showError()}
             <div className="sign-in__fields">
               <div className="sign-in__field">
                 <input
@@ -84,4 +104,21 @@ export default class SignIn extends PureComponent {
 
 SignIn.propTypes = {
   onSubmit: PropTypes.func.isRequired,
+  authorizationStatus: PropTypes.string.isRequired,
+  isAuthError: PropTypes.bool.isRequired,
 };
+
+
+const mapStateToProps = (state) => ({
+  authorizationStatus: getAuthorizationStatus(state),
+  isAuthError: getAuthorizationError(state),
+});
+
+const mapDispatchToProps = (dispatch) => ({
+  login(authData) {
+    dispatch(UserOperation.login(authData));
+  }
+});
+
+export {SignIn};
+export default connect(mapStateToProps, mapDispatchToProps)(SignIn);

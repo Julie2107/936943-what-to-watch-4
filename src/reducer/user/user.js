@@ -11,12 +11,14 @@ const initialState = {
   user: {
     email: ``,
     name: ``,
-  }
+  },
+  isAuthError: false,
 };
 
 const ActionType = {
   REQUIRED_AUTHORIZATION: `REQUIRED_AUTHORIZATION`,
-  GET_USER_DATA: `GET_USER_DATA`
+  GET_USER_DATA: `GET_USER_DATA`,
+  AUTH_ERROR: `AUTH_ERROR`
 };
 
 const ActionCreator = {
@@ -27,6 +29,9 @@ const ActionCreator = {
   getUserData: (user) => ({
     type: ActionType.GET_USER_DATA,
     payload: {user},
+  }),
+  authError: () => ({
+    type: ActionType.AUTH_ERROR,
   })
 };
 
@@ -40,6 +45,11 @@ const reducer = (state = initialState, action) => {
     case ActionType.GET_USER_DATA:
       return extend(state, {
         user: action.payload
+      });
+
+    case ActionType.AUTH_ERROR:
+      return extend(state, {
+        isAuthError: true,
       });
   }
 
@@ -64,6 +74,9 @@ const Operation = {
       .then((response) => {
         dispatch(ActionCreator.requireAuthorization(AuthorizationStatus.AUTH));
         dispatch(ActionCreator.getUserData(response.data));
+      })
+      .catch(() => {
+        dispatch(ActionCreator.requireAuthorization(AuthorizationStatus.NO_AUTH));
       })
   )
 };
