@@ -4,11 +4,15 @@ import movieAdapter from "../../adapters/movies-adapter.js";
 const initialState = {
   promoMovie: [],
   movies: [],
+  isLoading: true,
+  isError: false,
 };
 
 const ActionType = {
   LOAD_MOVIES: `LOAD_MOVIES`,
   LOAD_PROMO: `LOAD_PROMO`,
+  LOADING_MOVIES_STATUS: `LOADING_MOVIES_STATUS`,
+  ERROR_STATE: `ERROR_STATE`
 };
 
 const ActionDataCreator = {
@@ -25,6 +29,16 @@ const ActionDataCreator = {
       payload: promoMovie,
     };
   },
+
+  setLoadingMoviesStatus: (status) => ({
+    type: ActionType.LOADING_MOVIES_STATUS,
+    payload: status
+  }),
+
+  setErrorState: (status) => ({
+    type: ActionType.ERROR_STATE,
+    payload: status
+  })
 };
 
 const Operation = {
@@ -32,6 +46,11 @@ const Operation = {
     return api.get(`/films`)
       .then((response) => {
         dispatch(ActionDataCreator.loadMovies(response.data.map((movie) => movieAdapter(movie))));
+        dispatch(ActionDataCreator.setLoadingMoviesStatus(false));
+      })
+      .catch(() => {
+        dispatch(ActionDataCreator.setErrorState(true));
+        dispatch(ActionDataCreator.setLoadingMoviesStatus(false));
       });
   },
 
@@ -63,6 +82,16 @@ const reducer = (state = initialState, action) => {
     case ActionType.LOAD_PROMO:
       return extend(state, {
         promoMovie: action.payload,
+      });
+
+    case ActionType.LOADING_MOVIES_STATUS:
+      return extend(state, {
+        isLoading: action.payload,
+      });
+
+    case ActionType.ERROR_STATE:
+      return extend(state, {
+        isError: action.payload,
       });
   }
 

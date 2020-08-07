@@ -11,6 +11,8 @@ import {AppRoute} from "../../consts.js";
 import Main from "../main/main.jsx";
 import MoviePage from "../movie-page/movie-page.jsx";
 import SignIn from "../sign-in/sign-in.jsx";
+import Plug, {Message} from "../plug/plug.jsx";
+import {getMovies, getLoadingState, getErrorStatus} from "../../reducer/data/selectors.js";
 
 class App extends PureComponent {
   constructor(props) {
@@ -36,7 +38,19 @@ class App extends PureComponent {
   }
 
   render() {
-    const {login} = this.props;
+    const {login, isLoading, isError} = this.props;
+    if (isLoading) {
+
+      return <Plug
+        content={Message.LOADING}
+      />;
+    }
+
+    if (isError) {
+      return <Plug
+        content={Message.ERROR}
+      />;
+    }
 
     return (
       <Router history={history}>
@@ -56,6 +70,9 @@ class App extends PureComponent {
                 onSubmit={login}
               />;
             }}
+          />
+          <Route
+            render={() => <Plug />}
           />
         </Switch>
       </Router>
@@ -89,11 +106,17 @@ App.propTypes = {
     })
   ]),
   login: PropTypes.func.isRequired,
+  isLoading: PropTypes.bool.isRequired,
+  isError: PropTypes.bool.isRequired,
+
 };
 
 const mapStateToProps = (state) => ({
   authorizationStatus: getAuthorizationStatus(state),
-  user: getUser(state)
+  user: getUser(state),
+  movies: getMovies(state),
+  isLoading: getLoadingState(state),
+  isError: getErrorStatus(state),
 });
 
 const mapDispatchToProps = (dispatch) => ({

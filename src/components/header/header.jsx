@@ -1,23 +1,22 @@
 import React from "react";
+import PropTypes from "prop-types";
 import {connect} from "react-redux";
-
 import {Link} from "react-router-dom";
+
 import {AppRoute} from "../../consts";
-import {getAuthorizationStatus, getUser} from "../../reducer/user/selectors.js";
-import { AuthorizationStatus } from "../../reducer/user/user";
+import {getAuthorizationStatus} from "../../reducer/user/selectors.js";
+import {AuthorizationStatus} from "../../reducer/user/user";
 
 
-
-const Header = ({authorizationStatus, user}) => {
-  console.log(user);
+const Header = ({authorizationStatus}) => {
 
   const isLogged = authorizationStatus === AuthorizationStatus.AUTH ?
     <div className="user-block__avatar">
-      <img src={user.avatar_url} alt="User avatar" width="63" height="63" />
+      <img src="/img/avatar.jpg" alt="User avatar" width="63" height="63" />
     </div> :
     <Link to={AppRoute.LOGIN} className="user-block__link">
       Sign in
-    </Link>
+    </Link>;
 
   return (
     <header className="page-header movie-card__head">
@@ -38,10 +37,13 @@ const Header = ({authorizationStatus, user}) => {
   );
 };
 
+Header.propTypes = {
+  authorizationStatus: PropTypes.string.isRequired,
+};
+
 const mapStateToProps = (state) => ({
   authorizationStatus: getAuthorizationStatus(state),
-  user: getUser(state)
-})
+});
 
 export {Header};
 export default connect(mapStateToProps)(Header);

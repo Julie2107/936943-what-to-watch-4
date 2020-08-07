@@ -37,6 +37,8 @@ const MoviePage = ({movies, id, onTitleClick, onActivatePlayer, onDeactivatePlay
       <use xlinkHref="#add" />
     </svg>;
 
+  const addToListHandle = () => onAddToList(movie);
+
   return (
     isActivePlayer ?
       (<WrappedFullscreen className="player__video"
@@ -71,7 +73,7 @@ const MoviePage = ({movies, id, onTitleClick, onActivatePlayer, onDeactivatePlay
                     <span>Play</span>
                   </button>
                   <button className="btn btn--list movie-card__button" type="button"
-                    onClick={() => onAddToList(movie)}
+                    onClick={addToListHandle}
                   >
                     {isInList}
                     <span>My list</span>

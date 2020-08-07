@@ -63,7 +63,9 @@ const Operation = {
         dispatch(ActionCreator.requireAuthorization(AuthorizationStatus.AUTH));
         dispatch(ActionCreator.getUserData(response.data));
       })
-
+      .catch(() => {
+        dispatch(ActionCreator.requireAuthorization(AuthorizationStatus.NO_AUTH));
+      })
   ),
 
   login: (authData) => (dispatch, getState, api) => (

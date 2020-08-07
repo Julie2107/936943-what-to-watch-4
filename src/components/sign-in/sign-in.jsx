@@ -74,6 +74,7 @@ class SignIn extends PureComponent {
                   name="user-password"
                   id="user-password"
                   ref={this.passwordRef}
+                  required
                 />
                 <label className="sign-in__label visually-hidden" htmlFor="user-password">Password</label>
               </div>
