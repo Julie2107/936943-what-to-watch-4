@@ -2,14 +2,17 @@ import React from "react";
 import PropTypes from "prop-types";
 import {connect} from "react-redux";
 
-import MoviesList from "../movies-list/movies-list.jsx";
-import GenresList from "../genres-list/genres-list.jsx";
-import {ActionCreator} from "../../reducer/state/state.js";
-import ShowMoreButton from "../show-more-button/show-more-button.jsx";
-import FullScreenVideo from "../full-screen-video/full-screen-video.jsx";
 import withFullScreenVideo from "../../hocs/with-fullscreen-video.js";
 import {getCurrentGenre, getShownMoviesNumber, getPlayerState, getMoviesByGenre} from "../../reducer/state/selectors.js";
 import {getGenres, getPromoMovie} from "../../reducer/data/selectors.js";
+import {Operation} from "../../reducer/data/data.js";
+import {ActionCreator} from "../../reducer/state/state.js";
+
+import MoviesList from "../movies-list/movies-list.jsx";
+import GenresList from "../genres-list/genres-list.jsx";
+import ShowMoreButton from "../show-more-button/show-more-button.jsx";
+import FullScreenVideo from "../full-screen-video/full-screen-video.jsx";
+import Header from "../header/header.jsx";
 
 const WrappedFullscreen = withFullScreenVideo(FullScreenVideo);
 
@@ -24,12 +27,21 @@ const Main = ({
   onTitleClick,
   onActivatePlayer,
   onDeactivatePlayer,
-  isActivePlayer}) => {
+  isActivePlayer,
+  onAddToList}) => {
 
   const moviesToRender = movies.slice(0, shownMoviesNumber);
   const isButtonToRender = shownMoviesNumber < movies.length ? <ShowMoreButton
     onButtonClick={onButtonClick}
   /> : ``;
+
+  const isInList = promoMovie.isFavorite ?
+    <svg viewBox="0 0 18 14" width="18" height="14">
+      <use xlinkHref="#in-list"></use>
+    </svg> :
+    <svg viewBox="0 0 19 20" width="19" height="20">
+      <use xlinkHref="#add" />
+    </svg>;
 
   return (
     isActivePlayer ?
@@ -45,21 +57,7 @@ const Main = ({
 
           <h1 className="visually-hidden">WTW</h1>
 
-          <header className="page-header movie-card__head">
-            <div className="logo">
-              <a className="logo__link">
-                <span className="logo__letter logo__letter--1">W</span>
-                <span className="logo__letter logo__letter--2">T</span>
-                <span className="logo__letter logo__letter--3">W</span>
-              </a>
-            </div>
-
-            <div className="user-block">
-              <div className="user-block__avatar">
-                <img src="img/avatar.jpg" alt="User avatar" width="63" height="63" />
-              </div>
-            </div>
-          </header>
+          <Header />
 
           <div className="movie-card__wrap">
             <div className="movie-card__info">
@@ -82,10 +80,10 @@ const Main = ({
                     </svg>
                     <span>Play</span>
                   </button>
-                  <button className="btn btn--list movie-card__button" type="button">
-                    <svg viewBox="0 0 19 20" width="19" height="20">
-                      <use xlinkHref="#add" />
-                    </svg>
+                  <button className="btn btn--list movie-card__button" type="button"
+                    onClick={() => onAddToList(promoMovie)}
+                  >
+                    {isInList}
                     <span>My list</span>
                   </button>
                 </div>
@@ -140,6 +138,7 @@ Main.propTypes = {
     releaseYear: PropTypes.number.isRequired,
     poster: PropTypes.string.isRequired,
     backgroundImage: PropTypes.string.isRequired,
+    isFavorite: PropTypes.bool.isRequired,
   }).isRequired,
   currentGenre: PropTypes.string.isRequired,
   onTitleClick: PropTypes.func.isRequired,
@@ -150,6 +149,7 @@ Main.propTypes = {
   isActivePlayer: PropTypes.bool.isRequired,
   onActivatePlayer: PropTypes.func.isRequired,
   onDeactivatePlayer: PropTypes.func.isRequired,
+  onAddToList: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = (state) => ({
@@ -178,6 +178,9 @@ const mapDispatchToProps = (dispatch) => ({
   onDeactivatePlayer() {
     dispatch(ActionCreator.getFullScreenState(false));
   },
+  onAddToList(movie) {
+    dispatch(Operation.changeFavoriteState(movie));
+  }
 });
 
 

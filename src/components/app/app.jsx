@@ -1,12 +1,16 @@
 import React, {PureComponent} from "react";
 import PropTypes from "prop-types";
-import {BrowserRouter, Route, Switch} from "react-router-dom";
-import {connect} from "react-redux";
+import {Router, Route, Switch} from "react-router-dom";
 
+import history from "../../history.js";
+import {getAuthorizationStatus, getUser} from "../../reducer/user/selectors.js";
+import {Operation as UserOperation} from "../../reducer/user/user.js";
+import {connect} from "react-redux";
+import {AppRoute} from "../../consts.js";
 
 import Main from "../main/main.jsx";
 import MoviePage from "../movie-page/movie-page.jsx";
-import {getCurrentMovie} from "../../reducer/state/selectors.js";
+import SignIn from "../sign-in/sign-in.jsx";
 
 class App extends PureComponent {
   constructor(props) {
@@ -23,37 +27,38 @@ class App extends PureComponent {
     );
   }
 
-  _renderMoviePage() {
-    const {movie} = this.props;
-
+  _renderMoviePage(id) {
     return (
       <MoviePage
-        movie = {movie}
+        id = {id}
       />
     );
   }
 
-  _renderApp() {
-    const {movie} = this.props;
-
-    const renderPage = movie ? this._renderMoviePage() : this._renderMain();
-
-    return renderPage;
-  }
-
   render() {
+    const {login} = this.props;
 
     return (
-      <BrowserRouter>
+      <Router history={history}>
         <Switch>
-          <Route exact path="/">
-            {this._renderApp()}
-          </Route>
-          <Route exact path="/movie-page">
-            {this._renderMoviePage()}
-          </Route>
+          <Route exact path={AppRoute.ROOT}
+            render={() => this._renderMain()}
+          />
+          <Route exact path={`${AppRoute.MOVIE}/:id`}
+            render={({match}) => {
+              const id = Number(match.params.id);
+              return this._renderMoviePage(id);
+            }}
+          />
+          <Route exact path={AppRoute.LOGIN}
+            render={() => {
+              return <SignIn
+                onSubmit={login}
+              />;
+            }}
+          />
         </Switch>
-      </BrowserRouter>
+      </Router>
     );
   }
 }
@@ -83,11 +88,19 @@ App.propTypes = {
       ).isRequired
     })
   ]),
+  login: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = (state) => ({
-  movie: getCurrentMovie(state),
+  authorizationStatus: getAuthorizationStatus(state),
+  user: getUser(state)
+});
+
+const mapDispatchToProps = (dispatch) => ({
+  login(authData) {
+    dispatch(UserOperation.login(authData));
+  }
 });
 
 export {App};
-export default connect(mapStateToProps)(App);
+export default connect(mapStateToProps, mapDispatchToProps)(App);

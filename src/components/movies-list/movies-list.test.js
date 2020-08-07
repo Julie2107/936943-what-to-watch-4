@@ -1,6 +1,9 @@
 import React from "react";
 import renderer from "react-test-renderer";
 import MoviesList from "./movies-list.jsx";
+import {Router} from "react-router-dom";
+import history from "../../history";
+
 
 const movies = [
   {title: `Mindhunter`, poster: `http://placekitten.com/245/175`, cover: `img/bg-the-grand-budapest-hotel.jpg`, genre: `drama`, releaseYear: 2000, src: ``, rating: 5, ratingNumber: 100, ratingValue: ``, starring: [``, `1`, `3`], director: ``, reviews: []},
@@ -16,12 +19,19 @@ const movies = [
 
 it(`Render movieslist`, () => {
   const tree = renderer
-    .create(<MoviesList
-      movies={movies}
-      onTitleClick={()=>{}}
-      onMouseCardHover={()=>{}}
-      onMouseCardHoverOff={()=>{}}
-    />)
+  .create(
+      <Router history={history}>
+        <MoviesList
+          movies={movies}
+          onTitleClick={()=>{}}
+          onMouseCardHover={()=>{}}
+          onMouseCardHoverOff={()=>{}}
+        />
+      </Router>, {
+        createNodeMock: () => {
+          return {};
+        }
+      })
     .toJSON();
 
   expect(tree).toMatchSnapshot();

@@ -25,6 +25,8 @@ Array [
       >
         <a
           className="logo__link"
+          href="/"
+          onClick={[Function]}
         >
           <span
             className="logo__letter logo__letter--1"
@@ -46,16 +48,13 @@ Array [
       <div
         className="user-block"
       >
-        <div
-          className="user-block__avatar"
+        <a
+          className="user-block__link"
+          href="/login"
+          onClick={[Function]}
         >
-          <img
-            alt="User avatar"
-            height="63"
-            src="img/avatar.jpg"
-            width="63"
-          />
-        </div>
+          Sign in
+        </a>
       </div>
     </header>
     <div
@@ -119,6 +118,7 @@ Array [
             </button>
             <button
               className="btn btn--list movie-card__button"
+              onClick={[Function]}
               type="button"
             >
               <svg
@@ -201,7 +201,8 @@ Array [
           >
             <a
               className="small-movie-card__link"
-              href="movie-page.html"
+              href="/films/undefined"
+              onClick={[Function]}
             >
               Mindhunter
             </a>
@@ -229,7 +230,8 @@ Array [
           >
             <a
               className="small-movie-card__link"
-              href="movie-page.html"
+              href="/films/undefined"
+              onClick={[Function]}
             >
               Aviator
             </a>
@@ -257,7 +259,8 @@ Array [
           >
             <a
               className="small-movie-card__link"
-              href="movie-page.html"
+              href="/films/undefined"
+              onClick={[Function]}
             >
               Pulp Fiction
             </a>
@@ -285,7 +288,8 @@ Array [
           >
             <a
               className="small-movie-card__link"
-              href="movie-page.html"
+              href="/films/undefined"
+              onClick={[Function]}
             >
               Midnight Special
             </a>
@@ -313,7 +317,8 @@ Array [
           >
             <a
               className="small-movie-card__link"
-              href="movie-page.html"
+              href="/films/undefined"
+              onClick={[Function]}
             >
               Fantastic Beasts: The Crimes of Grindelwald
             </a>
@@ -341,7 +346,8 @@ Array [
           >
             <a
               className="small-movie-card__link"
-              href="movie-page.html"
+              href="/films/undefined"
+              onClick={[Function]}
             >
               No Country for Old Men
             </a>
@@ -369,7 +375,8 @@ Array [
           >
             <a
               className="small-movie-card__link"
-              href="movie-page.html"
+              href="/films/undefined"
+              onClick={[Function]}
             >
               Orlando
             </a>
@@ -397,7 +404,8 @@ Array [
           >
             <a
               className="small-movie-card__link"
-              href="movie-page.html"
+              href="/films/undefined"
+              onClick={[Function]}
             >
               Macbeth
             </a>
