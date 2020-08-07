@@ -43,6 +43,9 @@ it(`Render Main`, () => {
     [NameSpace.DATA]: {
       movies: mockMovies,
       promoMovie: movie,
+    },
+    [NameSpace.USER]: {
+      authorizationStatus: false
     }
   });
   const tree = renderer
@@ -58,6 +61,7 @@ it(`Render Main`, () => {
               currentGenre = {`All genres`}
               onButtonClick = {() => {}}
               shownMoviesNumber = {8}
+              authorizationStatus={false}
             />
           </Provider>
         </Router>, {

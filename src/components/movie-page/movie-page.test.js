@@ -89,6 +89,9 @@ it(`Render movie-page`, () => {
     [NameSpace.DATA]: {
       movies: mockMovies,
       promoMovie: mockMovie,
+    },
+    [NameSpace.USER]: {
+      authorizationStatus: false
     }
   });
   const tree = renderer
@@ -99,6 +102,7 @@ it(`Render movie-page`, () => {
               movie={mockMovie}
               movies={mockMovies}
               onTitleClick={()=>{}}
+              authorizationStatus={false}
             />
           </Provider>
         </Router>, {

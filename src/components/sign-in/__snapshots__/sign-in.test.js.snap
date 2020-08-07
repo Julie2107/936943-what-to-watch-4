@@ -80,6 +80,7 @@ exports[`SignIn page is rendered correctly 1`] = `
             id="user-password"
             name="user-password"
             placeholder="Password"
+            required={true}
             type="password"
           />
           <label
