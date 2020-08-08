@@ -13,6 +13,8 @@ import Main from "../main/main.jsx";
 import MoviePage from "../movie-page/movie-page.jsx";
 import SignIn from "../sign-in/sign-in.jsx";
 import Plug, {Message} from "../plug/plug.jsx";
+import PrivateRoute from "../../private-route.jsx";
+import AddReview from "../add-review/add-review.jsx";
 
 class App extends PureComponent {
   constructor(props) {
@@ -73,6 +75,15 @@ class App extends PureComponent {
           />
           <Route
             render={() => <Plug />}
+          />
+          <PrivateRoute
+            path={`${AppRoute.MOVIE}/:id${AppRoute.REVIEW}`}
+            render={({match}) => {
+              const id = Number(match.params.id);
+              return <AddReview
+                id={id}
+                onFormSubmit={onFormSubmit} />;
+            }}
           />
         </Switch>
       </Router>

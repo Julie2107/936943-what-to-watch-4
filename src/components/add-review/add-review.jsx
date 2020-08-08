@@ -1,5 +1,6 @@
 import React, {PureComponent} from "react";
 import PropTypes from "prop-types";
+import {Header} from "../header/header.jsx";
 
 class AddReview extends PureComponent {
   constructor(props) {
@@ -33,9 +34,7 @@ class AddReview extends PureComponent {
           </div>
 
           <h1 className="visually-hidden">WTW</h1>
-
           <Header
-            authorisationStatus={authorisationStatus}
             title={this._headerTitleMarkup}
           />
 
@@ -79,3 +78,5 @@ class AddReview extends PureComponent {
     );
   }
 }
+
+export default AddReview;

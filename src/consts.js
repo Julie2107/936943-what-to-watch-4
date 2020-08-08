@@ -17,4 +17,5 @@ export const AppRoute = {
   MY_LIST: `/mylist`,
   MOVIE: `/films`,
   PLAYER: `/player`,
+  REVIEW: `/review`,
 };
