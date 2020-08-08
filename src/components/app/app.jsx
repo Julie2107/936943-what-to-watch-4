@@ -15,6 +15,9 @@ import SignIn from "../sign-in/sign-in.jsx";
 import Plug, {Message} from "../plug/plug.jsx";
 import PrivateRoute from "../../private-route.jsx";
 import AddReview from "../add-review/add-review.jsx";
+import withAddReview from "../../hocs/with-add-review.js";
+
+const WrappedAddReview = withAddReview(AddReview);
 
 class App extends PureComponent {
   constructor(props) {
@@ -73,17 +76,18 @@ class App extends PureComponent {
               />;
             }}
           />
-          <Route
-            render={() => <Plug />}
-          />
           <PrivateRoute
             path={`${AppRoute.MOVIE}/:id${AppRoute.REVIEW}`}
             render={({match}) => {
               const id = Number(match.params.id);
-              return <AddReview
+              return <WrappedAddReview
                 id={id}
-                onFormSubmit={onFormSubmit} />;
+                onFormSubmit={()=>{}}
+              />;
             }}
+          />
+          <Route
+            render={() => <Plug />}
           />
         </Switch>
       </Router>

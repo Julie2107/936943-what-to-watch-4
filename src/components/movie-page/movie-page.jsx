@@ -13,8 +13,8 @@ import {ActionCreator} from "../../reducer/state/state.js";
 import {getPlayerState} from "../../reducer/state/selectors.js";
 import {getMovies, getReviews} from "../../reducer/data/selectors.js";
 import {Operation as DataOperation} from "../../reducer/data/data.js";
-import { Link } from "react-router-dom";
-import { AppRoute } from "../../consts.js";
+import {Link} from "react-router-dom";
+import {AppRoute} from "../../consts.js";
 
 
 const WrappedFullscreen = withFullScreenVideo(FullScreenVideo);
@@ -159,6 +159,16 @@ MoviePage.propTypes = {
   onActivatePlayer: PropTypes.func.isRequired,
   onDeactivatePlayer: PropTypes.func.isRequired,
   onAddToList: PropTypes.func.isRequired,
+  reviews: PropTypes.arrayOf(
+      PropTypes.shape({
+        id: PropTypes.number.isRequired,
+        author: PropTypes.string.isRequired,
+        userId: PropTypes.number.isRequired,
+        rating: PropTypes.number.isRequired,
+        date: PropTypes.string.isRequired,
+        message: PropTypes.string.isRequired,
+      }).isRequired
+  ).isRequired
 };
 
 const mapStateToProps = (state) => ({

@@ -82,6 +82,16 @@ Tabs.propTypes = {
   ]),
   onTabClick: PropTypes.func.isRequired,
   activeTab: PropTypes.string.isRequired,
+  reviews: PropTypes.arrayOf(
+      PropTypes.shape({
+        id: PropTypes.number.isRequired,
+        author: PropTypes.string.isRequired,
+        userId: PropTypes.number.isRequired,
+        rating: PropTypes.number.isRequired,
+        date: PropTypes.string.isRequired,
+        message: PropTypes.string.isRequired,
+      }).isRequired
+  ).isRequired
 };
 
 

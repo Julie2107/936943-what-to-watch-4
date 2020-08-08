@@ -15,7 +15,8 @@ const ActionType = {
   LOAD_PROMO: `LOAD_PROMO`,
   LOAD_REVIEWS: `LOAD_REVIEWS`,
   LOADING_MOVIES_STATUS: `LOADING_MOVIES_STATUS`,
-  ERROR_STATE: `ERROR_STATE`
+  ERROR_STATE: `ERROR_STATE`,
+  POST_REVIEW: `POST_REVIEW`,
 };
 
 const ActionDataCreator = {
@@ -86,7 +87,12 @@ const Operation = {
       dispatch(Operation.loadMovies());
       dispatch(Operation.loadPromoMovie());
     });
+  },
+
+  sendNewReview: (id, review) => (dispatch, getState, api) => {
+    // тут ActionCreator на sending status
   }
+
 };
 
 const reducer = (state = initialState, action) => {

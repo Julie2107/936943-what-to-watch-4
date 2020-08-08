@@ -1,8 +1,9 @@
 import React, {PureComponent, createRef} from "react";
 import PropTypes from "prop-types";
-import Header from "../header/header.jsx";
-import {getAuthorizationStatus, getAuthorizationError} from "../../reducer/user/selectors.js";
+import {Link} from "react-router-dom";
 import {connect} from "react-redux";
+
+import {getAuthorizationStatus, getAuthorizationError} from "../../reducer/user/selectors.js";
 import {Operation as UserOperation, AuthorizationStatus} from "../../reducer/user/user.js";
 import {Redirect} from "react-router-dom";
 import {AppRoute} from "../../consts.js";
@@ -43,14 +44,22 @@ class SignIn extends PureComponent {
       return <Redirect to={AppRoute.ROOT} />;
     }
 
-    const headerTitle = <h1 className="page-title user-page__title">Sign in</h1>;
 
     return (
       <div className="user-page">
-        <Header
-          title={headerTitle}
-        />
+        <header className="page-header user-page__head">
+          <div className="logo">
+            <Link
+              className="logo__link"
+              to={AppRoute.ROOT}>
+              <span className="logo__letter logo__letter--1">W</span>
+              <span className="logo__letter logo__letter--2">T</span>
+              <span className="logo__letter logo__letter--3">W</span>
+            </Link>
+          </div>
 
+          <h1 className="page-title user-page__title">Sign in</h1>
+        </header>
         <div className="sign-in user-page__content">
           <form
             action=""
