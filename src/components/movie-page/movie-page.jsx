@@ -13,6 +13,8 @@ import {ActionCreator} from "../../reducer/state/state.js";
 import {getPlayerState} from "../../reducer/state/selectors.js";
 import {getMovies, getReviews} from "../../reducer/data/selectors.js";
 import {Operation as DataOperation} from "../../reducer/data/data.js";
+import { Link } from "react-router-dom";
+import { AppRoute } from "../../consts.js";
 
 
 const WrappedFullscreen = withFullScreenVideo(FullScreenVideo);
@@ -81,7 +83,10 @@ const MoviePage = ({movies, reviews, id, onTitleClick, onActivatePlayer, onDeact
                     {isInList}
                     <span>My list</span>
                   </button>
-                  <a href="add-review.html" className="btn movie-card__button">Add review</a>
+                  <Link to={`${AppRoute.MOVIE}/${id}${AppRoute.REVIEW}`}
+                    className="btn btn--review movie-card__button">
+                    Add review
+                  </Link>
                 </div>
               </div>
             </div>
