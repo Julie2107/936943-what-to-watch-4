@@ -53,6 +53,7 @@ Array [
             </span>
           </a>
         </div>
+        
         <div
           className="user-block"
         >
@@ -130,8 +131,9 @@ Array [
               </span>
             </button>
             <a
-              className="btn movie-card__button"
-              href="add-review.html"
+              className="btn btn--review movie-card__button"
+              href="/films/undefined/review"
+              onClick={[Function]}
             >
               Add review
             </a>
