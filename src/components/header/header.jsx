@@ -8,7 +8,7 @@ import {getAuthorizationStatus} from "../../reducer/user/selectors.js";
 import {AuthorizationStatus} from "../../reducer/user/user";
 
 
-const Header = ({authorizationStatus}) => {
+const Header = ({authorizationStatus, title}) => {
 
   const isLogged = authorizationStatus === AuthorizationStatus.AUTH ?
     <div className="user-block__avatar">
@@ -29,7 +29,7 @@ const Header = ({authorizationStatus}) => {
           <span className="logo__letter logo__letter--3">W</span>
         </Link>
       </div>
-
+      {title}
       <div className="user-block">
         {isLogged}
       </div>
@@ -39,6 +39,10 @@ const Header = ({authorizationStatus}) => {
 
 Header.propTypes = {
   authorizationStatus: PropTypes.string.isRequired,
+  title: PropTypes.oneOfType([
+    PropTypes.string,
+    PropTypes.func
+  ])
 };
 
 const mapStateToProps = (state) => ({

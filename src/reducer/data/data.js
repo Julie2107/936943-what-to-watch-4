@@ -1,16 +1,19 @@
 import {extend} from "../../utils.js";
 import movieAdapter from "../../adapters/movies-adapter.js";
+import reviewAdapter from "../../adapters/review-adapter.js";
 
 const initialState = {
   promoMovie: [],
   movies: [],
   isLoading: true,
   isError: false,
+  reviews: [],
 };
 
 const ActionType = {
   LOAD_MOVIES: `LOAD_MOVIES`,
   LOAD_PROMO: `LOAD_PROMO`,
+  LOAD_REVIEWS: `LOAD_REVIEWS`,
   LOADING_MOVIES_STATUS: `LOADING_MOVIES_STATUS`,
   ERROR_STATE: `ERROR_STATE`
 };
@@ -28,6 +31,13 @@ const ActionDataCreator = {
       type: ActionType.LOAD_PROMO,
       payload: promoMovie,
     };
+  },
+
+  loadReviews: (reviews) => {
+    return {
+      type: ActionType.LOAD_REVIEWS,
+      payload: reviews,
+    }
   },
 
   setLoadingMoviesStatus: (status) => ({
@@ -62,6 +72,13 @@ const Operation = {
     });
   },
 
+  loadReviews: (id) => (dispatch, getState, api) => {
+    return api.get(`/comments/${id}`)
+    .then((response) => {
+      dispatch(ActionDataCreator.loadReviews(response.data.map((review) => reviewAdapter(review))));
+    });
+  },
+
   changeFavoriteState: (movie) => (dispatch, getState, api) => {
     return api.post(`/favorite/${movie.id}/${movie.isFavorite ? 0 : 1}`)
     .then(() => {
@@ -92,6 +109,11 @@ const reducer = (state = initialState, action) => {
     case ActionType.ERROR_STATE:
       return extend(state, {
         isError: action.payload,
+      });
+
+    case ActionType.LOAD_REVIEWS:
+      return extend(state, {
+        reviews: action.payload,
       });
   }
 

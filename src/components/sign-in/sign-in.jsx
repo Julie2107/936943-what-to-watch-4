@@ -43,9 +43,13 @@ class SignIn extends PureComponent {
       return <Redirect to={AppRoute.ROOT} />;
     }
 
+    const headerTitle = <h1 className="page-title user-page__title">Sign in</h1>;
+
     return (
       <div className="user-page">
-        <Header />
+        <Header
+          title={headerTitle}
+        />
 
         <div className="sign-in user-page__content">
           <form

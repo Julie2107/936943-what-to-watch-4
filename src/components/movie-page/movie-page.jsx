@@ -5,14 +5,15 @@ import {connect} from "react-redux";
 import MoviesList from "../movies-list/movies-list.jsx";
 import Tabs from "../tabs/tabs.jsx";
 import withActiveTab from "../../hocs/with-active-tab.js";
-import {ActionCreator} from "../../reducer/state/state.js";
-
 import FullScreenVideo from "../full-screen-video/full-screen-video.jsx";
 import withFullScreenVideo from "../../hocs/with-fullscreen-video.js";
-import {getPlayerState} from "../../reducer/state/selectors.js";
-import {getMovies} from "../../reducer/data/selectors.js";
 import Header from "../header/header.jsx";
-import {Operation} from "../../reducer/data/data.js";
+
+import {ActionCreator} from "../../reducer/state/state.js";
+import {getPlayerState} from "../../reducer/state/selectors.js";
+import {getMovies, getReviews} from "../../reducer/data/selectors.js";
+import {Operation as DataOperation} from "../../reducer/data/data.js";
+
 
 const WrappedFullscreen = withFullScreenVideo(FullScreenVideo);
 
@@ -25,7 +26,7 @@ const getSimilarMovies = (movies, movie) => {
   return movies.filter((film) => film.genre === movie.genre).slice(0, SIMILAR_MOVIES_NUMBER);
 };
 
-const MoviePage = ({movies, id, onTitleClick, onActivatePlayer, onDeactivatePlayer, isActivePlayer, onAddToList}) => {
+const MoviePage = ({movies, reviews, id, onTitleClick, onActivatePlayer, onDeactivatePlayer, isActivePlayer, onAddToList}) => {
 
   const movie = movies.find((movieItem) => movieItem.id === id);
 
@@ -54,7 +55,9 @@ const MoviePage = ({movies, id, onTitleClick, onActivatePlayer, onDeactivatePlay
 
             <h1 className="visually-hidden">WTW</h1>
 
-            <Header />
+            <Header
+              title={``}
+            />
 
             <div className="movie-card__wrap">
               <div className="movie-card__desc">
@@ -92,6 +95,7 @@ const MoviePage = ({movies, id, onTitleClick, onActivatePlayer, onDeactivatePlay
 
               <WrappedTabs
                 movie={movie}
+                reviews={reviews}
               />
 
             </div>
@@ -155,11 +159,13 @@ MoviePage.propTypes = {
 const mapStateToProps = (state) => ({
   movies: getMovies(state),
   isActivePlayer: getPlayerState(state),
+  reviews: getReviews(state),
 });
 
 const mapDispatchToProps = (dispatch) => ({
   onTitleClick(movie) {
     dispatch(ActionCreator.getCurrentMovie(movie));
+    dispatch(DataOperation.loadReviews(movie.id));
   },
   onActivatePlayer() {
     dispatch(ActionCreator.getFullScreenState(true));
@@ -168,7 +174,7 @@ const mapDispatchToProps = (dispatch) => ({
     dispatch(ActionCreator.getFullScreenState(false));
   },
   onAddToList(movie) {
-    dispatch(Operation.changeFavoriteState(movie));
+    dispatch(DataOperation.changeFavoriteState(movie));
   }
 });
 

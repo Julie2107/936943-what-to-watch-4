@@ -6,9 +6,12 @@ import PropTypes from "prop-types";
 const getFavoriteMovies = (movies) => movies.filter((movie) => movie.isFavorite);
 
 const MyList = ({movies, onTitleClick}) => {
+  const headerTitle = <h1 className="page-title user-page__title">My list</h1>;
   return (
     <div className="user-page">
-      <Header />
+      <Header
+        title={headerTitle}
+      />
       <section className="catalog">
         <h2 className="catalog__title visually-hidden">Catalog</h2>
 

@@ -5,7 +5,7 @@ import {connect} from "react-redux";
 import withFullScreenVideo from "../../hocs/with-fullscreen-video.js";
 import {getCurrentGenre, getShownMoviesNumber, getPlayerState, getMoviesByGenre} from "../../reducer/state/selectors.js";
 import {getGenres, getPromoMovie} from "../../reducer/data/selectors.js";
-import {Operation} from "../../reducer/data/data.js";
+import {Operation as DataOperation} from "../../reducer/data/data.js";
 import {ActionCreator} from "../../reducer/state/state.js";
 
 import MoviesList from "../movies-list/movies-list.jsx";
@@ -57,7 +57,9 @@ const Main = ({
 
           <h1 className="visually-hidden">WTW</h1>
 
-          <Header />
+          <Header
+            title={``}
+          />
 
           <div className="movie-card__wrap">
             <div className="movie-card__info">
@@ -171,6 +173,7 @@ const mapDispatchToProps = (dispatch) => ({
   },
   onTitleClick(movie) {
     dispatch(ActionCreator.getCurrentMovie(movie));
+    dispatch(DataOperation.loadReviews(movie.id));
   },
   onActivatePlayer() {
     dispatch(ActionCreator.getFullScreenState(true));
@@ -179,7 +182,7 @@ const mapDispatchToProps = (dispatch) => ({
     dispatch(ActionCreator.getFullScreenState(false));
   },
   onAddToList(movie) {
-    dispatch(Operation.changeFavoriteState(movie));
+    dispatch(DataOperation.changeFavoriteState(movie));
   }
 });
 

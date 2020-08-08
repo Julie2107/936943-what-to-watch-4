@@ -6,8 +6,7 @@ import OverviewTab from "../overview-tab/overview-tab.jsx";
 import DetailsTab from "../details-tab/details-tab.jsx";
 import ReviewsTab from "../reviews-tab/reviews-tab.jsx";
 
-const renderTab = (currentTab, movie) => {
-
+const renderTab = (currentTab, movie, reviews) => {
   const tabPages = {
     Overview:
       <OverviewTab
@@ -19,14 +18,14 @@ const renderTab = (currentTab, movie) => {
       />,
     Reviews:
       <ReviewsTab
-        reviews={movie.reviews}
+        reviews={reviews}
       />
   };
 
   return tabPages[currentTab];
 };
 
-const Tabs = ({onTabClick, activeTab, movie}) => {
+const Tabs = ({onTabClick, activeTab, movie, reviews}) => {
   const tabValues = Object.values(TabType);
 
   const tabClickHandler = (value) => {
@@ -59,7 +58,7 @@ const Tabs = ({onTabClick, activeTab, movie}) => {
           {tabsList}
         </ul>
       </nav>
-      {renderTab(activeTab, movie)}
+      {renderTab(activeTab, movie, reviews)}
     </div>
   );
 };
@@ -84,5 +83,6 @@ Tabs.propTypes = {
   onTabClick: PropTypes.func.isRequired,
   activeTab: PropTypes.string.isRequired,
 };
+
 
 export default Tabs;
