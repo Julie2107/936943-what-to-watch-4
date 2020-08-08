@@ -1,6 +1,7 @@
 import {extend} from "../../utils.js";
 import movieAdapter from "../../adapters/movies-adapter.js";
 import reviewAdapter from "../../adapters/review-adapter.js";
+import history from "../../history.js";
 
 const initialState = {
   promoMovie: [],
@@ -8,6 +9,7 @@ const initialState = {
   isLoading: true,
   isError: false,
   reviews: [],
+  sendingReviewStatus: false,
 };
 
 const ActionType = {
@@ -17,6 +19,7 @@ const ActionType = {
   LOADING_MOVIES_STATUS: `LOADING_MOVIES_STATUS`,
   ERROR_STATE: `ERROR_STATE`,
   POST_REVIEW: `POST_REVIEW`,
+  SENDING_REVIEW: `SENDING_REVIEW`,
 };
 
 const ActionDataCreator = {
@@ -38,7 +41,7 @@ const ActionDataCreator = {
     return {
       type: ActionType.LOAD_REVIEWS,
       payload: reviews,
-    }
+    };
   },
 
   setLoadingMoviesStatus: (status) => ({
@@ -49,6 +52,11 @@ const ActionDataCreator = {
   setErrorState: (status) => ({
     type: ActionType.ERROR_STATE,
     payload: status
+  }),
+
+  setSendingReviewStatus: (status) => ({
+    type: ActionType.SENDING_REVIEW,
+    payload: status,
   })
 };
 
@@ -90,7 +98,19 @@ const Operation = {
   },
 
   sendNewReview: (id, review) => (dispatch, getState, api) => {
-    // тут ActionCreator на sending status
+    dispatch(ActionDataCreator.setSendingReviewStatus(true));
+
+    return api.post(`/comments/${id}`, review)
+      .then(() => {
+        dispatch(ActionDataCreator.setSendingReviewStatus(false));
+      })
+      .then(() => {
+        dispatch(Operation.loadReviews(id));
+        history.goBack();
+      })
+      .catch(() => {
+        dispatch(ActionDataCreator.setSendingReviewStatus(false));
+      });
   }
 
 };
@@ -120,6 +140,11 @@ const reducer = (state = initialState, action) => {
     case ActionType.LOAD_REVIEWS:
       return extend(state, {
         reviews: action.payload,
+      });
+
+    case ActionType.SENDING_REVIEW:
+      return extend(state, {
+        sendingReviewStatus: action.payload,
       });
   }
 

@@ -1,17 +1,24 @@
 import React from "react";
 import PropTypes from "prop-types";
 import {Header} from "../header/header.jsx";
-import {getMovies} from "../../reducer/data/selectors.js";
+import {getMovies, getSendingReviewStatus} from "../../reducer/data/selectors.js";
 import {connect} from "react-redux";
+import {AppRoute} from "../../consts.js";
+import {Link} from "react-router-dom";
 
-const AddReview = ({id, movies, onFormSubmit, onRatingChange, onCommentChange}) => {
+const AddReview = ({id, movies, onFormSubmit, onRatingChange, onCommentChange, isSending, isValid}) => {
   const movie = movies.find((movieItem) => movieItem.id === id);
+  const isDisabled = isSending || !isValid;
 
   const headerTitleMarkup =
     <nav className="breadcrumbs">
       <ul className="breadcrumbs__list">
         <li className="breadcrumbs__item">
-          <a href="movie-page.html" className="breadcrumbs__link">{movie.title}</a>
+          <Link to={`${AppRoute.MOVIE}/${id}`}
+            className="breadcrumbs__link"
+          >
+            {movie.title}
+          </Link>
         </li>
         <li className="breadcrumbs__item">
           <a className="breadcrumbs__link">Add review</a>
@@ -71,7 +78,9 @@ const AddReview = ({id, movies, onFormSubmit, onRatingChange, onCommentChange}) 
 
             ></textarea>
             <div className="add-review__submit">
-              <button className="add-review__btn" type="submit"> Post</button>
+              <button className="add-review__btn" type="submit"
+                disabled={isDisabled}
+              > Post</button>
             </div>
 
           </div>
@@ -88,10 +97,13 @@ AddReview.propTypes = {
   onFormSubmit: PropTypes.func.isRequired,
   onRatingChange: PropTypes.func.isRequired,
   onCommentChange: PropTypes.func.isRequired,
+  isSending: PropTypes.bool.isRequired,
+  isValid: PropTypes.bool.isRequired,
 };
 
 const mapStateToProps = (state) => ({
   movies: getMovies(state),
+  isSending: getSendingReviewStatus(state),
 });
 
 export default connect(mapStateToProps)(AddReview);

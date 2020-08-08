@@ -6,6 +6,8 @@ import history from "../../history.js";
 
 import {getAuthorizationStatus, getUser} from "../../reducer/user/selectors.js";
 import {Operation as UserOperation} from "../../reducer/user/user.js";
+import {Operation as DataOperation} from "../../reducer/data/data.js";
+
 import {AppRoute} from "../../consts.js";
 import {getMovies, getLoadingState, getErrorStatus} from "../../reducer/data/selectors.js";
 
@@ -43,7 +45,7 @@ class App extends PureComponent {
   }
 
   render() {
-    const {login, isLoading, isError} = this.props;
+    const {login, isLoading, isError, onFormSubmit} = this.props;
     if (isLoading) {
 
       return <Plug
@@ -82,7 +84,7 @@ class App extends PureComponent {
               const id = Number(match.params.id);
               return <WrappedAddReview
                 id={id}
-                onFormSubmit={()=>{}}
+                onFormSubmit={onFormSubmit}
               />;
             }}
           />
@@ -123,6 +125,7 @@ App.propTypes = {
   login: PropTypes.func.isRequired,
   isLoading: PropTypes.bool.isRequired,
   isError: PropTypes.bool.isRequired,
+  onFormSubmit: PropTypes.func.isRequired,
 
 };
 
@@ -137,6 +140,9 @@ const mapStateToProps = (state) => ({
 const mapDispatchToProps = (dispatch) => ({
   login(authData) {
     dispatch(UserOperation.login(authData));
+  },
+  onFormSubmit(id, review) {
+    dispatch(DataOperation.sendNewReview(id, review));
   }
 });
 

@@ -2,6 +2,10 @@ import React, {PureComponent} from "react";
 import PropTypes from "prop-types";
 
 const DEFAULT_VALUE = 3;
+const ReviewValue = {
+  MIN_VALUE: 50,
+  MAX_VALUE: 400,
+};
 
 const withAddReview = (Component) => {
   class WithAddReviewForm extends PureComponent {
@@ -11,6 +15,7 @@ const withAddReview = (Component) => {
       this.state = {
         rating: DEFAULT_VALUE,
         comment: ``,
+        isValid: false,
       };
 
       this._handleFormSubmit = this._handleFormSubmit.bind(this);
@@ -37,8 +42,16 @@ const withAddReview = (Component) => {
 
     _handleCommentChange(evt) {
       this.setState({
-        comment: evt.target.value
+        comment: evt.target.value,
+        isValid: this._validateForm(evt.target.value)
       });
+    }
+
+    _validateForm(target) {
+      if (ReviewValue.MIN_VALUE < target || target > ReviewValue.MAX_VALUE) {
+        return false;
+      }
+      return true;
     }
 
     render() {
@@ -47,6 +60,7 @@ const withAddReview = (Component) => {
         onFormSubmit={this._handleFormSubmit}
         onRatingChange={this._handleRatingChange}
         onCommentChange={this._handleCommentChange}
+        isValid={this.state.isValid}
       />);
     }
   }
