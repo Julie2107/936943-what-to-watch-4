@@ -4,7 +4,7 @@ import reviewAdapter from "../../adapters/review-adapter.js";
 import history from "../../history.js";
 
 const initialState = {
-  promoMovie: [],
+  promoMovie: {},
   movies: [],
   isLoading: true,
   isError: false,
