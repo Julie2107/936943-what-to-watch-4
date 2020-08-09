@@ -77,7 +77,6 @@ FullScreenVideo.propTypes = {
     src: PropTypes.string.isRequired,
     poster: PropTypes.string.isRequired,
   }).isRequired,
-  onDeactivatePlayer: PropTypes.func.isRequired,
   isPlaying: PropTypes.bool.isRequired,
   onPlayButtonClick: PropTypes.func.isRequired,
   children: PropTypes.element.isRequired,

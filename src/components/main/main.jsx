@@ -1,7 +1,8 @@
 import React from "react";
 import PropTypes from "prop-types";
 import {connect} from "react-redux";
-import {Link, Redirect} from "react-router-dom";
+import {Link} from "react-router-dom";
+import history from "../../history.js";
 
 import {getCurrentGenre, getShownMoviesNumber, getMoviesByGenre} from "../../reducer/state/selectors.js";
 import {getGenres, getPromoMovie} from "../../reducer/movies/selectors.js";
@@ -44,8 +45,7 @@ const Main = ({
 
   const addToListHandle = () => onAddToList(promoMovie);
 
-  const routeMyList = () => isAuth === AuthorizationStatus.AUTH ? addToListHandle() : <Redirect to={`${AppRoute.LOGIN}`}/>;
-
+  const routeMyList = () => isAuth === AuthorizationStatus.AUTH ? addToListHandle() : history.push((AppRoute.LOGIN));
   return (
       <>
         <section className="movie-card">
