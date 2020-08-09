@@ -4,7 +4,7 @@ import configureStore from 'redux-mock-store';
 import NameSpace from "../../reducer/name-space";
 import MyList from "./my-list";
 import {Provider} from "react-redux";
-import { Router } from "react-router-dom";
+import {Router} from "react-router-dom";
 import history from "../../history";
 
 const mockStore = configureStore([]);
