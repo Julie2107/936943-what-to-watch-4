@@ -1,20 +1,19 @@
 import React from "react";
 import PropTypes from "prop-types";
 import {Header} from "../header/header.jsx";
-import {getMovies, getSendingReviewStatus} from "../../reducer/data/selectors.js";
+import {getSendingReviewStatus} from "../../reducer/data/selectors.js";
 import {connect} from "react-redux";
 import {AppRoute} from "../../consts.js";
 import {Link} from "react-router-dom";
 
-const AddReview = ({id, movies, onFormSubmit, onRatingChange, onCommentChange, isSending, isValid}) => {
-  const movie = movies.find((movieItem) => movieItem.id === id);
+const AddReview = ({movie, onFormSubmit, onRatingChange, onCommentChange, isSending, isValid}) => {
   const isDisabled = isSending || !isValid;
 
   const headerTitleMarkup =
     <nav className="breadcrumbs">
       <ul className="breadcrumbs__list">
         <li className="breadcrumbs__item">
-          <Link to={`${AppRoute.MOVIE}/${id}`}
+          <Link to={`${AppRoute.MOVIE}/${movie.id}`}
             className="breadcrumbs__link"
           >
             {movie.title}
@@ -92,8 +91,12 @@ const AddReview = ({id, movies, onFormSubmit, onRatingChange, onCommentChange, i
 };
 
 AddReview.propTypes = {
-  movies: PropTypes.array.isRequired,
-  id: PropTypes.number.isRequired,
+  movie: PropTypes.shape({
+    id: PropTypes.number.isRequired,
+    title: PropTypes.string.isRequired,
+    poster: PropTypes.string.isRequired,
+    backgroundImage: PropTypes.string.isRequired,
+  }).isRequired,
   onFormSubmit: PropTypes.func.isRequired,
   onRatingChange: PropTypes.func.isRequired,
   onCommentChange: PropTypes.func.isRequired,
@@ -102,7 +105,6 @@ AddReview.propTypes = {
 };
 
 const mapStateToProps = (state) => ({
-  movies: getMovies(state),
   isSending: getSendingReviewStatus(state),
 });
 

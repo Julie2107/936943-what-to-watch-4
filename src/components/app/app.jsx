@@ -96,7 +96,7 @@ class App extends PureComponent {
             render={({match}) => {
               const id = Number(match.params.id);
               return <WrappedAddReview
-                id={id}
+                movie={getMovieById(movies, id)}
                 onFormSubmit={onFormSubmit}
               />;
             }}

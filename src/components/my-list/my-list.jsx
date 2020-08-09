@@ -6,20 +6,20 @@ import MoviesList from "../movies-list/movies-list.jsx";
 import {getMyMoviesList} from "../../reducer/data/selectors.js";
 import {connect} from "react-redux";
 
-const getFavoriteMovies = (movies) => movies.filter((movie) => movie.isFavorite);
-
 const MyList = ({movies, onTitleClick}) => {
   const headerTitle = <h1 className="page-title user-page__title">My list</h1>;
+
   return (
     <div className="user-page">
       <Header
         title={headerTitle}
+        addClass={`user-page__head`}
       />
       <section className="catalog">
         <h2 className="catalog__title visually-hidden">Catalog</h2>
 
         <MoviesList
-          movies={getFavoriteMovies(movies)}
+          movies={movies}
           onTitleClick={onTitleClick}
         />
       </section>

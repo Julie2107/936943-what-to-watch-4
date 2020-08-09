@@ -9,7 +9,7 @@ import {AuthorizationStatus} from "../../reducer/user/user";
 import {Operation as DataOperation} from "../../reducer/data/data";
 
 
-const Header = ({authorizationStatus, title, onMyListClick}) => {
+const Header = ({authorizationStatus, title, onMyListClick, addClass}) => {
 
   const isLogged = authorizationStatus === AuthorizationStatus.AUTH ?
     <Link to={AppRoute.MY_LIST}
@@ -23,8 +23,10 @@ const Header = ({authorizationStatus, title, onMyListClick}) => {
       Sign in
     </Link>;
 
+  const className = `page-header ${addClass}`;
+
   return (
-    <header className="page-header movie-card__head">
+    <header className={className}>
       <div className="logo">
         <Link
           className="logo__link"
@@ -49,6 +51,7 @@ Header.propTypes = {
     PropTypes.func
   ]).isRequired,
   onMyListClick: PropTypes.func.isRequired,
+  addClass: PropTypes.string.isRequired,
 };
 
 const mapStateToProps = (state) => ({
