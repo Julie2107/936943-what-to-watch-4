@@ -7,6 +7,8 @@ import {getCurrentGenre, getShownMoviesNumber, getMoviesByGenre} from "../../red
 import {getGenres, getPromoMovie} from "../../reducer/data/selectors.js";
 import {Operation as DataOperation} from "../../reducer/data/data.js";
 import {ActionCreator} from "../../reducer/state/state.js";
+import {getAuthorizationStatus} from "../../reducer/user/selectors.js";
+import {AuthorizationStatus} from "../../reducer/user/user.js";
 
 import MoviesList from "../movies-list/movies-list.jsx";
 import GenresList from "../genres-list/genres-list.jsx";
@@ -14,6 +16,7 @@ import ShowMoreButton from "../show-more-button/show-more-button.jsx";
 import Header from "../header/header.jsx";
 
 import {AppRoute} from "../../consts.js";
+import history from "../../history.js";
 
 const Main = ({
   promoMovie,
@@ -24,7 +27,8 @@ const Main = ({
   onButtonClick,
   shownMoviesNumber,
   onTitleClick,
-  onAddToList}) => {
+  onAddToList,
+  isAuth}) => {
 
   const moviesToRender = movies.slice(0, shownMoviesNumber);
   const isButtonToRender = shownMoviesNumber < movies.length ? <ShowMoreButton
@@ -38,6 +42,10 @@ const Main = ({
     <svg viewBox="0 0 19 20" width="19" height="20">
       <use xlinkHref="#add" />
     </svg>;
+
+  const addToListHandle = () => onAddToList(promoMovie);
+
+  const routeMyList = () => isAuth === AuthorizationStatus.AUTH ? addToListHandle() : history.push(AppRoute.LOGIN);
 
   return (
       <>
@@ -75,7 +83,7 @@ const Main = ({
                     <span>Play</span>
                   </Link>
                   <button className="btn btn--list movie-card__button" type="button"
-                    onClick={() => onAddToList(promoMovie)}
+                    onClick={routeMyList}
                   >
                     {isInList}
                     <span>My list</span>
@@ -142,6 +150,7 @@ Main.propTypes = {
   onButtonClick: PropTypes.func.isRequired,
   shownMoviesNumber: PropTypes.number.isRequired,
   onAddToList: PropTypes.func.isRequired,
+  isAuth: PropTypes.string.isRequired,
 };
 
 const mapStateToProps = (state) => ({
@@ -150,6 +159,7 @@ const mapStateToProps = (state) => ({
   movies: getMoviesByGenre(state),
   promoMovie: getPromoMovie(state),
   shownMoviesNumber: getShownMoviesNumber(state),
+  isAuth: getAuthorizationStatus(state),
 });
 
 const mapDispatchToProps = (dispatch) => ({
@@ -161,7 +171,6 @@ const mapDispatchToProps = (dispatch) => ({
     dispatch(ActionCreator.showMoreMovies());
   },
   onTitleClick(movie) {
-    dispatch(ActionCreator.getCurrentMovie(movie));
     dispatch(DataOperation.loadReviews(movie.id));
   },
   onAddToList(movie) {

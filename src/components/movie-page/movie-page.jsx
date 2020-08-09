@@ -8,10 +8,13 @@ import Tabs from "../tabs/tabs.jsx";
 import withActiveTab from "../../hocs/with-active-tab.js";
 import Header from "../header/header.jsx";
 
+import {AuthorizationStatus} from "../../reducer/user/user.js";
 import {getMovies, getReviews} from "../../reducer/data/selectors.js";
 import {Operation as DataOperation} from "../../reducer/data/data.js";
+import {getAuthorizationStatus} from "../../reducer/user/selectors.js";
 import {AppRoute} from "../../consts.js";
 import {getMovieById} from "../../utils.js";
+import history from "../../history.js";
 
 
 const SIMILAR_MOVIES_NUMBER = 4;
@@ -22,7 +25,7 @@ const getSimilarMovies = (movies, movie) => {
   return movies.filter((film) => film.genre === movie.genre).slice(0, SIMILAR_MOVIES_NUMBER);
 };
 
-const MoviePage = ({movies, reviews, id, onTitleClick, onAddToList}) => {
+const MoviePage = ({movies, reviews, id, onTitleClick, onAddToList, isAuth}) => {
 
   const movie = getMovieById(movies, id);
 
@@ -33,6 +36,8 @@ const MoviePage = ({movies, reviews, id, onTitleClick, onAddToList}) => {
     <svg viewBox="0 0 19 20" width="19" height="20">
       <use xlinkHref="#add" />
     </svg>;
+
+  const routeMyList = () => isAuth === AuthorizationStatus.AUTH ? addToListHandle() : history.push(AppRoute.LOGIN);
 
   const addToListHandle = () => onAddToList(movie);
 
@@ -68,7 +73,7 @@ const MoviePage = ({movies, reviews, id, onTitleClick, onAddToList}) => {
                     <span>Play</span>
                   </Link>
                   <button className="btn btn--list movie-card__button" type="button"
-                    onClick={addToListHandle}
+                    onClick={routeMyList}
                   >
                     {isInList}
                     <span>My list</span>
@@ -155,12 +160,14 @@ MoviePage.propTypes = {
         date: PropTypes.string.isRequired,
         message: PropTypes.string.isRequired,
       }).isRequired
-  ).isRequired
+  ).isRequired,
+  isAuth: PropTypes.string.isRequired,
 };
 
 const mapStateToProps = (state) => ({
   movies: getMovies(state),
   reviews: getReviews(state),
+  isAuth: getAuthorizationStatus(state),
 });
 
 const mapDispatchToProps = (dispatch) => ({
