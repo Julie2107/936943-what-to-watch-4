@@ -1,6 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
-
+import moment from "moment";
 
 const ReviewsTab = ({reviews}) => {
   const renderComment = (review) => {
@@ -13,7 +13,7 @@ const ReviewsTab = ({reviews}) => {
 
           <footer className="review__details">
             <cite className="review__author">{review.author}</cite>
-            <time className="review__date" dateTime="2016-12-24">{review.date}</time>
+            <time className="review__date" dateTime="2016-12-24">{moment(review.date).format(`LL`)}</time>
           </footer>
         </blockquote>
 

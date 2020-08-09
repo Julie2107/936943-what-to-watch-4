@@ -5,8 +5,10 @@ import {getSendingReviewStatus} from "../../reducer/data/selectors.js";
 import {connect} from "react-redux";
 import {AppRoute} from "../../consts.js";
 import {Link} from "react-router-dom";
+import {getAuthorizationStatus} from "../../reducer/user/selectors.js";
+import {ReviewValue} from "../../hocs/with-add-review.js";
 
-const AddReview = ({movie, onFormSubmit, onRatingChange, onCommentChange, isSending, isValid}) => {
+const AddReview = ({movie, onFormSubmit, onRatingChange, onCommentChange, isSending, isValid, authStatus}) => {
   const isDisabled = isSending || !isValid;
 
   const headerTitleMarkup =
@@ -35,6 +37,8 @@ const AddReview = ({movie, onFormSubmit, onRatingChange, onCommentChange, isSend
         <h1 className="visually-hidden">WTW</h1>
         <Header
           title={headerTitleMarkup}
+          addClass={``}
+          authorizationStatus={authStatus}
         />
 
         <div className="movie-card__poster movie-card__poster--small">
@@ -71,6 +75,8 @@ const AddReview = ({movie, onFormSubmit, onRatingChange, onCommentChange, isSend
           <div className="add-review__text">
             <textarea
               onChange={onCommentChange}
+              minLength={ReviewValue.MIN}
+              maxLength={ReviewValue.MAX}
               className="add-review__textarea"
               name="review-text" id="review-text"
               placeholder="Review text"
@@ -102,10 +108,12 @@ AddReview.propTypes = {
   onCommentChange: PropTypes.func.isRequired,
   isSending: PropTypes.bool.isRequired,
   isValid: PropTypes.bool.isRequired,
+  authStatus: PropTypes.string.isRequired,
 };
 
 const mapStateToProps = (state) => ({
   isSending: getSendingReviewStatus(state),
+  authStatus: getAuthorizationStatus(state),
 });
 
 export default connect(mapStateToProps)(AddReview);

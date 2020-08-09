@@ -2,8 +2,8 @@ import React, {PureComponent} from "react";
 import PropTypes from "prop-types";
 
 const DEFAULT_VALUE = 3;
-const ReviewValue = {
-  MIN_VALUE: 50,
+export const ReviewValue = {
+  MIN_VALUE: 5,
   MAX_VALUE: 400,
 };
 
@@ -24,11 +24,11 @@ const withAddReview = (Component) => {
     }
 
     _handleFormSubmit(evt) {
-      const {id, onFormSubmit} = this.props;
+      const {movie, onFormSubmit} = this.props;
 
       evt.preventDefault();
 
-      onFormSubmit(id, {
+      onFormSubmit(movie.id, {
         rating: this.state.rating,
         comment: this.state.comment,
       });
@@ -66,7 +66,9 @@ const withAddReview = (Component) => {
   }
 
   WithAddReviewForm.propTypes = {
-    id: PropTypes.number.isRequired,
+    movie: PropTypes.shape({
+      id: PropTypes.number.isRequired,
+    }).isRequired,
     onFormSubmit: PropTypes.func.isRequired,
   };
 

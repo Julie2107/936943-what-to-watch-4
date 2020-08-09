@@ -18,7 +18,7 @@ Array [
       WTW
     </h1>
     <header
-      className="page-header undefined"
+      className="page-header movie-card__head"
     >
       <div
         className="logo"

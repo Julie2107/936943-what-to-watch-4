@@ -2,7 +2,7 @@
 
 exports[`Render header 1`] = `
 <header
-  className="page-header undefined"
+  className="page-header "
 >
   <div
     className="logo"
@@ -29,6 +29,7 @@ exports[`Render header 1`] = `
       </span>
     </a>
   </div>
+  
   <div
     className="user-block"
   >

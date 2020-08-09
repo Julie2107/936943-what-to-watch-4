@@ -13,7 +13,7 @@ const mockStore = configureStore([]);
 it(`Render header`, () => {
   const store = mockStore({
     [NameSpace.USER]: {
-      authorizationStatus: false,
+      authorizationStatus: `auth`,
     }
   });
 
@@ -22,7 +22,9 @@ it(`Render header`, () => {
         <Router history={history}>
           <Provider store={store}>
             <Header
-              authorizationStatus={false}
+              authorizationStatus={`auth`}
+              title={``}
+              addClass={``}
             />
           </Provider>
         </Router>, {

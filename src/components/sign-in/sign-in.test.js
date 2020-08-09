@@ -21,7 +21,8 @@ it(`SignIn page is rendered correctly`, () => {
         <Provider store={store}>
           <SignIn
             onSubmit={() => {}}
-            authorizationStatus={false}
+            authorizationStatus={``}
+            isAuthError={false}
           />
         </Provider>
       </Router>, {

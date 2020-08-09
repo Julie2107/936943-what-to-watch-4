@@ -48,7 +48,8 @@ Header.propTypes = {
   authorizationStatus: PropTypes.string.isRequired,
   title: PropTypes.oneOfType([
     PropTypes.string,
-    PropTypes.func
+    PropTypes.func,
+    PropTypes.node
   ]).isRequired,
   onMyListClick: PropTypes.func.isRequired,
   addClass: PropTypes.string.isRequired,

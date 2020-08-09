@@ -6,7 +6,9 @@ exports[`Render plug 1`] = `
 >
   <h1
     className="page-title user-page__title"
-  />
+  >
+    
+  </h1>
   <footer
     className="page-footer"
   >

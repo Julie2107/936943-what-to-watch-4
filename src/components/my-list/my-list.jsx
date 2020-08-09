@@ -1,10 +1,12 @@
 import React from "react";
 import PropTypes from "prop-types";
+import {connect} from "react-redux";
 
 import Header from "../header/header.jsx";
 import MoviesList from "../movies-list/movies-list.jsx";
 import {getMyMoviesList} from "../../reducer/data/selectors.js";
-import {connect} from "react-redux";
+import {Operation as DataOperation} from "../../reducer/data/data.js";
+
 
 const MyList = ({movies, onTitleClick}) => {
   const headerTitle = <h1 className="page-title user-page__title">My list</h1>;
@@ -56,4 +58,10 @@ const mapStateToProps = (state) => ({
   movies: getMyMoviesList(state),
 });
 
-export default connect(mapStateToProps)(MyList);
+const mapDispatchToProps = (dispatch) => ({
+  onTitleClick(movie) {
+    dispatch(DataOperation.loadReviews(movie.id));
+  },
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(MyList);

@@ -21,7 +21,6 @@ const withActiveTab = (Component) => {
     }
 
     render() {
-
       return (
         <Component
           {...this.props}

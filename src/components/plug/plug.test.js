@@ -7,6 +7,7 @@ it(`Render plug`, () => {
   .create(
       <Plug
         title={`some title`}
+        content={``}
       />)
     .toJSON();
 

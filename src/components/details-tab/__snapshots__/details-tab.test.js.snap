@@ -57,7 +57,9 @@ exports[`Render details tab 1`] = `
       </strong>
       <span
         className="movie-card__details-value"
-      />
+      >
+        NaNh NaNm
+      </span>
     </p>
     <p
       className="movie-card__details-item"

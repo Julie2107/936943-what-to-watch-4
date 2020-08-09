@@ -5,6 +5,7 @@ import {Router} from "react-router-dom";
 import history from "../../history";
 
 const movie = {
+  id: 2,
   title: `Pulp Fiction`,
   poster: `http://placekitten.com/245/175`,
   src: `https://upload.wikimedia.org/wikipedia/commons/transcoded/b/b3/Big_Buck_Bunny_Trailer_400p.ogv/Big_Buck_Bunny_Trailer_400p.ogv.360p.webm`,

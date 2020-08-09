@@ -58,6 +58,7 @@ const Main = ({
 
           <Header
             title={``}
+            addClass={`movie-card__head`}
           />
 
           <div className="movie-card__wrap">

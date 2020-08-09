@@ -23,7 +23,7 @@ exports[`Render moviesmallcard 1`] = `
   >
     <a
       className="small-movie-card__link"
-      href="/films/undefined"
+      href="/films/2"
       onClick={[Function]}
     >
       Pulp Fiction

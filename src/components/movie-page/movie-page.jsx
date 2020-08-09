@@ -53,6 +53,7 @@ const MoviePage = ({movies, reviews, id, onTitleClick, onAddToList, isAuth}) => 
 
             <Header
               title={``}
+              addClass={`movie-card__head`}
             />
 
             <div className="movie-card__wrap">
