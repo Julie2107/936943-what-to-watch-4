@@ -10,6 +10,7 @@ const initialState = {
   isError: false,
   reviews: [],
   sendingReviewStatus: false,
+  myListMovies: [],
 };
 
 const ActionType = {
@@ -20,6 +21,7 @@ const ActionType = {
   ERROR_STATE: `ERROR_STATE`,
   POST_REVIEW: `POST_REVIEW`,
   SENDING_REVIEW: `SENDING_REVIEW`,
+  GET_MY_LIST: `GET_MY_LIST`,
 };
 
 const ActionDataCreator = {
@@ -57,7 +59,14 @@ const ActionDataCreator = {
   setSendingReviewStatus: (status) => ({
     type: ActionType.SENDING_REVIEW,
     payload: status,
-  })
+  }),
+
+  loadMyListMovies: (myListMovies) => {
+    return {
+      type: ActionType.GET_MY_LIST,
+      payload: myListMovies
+    };
+  },
 };
 
 const Operation = {
@@ -79,6 +88,18 @@ const Operation = {
 
       dispatch(ActionDataCreator.loadPromo(movieAdapter(response.data)));
     });
+  },
+
+  loadMyList: () => (dispatch, getState, api) => {
+    return api.get(`/favorite`)
+      .then((response) => {
+        dispatch(ActionDataCreator.loadMyListMovies(response.data.map((movie) => movieAdapter(movie))));
+        dispatch(ActionDataCreator.setLoadingMoviesStatus(false));
+      })
+      .catch(() => {
+        dispatch(ActionDataCreator.setErrorState(true));
+        dispatch(ActionDataCreator.setLoadingMoviesStatus(false));
+      });
   },
 
   loadReviews: (id) => (dispatch, getState, api) => {
@@ -125,6 +146,11 @@ const reducer = (state = initialState, action) => {
     case ActionType.LOAD_PROMO:
       return extend(state, {
         promoMovie: action.payload,
+      });
+
+    case ActionType.GET_MY_LIST:
+      return extend(state, {
+        myListMovies: action.payload,
       });
 
     case ActionType.LOADING_MOVIES_STATUS:

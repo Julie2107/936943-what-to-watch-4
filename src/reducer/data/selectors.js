@@ -14,3 +14,5 @@ export const getErrorStatus = (state) => state[NameSpace.DATA].isError;
 export const getReviews = (state) => state[NameSpace.DATA].reviews;
 
 export const getSendingReviewStatus = (state) => state[NameSpace.DATA].sendingReviewStatus;
+
+export const getMyMoviesList = (state) => state[NameSpace.DATA].myListMovies;

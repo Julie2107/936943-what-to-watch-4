@@ -1,7 +1,10 @@
 import React from "react";
-import Header from "../header/header";
-import MoviesList from "../movies-list/movies-list";
 import PropTypes from "prop-types";
+
+import Header from "../header/header.jsx";
+import MoviesList from "../movies-list/movies-list.jsx";
+import {getMyMoviesList} from "../../reducer/data/selectors.js";
+import {connect} from "react-redux";
 
 const getFavoriteMovies = (movies) => movies.filter((movie) => movie.isFavorite);
 
@@ -49,4 +52,8 @@ MyList.propTypes = {
   onTitleClick: PropTypes.func.isRequired,
 };
 
-export default MyList;
+const mapStateToProps = (state) => ({
+  movies: getMyMoviesList(state),
+});
+
+export default connect(mapStateToProps)(MyList);

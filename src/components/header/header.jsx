@@ -6,14 +6,19 @@ import {Link} from "react-router-dom";
 import {AppRoute} from "../../consts";
 import {getAuthorizationStatus} from "../../reducer/user/selectors.js";
 import {AuthorizationStatus} from "../../reducer/user/user";
+import {Operation as DataOperation} from "../../reducer/data/data";
 
 
-const Header = ({authorizationStatus, title}) => {
+const Header = ({authorizationStatus, title, onMyListClick}) => {
 
   const isLogged = authorizationStatus === AuthorizationStatus.AUTH ?
-    <div className="user-block__avatar">
-      <img src="/img/avatar.jpg" alt="User avatar" width="63" height="63" />
-    </div> :
+    <Link to={AppRoute.MY_LIST}
+      onClick={onMyListClick}
+    >
+      <div className="user-block__avatar">
+        <img src="/img/avatar.jpg" alt="User avatar" width="63" height="63" />
+      </div>
+    </Link> :
     <Link to={AppRoute.LOGIN} className="user-block__link">
       Sign in
     </Link>;
@@ -42,12 +47,19 @@ Header.propTypes = {
   title: PropTypes.oneOfType([
     PropTypes.string,
     PropTypes.func
-  ])
+  ]).isRequired,
+  onMyListClick: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = (state) => ({
   authorizationStatus: getAuthorizationStatus(state),
 });
 
+const mapDispatchToProps = (dispatch) => ({
+  onMyListClick() {
+    dispatch(DataOperation.loadMyList());
+  }
+});
+
 export {Header};
-export default connect(mapStateToProps)(Header);
+export default connect(mapStateToProps, mapDispatchToProps)(Header);

@@ -21,6 +21,7 @@ import AddReview from "../add-review/add-review.jsx";
 import withFullScreenVideo from "../../hocs/with-fullscreen-video.js";
 import FullScreenVideo from "../full-screen-video/full-screen-video.jsx";
 import withAddReview from "../../hocs/with-add-review.js";
+import MyList from "../my-list/my-list.jsx";
 
 const WrappedAddReview = withAddReview(AddReview);
 const WrappedFullScreen = withFullScreenVideo(FullScreenVideo);
@@ -99,6 +100,10 @@ class App extends PureComponent {
                 onFormSubmit={onFormSubmit}
               />;
             }}
+          />
+          <PrivateRoute
+            path={`${AppRoute.MY_LIST}`}
+            render={() => <MyList />}
           />
           <Route
             render={() => <Plug />}
