@@ -7,9 +7,10 @@ import history from "../../history.js";
 import {getAuthorizationStatus, getUser} from "../../reducer/user/selectors.js";
 import {Operation as UserOperation} from "../../reducer/user/user.js";
 import {Operation as DataOperation} from "../../reducer/data/data.js";
+import {getMovies, getLoadingState, getErrorStatus} from "../../reducer/data/selectors.js";
 
 import {AppRoute} from "../../consts.js";
-import {getMovies, getLoadingState, getErrorStatus} from "../../reducer/data/selectors.js";
+import {getMovieById} from "../../utils.js";
 
 import Main from "../main/main.jsx";
 import MoviePage from "../movie-page/movie-page.jsx";
@@ -17,9 +18,12 @@ import SignIn from "../sign-in/sign-in.jsx";
 import Plug, {Message} from "../plug/plug.jsx";
 import PrivateRoute from "../../private-route.jsx";
 import AddReview from "../add-review/add-review.jsx";
+import withFullScreenVideo from "../../hocs/with-fullscreen-video.js";
+import FullScreenVideo from "../full-screen-video/full-screen-video.jsx";
 import withAddReview from "../../hocs/with-add-review.js";
 
 const WrappedAddReview = withAddReview(AddReview);
+const WrappedFullScreen = withFullScreenVideo(FullScreenVideo);
 
 class App extends PureComponent {
   constructor(props) {
@@ -45,7 +49,7 @@ class App extends PureComponent {
   }
 
   render() {
-    const {login, isLoading, isError, onFormSubmit} = this.props;
+    const {login, movies, isLoading, isError, onFormSubmit} = this.props;
     if (isLoading) {
 
       return <Plug
@@ -78,6 +82,14 @@ class App extends PureComponent {
               />;
             }}
           />
+          <Route exact path={`${AppRoute.MOVIE}/:id${AppRoute.PLAYER}`}
+            render={({match}) => {
+              const id = Number(match.params.id);
+              return <WrappedFullScreen
+                movie={getMovieById(movies, id)}
+              />;
+            }}
+          />
           <PrivateRoute
             path={`${AppRoute.MOVIE}/:id${AppRoute.REVIEW}`}
             render={({match}) => {
@@ -98,6 +110,7 @@ class App extends PureComponent {
 }
 
 App.propTypes = {
+  movies: PropTypes.array.isRequired,
   movie: PropTypes.oneOfType([
     PropTypes.number,
     PropTypes.shape({

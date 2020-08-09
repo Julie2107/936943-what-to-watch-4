@@ -1,7 +1,10 @@
 import React from "react";
 import PropTypes from "prop-types";
 
-const FullScreenVideo = ({movie, onDeactivatePlayer, onPlayButtonClick, isPlaying, children, onFullScreenButtonClick, progress, duration}) => {
+import history from "../../history.js";
+
+
+const FullScreenVideo = ({movie, onPlayButtonClick, isPlaying, children, onFullScreenButtonClick, progress, duration}) => {
   const timeLeft = duration - progress;
   const toggler = progress * 100 / duration;
 
@@ -27,7 +30,10 @@ const FullScreenVideo = ({movie, onDeactivatePlayer, onPlayButtonClick, isPlayin
       {children}
       <button type="button"
         className="player__exit"
-        onClick={onDeactivatePlayer}>Exit</button>
+        onClick={() => history.goBack()}
+      >
+          Exit
+      </button>
 
       <div className="player__controls">
         <div className="player__controls-row">

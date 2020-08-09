@@ -9,3 +9,5 @@ export const getGenresList = (movies) => {
 export const extend = (state, newStateValue) => {
   return Object.assign({}, state, newStateValue);
 };
+
+export const getMovieById = (movies, id) => movies.find((movieItem) => movieItem.id === id);

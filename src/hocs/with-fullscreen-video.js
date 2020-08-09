@@ -9,7 +9,7 @@ const withFullScreenVideo = (Component) => {
       this._videoref = createRef();
 
       this.state = {
-        isPlaying: false,
+        isPlaying: true,
         progress: 0,
         duration: 0,
       };
@@ -98,6 +98,7 @@ const withFullScreenVideo = (Component) => {
             src={movie.src}
             poster={movie.poster}
             width="100%"
+            preload="metadata"
           />
         </Component>
       );

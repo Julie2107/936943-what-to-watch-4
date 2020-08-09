@@ -1,9 +1,9 @@
 import React from "react";
 import PropTypes from "prop-types";
 import {connect} from "react-redux";
+import {Link} from "react-router-dom";
 
-import withFullScreenVideo from "../../hocs/with-fullscreen-video.js";
-import {getCurrentGenre, getShownMoviesNumber, getPlayerState, getMoviesByGenre} from "../../reducer/state/selectors.js";
+import {getCurrentGenre, getShownMoviesNumber, getMoviesByGenre} from "../../reducer/state/selectors.js";
 import {getGenres, getPromoMovie} from "../../reducer/data/selectors.js";
 import {Operation as DataOperation} from "../../reducer/data/data.js";
 import {ActionCreator} from "../../reducer/state/state.js";
@@ -11,10 +11,9 @@ import {ActionCreator} from "../../reducer/state/state.js";
 import MoviesList from "../movies-list/movies-list.jsx";
 import GenresList from "../genres-list/genres-list.jsx";
 import ShowMoreButton from "../show-more-button/show-more-button.jsx";
-import FullScreenVideo from "../full-screen-video/full-screen-video.jsx";
 import Header from "../header/header.jsx";
 
-const WrappedFullscreen = withFullScreenVideo(FullScreenVideo);
+import {AppRoute} from "../../consts.js";
 
 const Main = ({
   promoMovie,
@@ -25,9 +24,6 @@ const Main = ({
   onButtonClick,
   shownMoviesNumber,
   onTitleClick,
-  onActivatePlayer,
-  onDeactivatePlayer,
-  isActivePlayer,
   onAddToList}) => {
 
   const moviesToRender = movies.slice(0, shownMoviesNumber);
@@ -44,12 +40,7 @@ const Main = ({
     </svg>;
 
   return (
-    isActivePlayer ?
-      (<WrappedFullscreen className="player__video"
-        movie={promoMovie}
-        onDeactivatePlayer={onDeactivatePlayer}
-      />) :
-      (<>
+      <>
         <section className="movie-card">
           <div className="movie-card__bg">
             <img src={promoMovie.backgroundImage} alt={promoMovie.title} />
@@ -75,13 +66,14 @@ const Main = ({
                 </p>
 
                 <div className="movie-card__buttons">
-                  <button className="btn btn--play movie-card__button" type="button"
-                    onClick={onActivatePlayer}>
+                  <Link className="btn btn--play movie-card__button" type="button"
+                    to={`${AppRoute.MOVIE}/${promoMovie.id}${AppRoute.PLAYER}`}
+                  >
                     <svg viewBox="0 0 19 19" width="19" height="19">
-                      <use xlinkHref="#play-s" />
+                      <use xlinkHref="#play-s"></use>
                     </svg>
                     <span>Play</span>
-                  </button>
+                  </Link>
                   <button className="btn btn--list movie-card__button" type="button"
                     onClick={() => onAddToList(promoMovie)}
                   >
@@ -123,7 +115,7 @@ const Main = ({
             </div>
           </footer>
         </div>
-      </>)
+      </>
   );
 };
 
@@ -135,6 +127,7 @@ Main.propTypes = {
       }).isRequired
   ).isRequired,
   promoMovie: PropTypes.shape({
+    id: PropTypes.number.isRequired,
     title: PropTypes.string.isRequired,
     genre: PropTypes.string.isRequired,
     releaseYear: PropTypes.number.isRequired,
@@ -148,9 +141,6 @@ Main.propTypes = {
   onFilterChange: PropTypes.func.isRequired,
   onButtonClick: PropTypes.func.isRequired,
   shownMoviesNumber: PropTypes.number.isRequired,
-  isActivePlayer: PropTypes.bool.isRequired,
-  onActivatePlayer: PropTypes.func.isRequired,
-  onDeactivatePlayer: PropTypes.func.isRequired,
   onAddToList: PropTypes.func.isRequired,
 };
 
@@ -160,7 +150,6 @@ const mapStateToProps = (state) => ({
   movies: getMoviesByGenre(state),
   promoMovie: getPromoMovie(state),
   shownMoviesNumber: getShownMoviesNumber(state),
-  isActivePlayer: getPlayerState(state),
 });
 
 const mapDispatchToProps = (dispatch) => ({
@@ -174,12 +163,6 @@ const mapDispatchToProps = (dispatch) => ({
   onTitleClick(movie) {
     dispatch(ActionCreator.getCurrentMovie(movie));
     dispatch(DataOperation.loadReviews(movie.id));
-  },
-  onActivatePlayer() {
-    dispatch(ActionCreator.getFullScreenState(true));
-  },
-  onDeactivatePlayer() {
-    dispatch(ActionCreator.getFullScreenState(false));
   },
   onAddToList(movie) {
     dispatch(DataOperation.changeFavoriteState(movie));
