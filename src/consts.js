@@ -19,3 +19,16 @@ export const AppRoute = {
   PLAYER: `/player`,
   REVIEW: `/review`,
 };
+
+export const MAX_RATING = 5;
+
+export const MIN_PER_HOUR = 60;
+
+export const VIDEO_PROGRESS = 100;
+
+export const DEFAULT_VALUE = 3;
+
+export const ReviewValue = {
+  MIN_VALUE: 5,
+  MAX_VALUE: 400,
+};

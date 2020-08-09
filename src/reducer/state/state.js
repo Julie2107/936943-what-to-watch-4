@@ -14,12 +14,10 @@ const ActionType = {
 };
 
 const ActionCreator = {
-  getCurrentFilter: (currentGenre) => {
-    return {
-      type: ActionType.FILTER_CHANGE,
-      payload: currentGenre
-    };
-  },
+  getCurrentFilter: (currentGenre) => ({
+    type: ActionType.FILTER_CHANGE,
+    payload: currentGenre
+  }),
 
   getFilteredMovies: (currentGenre) => {
     const filteredMovies = currentGenre === `All genres` ? smallMovies : getFilteredMovies(smallMovies, currentGenre);
@@ -30,12 +28,10 @@ const ActionCreator = {
     };
   },
 
-  showMoreMovies: () => {
-    return {
-      type: ActionType.SHOW_MORE,
-      payload: MOVIES_TO_SHOW,
-    };
-  },
+  showMoreMovies: () => ({
+    type: ActionType.SHOW_MORE,
+    payload: MOVIES_TO_SHOW,
+  }),
 
 };
 

@@ -9,13 +9,11 @@ import withActiveTab from "../../hocs/with-active-tab.js";
 import Header from "../header/header.jsx";
 
 import {AuthorizationStatus} from "../../reducer/user/user.js";
-import {getMovies, getReviews} from "../../reducer/data/selectors.js";
-import {Operation as DataOperation} from "../../reducer/data/data.js";
+import {getMovies, getReviews} from "../../reducer/movies/selectors.js";
+import {Operation as DataOperation} from "../../reducer/movies/movies.js";
 import {getAuthorizationStatus} from "../../reducer/user/selectors.js";
 import {AppRoute} from "../../consts.js";
-import {getMovieById} from "../../utils.js";
 import history from "../../history.js";
-
 
 const SIMILAR_MOVIES_NUMBER = 4;
 
@@ -25,9 +23,7 @@ const getSimilarMovies = (movies, movie) => {
   return movies.filter((film) => film.genre === movie.genre).slice(0, SIMILAR_MOVIES_NUMBER);
 };
 
-const MoviePage = ({movies, reviews, id, onTitleClick, onAddToList, isAuth}) => {
-
-  const movie = getMovieById(movies, id);
+const MoviePage = ({movie, movies, reviews, onTitleClick, onAddToList, isAuth}) => {
 
   const isInList = movie.isFavorite ?
     <svg viewBox="0 0 18 14" width="18" height="14">
@@ -66,7 +62,7 @@ const MoviePage = ({movies, reviews, id, onTitleClick, onAddToList, isAuth}) => 
 
                 <div className="movie-card__buttons">
                   <Link className="btn btn--play movie-card__button" type="button"
-                    to={`${AppRoute.MOVIE}/${id}${AppRoute.PLAYER}`}
+                    to={`${AppRoute.MOVIE}/${movie.id}${AppRoute.PLAYER}`}
                   >
                     <svg viewBox="0 0 19 19" width="19" height="19">
                       <use xlinkHref="#play-s"></use>
@@ -79,7 +75,7 @@ const MoviePage = ({movies, reviews, id, onTitleClick, onAddToList, isAuth}) => 
                     {isInList}
                     <span>My list</span>
                   </button>
-                  <Link to={`${AppRoute.MOVIE}/${id}${AppRoute.REVIEW}`}
+                  <Link to={`${AppRoute.MOVIE}/${movie.id}${AppRoute.REVIEW}`}
                     className="btn btn--review movie-card__button">
                     Add review
                   </Link>
@@ -118,7 +114,7 @@ const MoviePage = ({movies, reviews, id, onTitleClick, onAddToList, isAuth}) => 
 };
 
 MoviePage.propTypes = {
-  /* movie: PropTypes.oneOfType([
+  movie: PropTypes.oneOfType([
     PropTypes.number,
     PropTypes.shape({
       id: PropTypes.number.isRequired,
@@ -142,8 +138,7 @@ MoviePage.propTypes = {
           })
       ).isRequired
     })
-  ]),*/
-  id: PropTypes.number.isRequired,
+  ]),
   movies: PropTypes.arrayOf(
       PropTypes.shape({
         title: PropTypes.string.isRequired,

@@ -1,21 +1,19 @@
 import React from "react";
 import PropTypes from "prop-types";
 import {Header} from "../header/header.jsx";
-import {getSendingReviewStatus} from "../../reducer/data/selectors.js";
+import {getSendingReviewStatus} from "../../reducer/movies/selectors.js";
 import {connect} from "react-redux";
-import {AppRoute} from "../../consts.js";
+import {AppRoute, MAX_RATING} from "../../consts.js";
 import {Link} from "react-router-dom";
 import {getAuthorizationStatus} from "../../reducer/user/selectors.js";
-import {ReviewValue} from "../../hocs/with-add-review.js";
+import {ReviewValue} from "../../consts.js";
 
-const AddReview = ({movie, onFormSubmit, onRatingChange, onCommentChange, isSending, isValid, authStatus}) => {
-  const isDisabled = isSending || !isValid;
-
-  const headerTitleMarkup =
+const headerTitleMarkup = (route, movie) => {
+  return (
     <nav className="breadcrumbs">
       <ul className="breadcrumbs__list">
         <li className="breadcrumbs__item">
-          <Link to={`${AppRoute.MOVIE}/${movie.id}`}
+          <Link to={route}
             className="breadcrumbs__link"
           >
             {movie.title}
@@ -25,7 +23,24 @@ const AddReview = ({movie, onFormSubmit, onRatingChange, onCommentChange, isSend
           <a className="breadcrumbs__link">Add review</a>
         </li>
       </ul>
-    </nav>;
+    </nav>
+  );
+};
+
+const renderInputItem = (i) => {
+  const rating = i + 1;
+  return (
+    <React.Fragment key={rating}>
+      <input className="rating__input" id={`star-${rating}`} type="radio" name="rating" value={rating}/>
+      <label className="rating__label" htmlFor={`star-${rating}`}>Rating {rating}</label>
+    </React.Fragment>
+  );
+};
+
+const AddReview = ({movie, onFormSubmit, onRatingChange, onCommentChange, isSending, isValid, authStatus}) => {
+  const isDisabled = isSending || !isValid;
+
+  const ratingInputsList = Array.from(new Array(MAX_RATING)).map((_, index) => renderInputItem(index));
 
   return (
     <section className="movie-card movie-card--full">
@@ -36,8 +51,7 @@ const AddReview = ({movie, onFormSubmit, onRatingChange, onCommentChange, isSend
 
         <h1 className="visually-hidden">WTW</h1>
         <Header
-          title={headerTitleMarkup}
-          addClass={``}
+          title={headerTitleMarkup(`${AppRoute.MOVIE}/${movie.id}`, movie)}
           authorizationStatus={authStatus}
         />
 
@@ -55,20 +69,7 @@ const AddReview = ({movie, onFormSubmit, onRatingChange, onCommentChange, isSend
             <div className="rating__stars"
               onChange={onRatingChange}
             >
-              <input className="rating__input" id="star-1" type="radio" name="rating" value="1"/>
-              <label className="rating__label" htmlFor="star-1">Rating 1</label>
-
-              <input className="rating__input" id="star-2" type="radio" name="rating" value="2" />
-              <label className="rating__label" htmlFor="star-2">Rating 2</label>
-
-              <input className="rating__input" id="star-3" type="radio" name="rating" value="3"/>
-              <label className="rating__label" htmlFor="star-3">Rating 3</label>
-
-              <input className="rating__input" id="star-4" type="radio" name="rating" value="4" />
-              <label className="rating__label" htmlFor="star-4">Rating 4</label>
-
-              <input className="rating__input" id="star-5" type="radio" name="rating" value="5" />
-              <label className="rating__label" htmlFor="star-5">Rating 5</label>
+              {ratingInputsList}
             </div>
           </div>
 

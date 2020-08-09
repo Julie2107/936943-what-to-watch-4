@@ -1,11 +1,6 @@
 import React, {PureComponent} from "react";
 import PropTypes from "prop-types";
-
-const DEFAULT_VALUE = 3;
-export const ReviewValue = {
-  MIN_VALUE: 5,
-  MAX_VALUE: 400,
-};
+import {DEFAULT_VALUE, ReviewValue} from "../consts.js";
 
 const withAddReview = (Component) => {
   class WithAddReviewForm extends PureComponent {

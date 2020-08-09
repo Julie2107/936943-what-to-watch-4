@@ -1,5 +1,5 @@
 import MockAdapter from 'axios-mock-adapter';
-import {reducer, Operation, ActionType, initialState} from "./data.js";
+import {reducer, Operation, ActionType, initialState} from "./movies.js";
 import {createAPI} from "../../api.js";
 import movieAdapter from '../../adapters/movies-adapter.js';
 

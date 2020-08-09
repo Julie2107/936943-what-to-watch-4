@@ -1,11 +1,11 @@
 import React from "react";
 import PropTypes from "prop-types";
 import {connect} from "react-redux";
-import {Link} from "react-router-dom";
+import {Link, Redirect} from "react-router-dom";
 
 import {getCurrentGenre, getShownMoviesNumber, getMoviesByGenre} from "../../reducer/state/selectors.js";
-import {getGenres, getPromoMovie} from "../../reducer/data/selectors.js";
-import {Operation as DataOperation} from "../../reducer/data/data.js";
+import {getGenres, getPromoMovie} from "../../reducer/movies/selectors.js";
+import {Operation as DataOperation} from "../../reducer/movies/movies.js";
 import {ActionCreator} from "../../reducer/state/state.js";
 import {getAuthorizationStatus} from "../../reducer/user/selectors.js";
 import {AuthorizationStatus} from "../../reducer/user/user.js";
@@ -16,7 +16,6 @@ import ShowMoreButton from "../show-more-button/show-more-button.jsx";
 import Header from "../header/header.jsx";
 
 import {AppRoute} from "../../consts.js";
-import history from "../../history.js";
 
 const Main = ({
   promoMovie,
@@ -37,7 +36,7 @@ const Main = ({
 
   const isInList = promoMovie.isFavorite ?
     <svg viewBox="0 0 18 14" width="18" height="14">
-      <use xlinkHref="#in-list"></use>
+      <use xlinkHref="#in-list" />
     </svg> :
     <svg viewBox="0 0 19 20" width="19" height="20">
       <use xlinkHref="#add" />
@@ -45,7 +44,7 @@ const Main = ({
 
   const addToListHandle = () => onAddToList(promoMovie);
 
-  const routeMyList = () => isAuth === AuthorizationStatus.AUTH ? addToListHandle() : history.push(AppRoute.LOGIN);
+  const routeMyList = () => isAuth === AuthorizationStatus.AUTH ? addToListHandle() : <Redirect to={`${AppRoute.LOGIN}`}/>;
 
   return (
       <>
@@ -57,7 +56,6 @@ const Main = ({
           <h1 className="visually-hidden">WTW</h1>
 
           <Header
-            title={``}
             addClass={`movie-card__head`}
           />
 
@@ -136,7 +134,7 @@ Main.propTypes = {
       }).isRequired
   ).isRequired,
   promoMovie: PropTypes.shape({
-    id: PropTypes.number.isRequired,
+    id: PropTypes.number,
     title: PropTypes.string.isRequired,
     genre: PropTypes.string.isRequired,
     releaseYear: PropTypes.number.isRequired,

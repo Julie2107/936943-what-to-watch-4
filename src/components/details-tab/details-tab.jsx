@@ -1,8 +1,9 @@
 import React from "react";
 import PropTypes from "prop-types";
+import {MIN_PER_HOUR} from "../../consts";
 
 const DetailsTab = ({movie}) => {
-  const formatRunTime = (minutes) => `${Math.floor(minutes / 60)}h ${minutes - Math.floor(minutes / 60) * 60}m`;
+  const formatRunTime = (minutes) => `${Math.floor(minutes / MIN_PER_HOUR)}h ${minutes - Math.floor(minutes / MIN_PER_HOUR) * MIN_PER_HOUR}m`;
 
   return (
     <div className="movie-card__text movie-card__row">

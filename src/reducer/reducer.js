@@ -1,8 +1,8 @@
 import {combineReducers} from "redux";
-import {reducer as data} from "./data/data.js";
-import {reducer as state} from "./state/state";
-import {reducer as user} from "./user/user";
-import NameSpace from "./name-space";
+import {reducer as data} from "./movies/movies.js";
+import {reducer as state} from "./state/state.js";
+import {reducer as user} from "./user/user.js";
+import NameSpace from "./name-space.js";
 
 export default combineReducers({
   [NameSpace.DATA]: data,

@@ -4,8 +4,8 @@ import {connect} from "react-redux";
 
 import Header from "../header/header.jsx";
 import MoviesList from "../movies-list/movies-list.jsx";
-import {getMyMoviesList} from "../../reducer/data/selectors.js";
-import {Operation as DataOperation} from "../../reducer/data/data.js";
+import {getMyMoviesList} from "../../reducer/movies/selectors.js";
+import {Operation as DataOperation} from "../../reducer/movies/movies.js";
 
 
 const MyList = ({movies, onTitleClick}) => {

@@ -2,11 +2,12 @@ import React from "react";
 import PropTypes from "prop-types";
 
 import history from "../../history.js";
+import {VIDEO_PROGRESS} from "../../consts.js";
 
 
 const FullScreenVideo = ({movie, onPlayButtonClick, isPlaying, children, onFullScreenButtonClick, progress, duration}) => {
   const timeLeft = duration - progress;
-  const toggler = progress * 100 / duration;
+  const toggler = progress * VIDEO_PROGRESS / duration;
 
   const renderPause = () => (
     <svg viewBox="0 0 14 21" width="14" height="21">
@@ -30,7 +31,7 @@ const FullScreenVideo = ({movie, onPlayButtonClick, isPlaying, children, onFullS
       {children}
       <button type="button"
         className="player__exit"
-        onClick={() => history.goBack()}
+        onClick={history.goBack}
       >
           Exit
       </button>

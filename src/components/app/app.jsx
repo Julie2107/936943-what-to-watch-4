@@ -1,4 +1,4 @@
-import React, {PureComponent} from "react";
+import React from "react";
 import PropTypes from "prop-types";
 import {Router, Route, Switch} from "react-router-dom";
 import {connect} from "react-redux";
@@ -6,8 +6,8 @@ import history from "../../history.js";
 
 import {getAuthorizationStatus, getUser} from "../../reducer/user/selectors.js";
 import {Operation as UserOperation} from "../../reducer/user/user.js";
-import {Operation as DataOperation} from "../../reducer/data/data.js";
-import {getMovies, getLoadingState, getErrorStatus} from "../../reducer/data/selectors.js";
+import {Operation as DataOperation} from "../../reducer/movies/movies.js";
+import {getMovies, getLoadingState, getErrorStatus} from "../../reducer/movies/selectors.js";
 
 import {AppRoute} from "../../consts.js";
 import {getMovieById} from "../../utils.js";
@@ -26,93 +26,85 @@ import MyList from "../my-list/my-list.jsx";
 const WrappedAddReview = withAddReview(AddReview);
 const WrappedFullScreen = withFullScreenVideo(FullScreenVideo);
 
-class App extends PureComponent {
-  constructor(props) {
-    super(props);
-  }
-
-  _renderMain() {
-    const {movie} = this.props;
+const App = ({login, movies, isLoading, isError, onFormSubmit}) => {
+  const renderMain = () => {
 
     return (
-      <Main
-        movie = {movie}
-      />
+      <Main />
     );
+  };
+
+  const renderMoviePage = (match) => {
+    const id = Number(match.params.id);
+
+    return <MoviePage
+      movie = {getMovieById(movies, id)}
+    />;
+  };
+
+  const renderAddReview = (match) => {
+    const id = Number(match.params.id);
+
+    return <WrappedAddReview
+      movie={getMovieById(movies, id)}
+      onFormSubmit={onFormSubmit}
+    />;
+  };
+
+  const renderFullScreen = (match) => {
+    const id = Number(match.params.id);
+
+    return <WrappedFullScreen
+      movie={getMovieById(movies, id)}
+    />;
+  };
+
+  if (isLoading) {
+    return <Plug
+      content={Message.LOADING}
+    />;
   }
 
-  _renderMoviePage(id) {
-    return (
-      <MoviePage
-        id = {id}
-      />
-    );
+  if (isError) {
+    return <Plug
+      content={Message.ERROR}
+    />;
   }
 
-  render() {
-    const {login, movies, isLoading, isError, onFormSubmit} = this.props;
-    if (isLoading) {
-
-      return <Plug
-        content={Message.LOADING}
-      />;
-    }
-
-    if (isError) {
-      return <Plug
-        content={Message.ERROR}
-      />;
-    }
-
-    return (
-      <Router history={history}>
-        <Switch>
-          <Route exact path={AppRoute.ROOT}
-            render={() => this._renderMain()}
-          />
-          <Route exact path={`${AppRoute.MOVIE}/:id`}
-            render={({match}) => {
-              const id = Number(match.params.id);
-              return this._renderMoviePage(id);
-            }}
-          />
-          <Route exact path={AppRoute.LOGIN}
-            render={() => {
-              return <SignIn
-                onSubmit={login}
-              />;
-            }}
-          />
-          <Route exact path={`${AppRoute.MOVIE}/:id${AppRoute.PLAYER}`}
-            render={({match}) => {
-              const id = Number(match.params.id);
-              return <WrappedFullScreen
-                movie={getMovieById(movies, id)}
-              />;
-            }}
-          />
-          <PrivateRoute
-            path={`${AppRoute.MOVIE}/:id${AppRoute.REVIEW}`}
-            render={({match}) => {
-              const id = Number(match.params.id);
-              return <WrappedAddReview
-                movie={getMovieById(movies, id)}
-                onFormSubmit={onFormSubmit}
-              />;
-            }}
-          />
-          <PrivateRoute
-            path={`${AppRoute.MY_LIST}`}
-            render={() => <MyList />}
-          />
-          <Route
-            render={() => <Plug />}
-          />
-        </Switch>
-      </Router>
-    );
-  }
-}
+  return (
+    <Router history={history}>
+      <Switch>
+        <Route exact path={AppRoute.ROOT}
+          render={() => renderMain()}
+        />
+        <Route exact path={`${AppRoute.MOVIE}/:id`}
+          render={({match}) => renderMoviePage(match, movies)}
+        />
+        <Route exact path={AppRoute.LOGIN}
+          render={() => {
+            return <SignIn
+              onSubmit={login}
+            />;
+          }}
+        />
+        <Route exact path={`${AppRoute.MOVIE}/:id${AppRoute.PLAYER}`}
+          render={({match}) => renderFullScreen(match, movies)}
+        />
+        <PrivateRoute
+          path={`${AppRoute.MOVIE}/:id${AppRoute.REVIEW}`}
+          render={({match}) => renderAddReview(match, movies, onFormSubmit)}
+        />
+        <PrivateRoute
+          path={`${AppRoute.MY_LIST}`}
+          render={() => <MyList />}
+        />
+        <Route
+          render={() => <Plug />}
+        />
+      </Switch>
+    </Router>
+  );
+};
 
 App.propTypes = {
   movies: PropTypes.array.isRequired,

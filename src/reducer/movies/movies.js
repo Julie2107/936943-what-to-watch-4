@@ -25,26 +25,20 @@ const ActionType = {
 };
 
 const ActionDataCreator = {
-  loadMovies: (movies) => {
-    return {
-      type: ActionType.LOAD_MOVIES,
-      payload: movies
-    };
-  },
+  loadMovies: (movies) => ({
+    type: ActionType.LOAD_MOVIES,
+    payload: movies
+  }),
 
-  loadPromo: (promoMovie) => {
-    return {
-      type: ActionType.LOAD_PROMO,
-      payload: promoMovie,
-    };
-  },
+  loadPromo: (promoMovie) => ({
+    type: ActionType.LOAD_PROMO,
+    payload: promoMovie,
+  }),
 
-  loadReviews: (reviews) => {
-    return {
-      type: ActionType.LOAD_REVIEWS,
-      payload: reviews,
-    };
-  },
+  loadReviews: (reviews) => ({
+    type: ActionType.LOAD_REVIEWS,
+    payload: reviews,
+  }),
 
   setLoadingMoviesStatus: (status) => ({
     type: ActionType.LOADING_MOVIES_STATUS,

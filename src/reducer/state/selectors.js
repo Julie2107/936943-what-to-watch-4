@@ -1,5 +1,5 @@
 import NameSpace from "../name-space";
-import {getMovies} from "../data/selectors";
+import {getMovies} from "../movies/selectors";
 import {createSelector} from "reselect";
 import {getFilteredMovies} from "../../utils.js";
 

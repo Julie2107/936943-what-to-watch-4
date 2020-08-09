@@ -3,10 +3,10 @@ import PropTypes from "prop-types";
 import {connect} from "react-redux";
 import {Link} from "react-router-dom";
 
-import {AppRoute} from "../../consts";
+import {AppRoute} from "../../consts.js";
 import {getAuthorizationStatus} from "../../reducer/user/selectors.js";
-import {AuthorizationStatus} from "../../reducer/user/user";
-import {Operation as DataOperation} from "../../reducer/data/data";
+import {AuthorizationStatus} from "../../reducer/user/user.js";
+import {Operation as DataOperation} from "../../reducer/movies/movies.js";
 
 
 const Header = ({authorizationStatus, title, onMyListClick, addClass}) => {
@@ -50,9 +50,9 @@ Header.propTypes = {
     PropTypes.string,
     PropTypes.func,
     PropTypes.node
-  ]).isRequired,
+  ]),
   onMyListClick: PropTypes.func.isRequired,
-  addClass: PropTypes.string.isRequired,
+  addClass: PropTypes.string,
 };
 
 const mapStateToProps = (state) => ({
