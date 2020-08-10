@@ -3,6 +3,7 @@ import renderer from "react-test-renderer";
 import Tabs from "./tabs.jsx";
 
 const mockMovie = {title: `Mindhunter`, poster: `http://placekitten.com/245/175`, cover: `img/bg-the-grand-budapest-hotel.jpg`, genre: `drama`, releaseYear: 2000, src: ``, rating: 5, ratingNumber: 100, ratingValue: ``, starring: [``, `1`, `3`], director: ``};
+
 const reviews = [{author: `Amanda Greever`,
   date: `November 18, 2015`,
   id: 1,

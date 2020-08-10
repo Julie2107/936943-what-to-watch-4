@@ -3,7 +3,6 @@ import {extend} from "../../utils";
 const AuthorizationStatus = {
   AUTH: `AUTH`,
   NO_AUTH: `NO_AUTH`,
-
 };
 
 const initialState = {
@@ -32,6 +31,7 @@ const ActionCreator = {
   }),
   authError: () => ({
     type: ActionType.AUTH_ERROR,
+    payload: true,
   })
 };
 
@@ -79,6 +79,7 @@ const Operation = {
       })
       .catch(() => {
         dispatch(ActionCreator.requireAuthorization(AuthorizationStatus.NO_AUTH));
+        dispatch(ActionCreator.authError());
       })
   )
 };

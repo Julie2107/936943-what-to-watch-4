@@ -13,7 +13,8 @@ const mockStore = configureStore([]);
 it(`SignIn page is rendered correctly`, () => {
   const store = mockStore({
     [NameSpace.USER]: {
-      authorizationStatus: false,
+      authorizationStatus: `AUTH`,
+      isAuthError: false
     }
   });
   const tree = renderer.create(
@@ -21,7 +22,7 @@ it(`SignIn page is rendered correctly`, () => {
         <Provider store={store}>
           <SignIn
             onSubmit={() => {}}
-            authorizationStatus={``}
+            authorizationStatus={`AUTH`}
             isAuthError={false}
           />
         </Provider>

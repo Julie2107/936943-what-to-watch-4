@@ -9,8 +9,7 @@ import AddReview from "./add-review.jsx";
 
 const mockStore = configureStore([]);
 
-const mockMovie = {title: `Mindhunter`, poster: `http://placekitten.com/245/175`, cover: `img/bg-the-grand-budapest-hotel.jpg`, genre: `drama`, releaseYear: 2000, src: ``, rating: 5, ratingNumber: 100, ratingValue: ``, starring: [``, `1`, `3`], director: ``};
-
+const mockMovie = {id: 1, backgroundImage: ``, title: `Mindhunter`, poster: `http://placekitten.com/245/175`, cover: `img/bg-the-grand-budapest-hotel.jpg`, genre: `drama`, releaseYear: 2000, src: ``, rating: 5, ratingNumber: 100, ratingValue: ``, starring: [``, `1`, `3`], director: ``};
 
 it(`Render Add Review`, () => {
   const store = mockStore({
@@ -18,7 +17,7 @@ it(`Render Add Review`, () => {
       isSending: false,
     },
     [NameSpace.USER]: {
-      authorizationStatus: true,
+      authorizationStatus: `AUTH`,
     }
   });
 
@@ -33,7 +32,7 @@ it(`Render Add Review`, () => {
               onCommentChange={()=>{}}
               isSending={false}
               isValid={true}
-              authorizationStatus={true}
+              authorizationStatus={`AUTH`}
             />
           </Provider>
         </Router>, {

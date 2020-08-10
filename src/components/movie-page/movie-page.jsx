@@ -19,10 +19,6 @@ const SIMILAR_MOVIES_NUMBER = 4;
 
 const WrappedTabs = withActiveTab(Tabs);
 
-const getSimilarMovies = (movies, movie) => {
-  return movies.filter((film) => film.genre === movie.genre).slice(0, SIMILAR_MOVIES_NUMBER);
-};
-
 const MoviePage = ({movie, movies, reviews, onTitleClick, onAddToList, isAuth}) => {
 
   const isInList = movie.isFavorite ?
@@ -32,6 +28,10 @@ const MoviePage = ({movie, movies, reviews, onTitleClick, onAddToList, isAuth}) 
     <svg viewBox="0 0 19 20" width="19" height="20">
       <use xlinkHref="#add" />
     </svg>;
+
+  const getSimilarMovies = () => {
+    return movies.filter((film) => film.genre === movie.genre).slice(0, SIMILAR_MOVIES_NUMBER);
+  };
 
   const routeMyList = () => isAuth === AuthorizationStatus.AUTH ? addToListHandle() : history.push(AppRoute.LOGIN);
 
@@ -114,31 +114,23 @@ const MoviePage = ({movie, movies, reviews, onTitleClick, onAddToList, isAuth}) 
 };
 
 MoviePage.propTypes = {
-  movie: PropTypes.oneOfType([
-    PropTypes.number,
-    PropTypes.shape({
-      id: PropTypes.number.isRequired,
-      title: PropTypes.string.isRequired,
-      poster: PropTypes.string.isRequired,
-      cover: PropTypes.string.isRequired,
-      genre: PropTypes.string.isRequired,
-      releaseYear: PropTypes.number.isRequired,
-      src: PropTypes.string.isRequired,
-      rating: PropTypes.number.isRequired,
-      ratingNumber: PropTypes.number.isRequired,
-      ratingValue: PropTypes.string.isRequired,
-      starring: PropTypes.arrayOf(PropTypes.string.isRequired),
-      director: PropTypes.string.isRequired,
-      reviews: PropTypes.arrayOf(
-          PropTypes.shape({
-            message: PropTypes.string.isRequired,
-            rating: PropTypes.number.isRequired,
-            date: PropTypes.string.isRequired,
-            author: PropTypes.string.isRequired,
-          })
-      ).isRequired
-    })
-  ]),
+  movie: PropTypes.shape({
+    id: PropTypes.number.isRequired,
+    title: PropTypes.string.isRequired,
+    poster: PropTypes.string.isRequired,
+    cover: PropTypes.string.isRequired,
+    genre: PropTypes.string.isRequired,
+    releaseYear: PropTypes.number.isRequired,
+    src: PropTypes.string.isRequired,
+    rating: PropTypes.number.isRequired,
+    ratingNumber: PropTypes.number.isRequired,
+    ratingValue: PropTypes.string.isRequired,
+    starring: PropTypes.arrayOf(PropTypes.string.isRequired),
+    director: PropTypes.string.isRequired,
+    isFavorite: PropTypes.bool.isRequired,
+    backgroundImage: PropTypes.string.isRequired,
+    backgroundColor: PropTypes.string.isRequired,
+  }),
   movies: PropTypes.arrayOf(
       PropTypes.shape({
         title: PropTypes.string.isRequired,

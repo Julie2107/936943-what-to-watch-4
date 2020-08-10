@@ -164,7 +164,6 @@ const mapStateToProps = (state) => ({
 const mapDispatchToProps = (dispatch) => ({
   onFilterChange(genre) {
     dispatch(ActionCreator.getCurrentFilter(genre));
-    dispatch(ActionCreator.getFilteredMovies(genre));
   },
   onButtonClick() {
     dispatch(ActionCreator.showMoreMovies());

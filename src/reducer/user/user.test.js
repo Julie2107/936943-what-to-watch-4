@@ -3,6 +3,13 @@ import {reducer, ActionType, Operation} from "./user.js";
 import {AuthorizationStatus} from "./user.js";
 import {createAPI} from '../../api';
 
+const mockUser = {
+  id: 1,
+  name: `Leo`,
+  mail: `mail@mail.ru`,
+  avatar: `avatar.jpg`,
+};
+
 it(`Reducer without additional parameters should return initial state`, () => {
   expect(reducer(void 0, {})).toEqual({
     authorizationStatus: AuthorizationStatus.NO_AUTH,
@@ -44,4 +51,26 @@ it(`Operation should check authorization`, () => {
             payload: `AUTH`,
           });
         });
+});
+
+it(`Reducer gets user data`, () => {
+  expect(reducer({
+    user: {},
+  }, {
+    type: ActionType.GET_USER_DATA,
+    payload: {mockUser},
+  })).toEqual({
+    user: {mockUser}
+  });
+});
+
+it(`Reducer should change authorization error status`, () => {
+  expect(reducer({
+    isAuthError: false,
+  }, {
+    type: ActionType.AUTH_ERROR,
+    payload: true,
+  })).toEqual({
+    isAuthError: true,
+  });
 });

@@ -12,6 +12,7 @@ exports[`Render Add Review 1`] = `
     >
       <img
         alt="Mindhunter"
+        src=""
       />
     </div>
     <h1
@@ -58,7 +59,7 @@ exports[`Render Add Review 1`] = `
           >
             <a
               className="breadcrumbs__link"
-              href="/films/undefined"
+              href="/films/1"
               onClick={[Function]}
             >
               Mindhunter
@@ -79,11 +80,19 @@ exports[`Render Add Review 1`] = `
         className="user-block"
       >
         <a
-          className="user-block__link"
-          href="/login"
+          href="/mylist"
           onClick={[Function]}
         >
-          Sign in
+          <div
+            className="user-block__avatar"
+          >
+            <img
+              alt="User avatar"
+              height="63"
+              src="/img/avatar.jpg"
+              width="63"
+            />
+          </div>
         </a>
       </div>
     </header>

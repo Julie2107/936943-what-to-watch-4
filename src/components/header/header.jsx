@@ -51,7 +51,7 @@ Header.propTypes = {
     PropTypes.func,
     PropTypes.node
   ]),
-  onMyListClick: PropTypes.func.isRequired,
+  onMyListClick: PropTypes.func,
   addClass: PropTypes.string,
 };
 

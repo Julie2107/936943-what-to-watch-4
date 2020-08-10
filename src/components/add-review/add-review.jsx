@@ -8,40 +8,38 @@ import {Link} from "react-router-dom";
 import {getAuthorizationStatus} from "../../reducer/user/selectors.js";
 import {ReviewValue} from "../../consts.js";
 
-const headerTitleMarkup = (route, movie) => {
-  return (
-    <nav className="breadcrumbs">
-      <ul className="breadcrumbs__list">
-        <li className="breadcrumbs__item">
-          <Link to={route}
-            className="breadcrumbs__link"
-          >
-            {movie.title}
-          </Link>
-        </li>
-        <li className="breadcrumbs__item">
-          <a className="breadcrumbs__link">Add review</a>
-        </li>
-      </ul>
-    </nav>
-  );
-};
-
-const renderInputItem = (i) => {
-  const rating = i + 1;
-  return (
-    <React.Fragment key={rating}>
-      <input className="rating__input" id={`star-${rating}`} type="radio" name="rating" value={rating}/>
-      <label className="rating__label" htmlFor={`star-${rating}`}>Rating {rating}</label>
-    </React.Fragment>
-  );
-};
 
 const AddReview = ({movie, onFormSubmit, onRatingChange, onCommentChange, isSending, isValid, authStatus}) => {
   const isDisabled = isSending || !isValid;
 
-  const ratingInputsList = Array.from(new Array(MAX_RATING)).map((_, index) => renderInputItem(index));
+  const renderInputItem = (i) => {
+    const rating = i + 1;
+    return (
+      <React.Fragment key={rating}>
+        <input className="rating__input" id={`star-${rating}`} type="radio" name="rating" value={rating}/>
+        <label className="rating__label" htmlFor={`star-${rating}`}>Rating {rating}</label>
+      </React.Fragment>
+    );
+  };
 
+  const headerTitleMarkup =
+      <nav className="breadcrumbs">
+        <ul className="breadcrumbs__list">
+          <li className="breadcrumbs__item">
+            <Link to={`${AppRoute.MOVIE}/${movie.id}`}
+              className="breadcrumbs__link"
+            >
+              {movie.title}
+            </Link>
+          </li>
+          <li className="breadcrumbs__item">
+            <a className="breadcrumbs__link">Add review</a>
+          </li>
+        </ul>
+      </nav>;
+
+
+  const ratingInputsList = Array.from(new Array(MAX_RATING)).map((_, index) => renderInputItem(index));
   return (
     <section className="movie-card movie-card--full">
       <div className="movie-card__header">
@@ -51,7 +49,7 @@ const AddReview = ({movie, onFormSubmit, onRatingChange, onCommentChange, isSend
 
         <h1 className="visually-hidden">WTW</h1>
         <Header
-          title={headerTitleMarkup(`${AppRoute.MOVIE}/${movie.id}`, movie)}
+          title={headerTitleMarkup}
           authorizationStatus={authStatus}
         />
 
@@ -75,9 +73,9 @@ const AddReview = ({movie, onFormSubmit, onRatingChange, onCommentChange, isSend
 
           <div className="add-review__text">
             <textarea
-              onChange={onCommentChange}
               minLength={ReviewValue.MIN}
               maxLength={ReviewValue.MAX}
+              onChange={onCommentChange}
               className="add-review__textarea"
               name="review-text" id="review-text"
               placeholder="Review text"

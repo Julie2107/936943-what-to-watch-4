@@ -1,6 +1,5 @@
-import {getFilteredMovies, extend} from "../../utils.js";
+import {extend} from "../../utils.js";
 import {MOVIES_TO_SHOW} from "../../consts.js";
-import {smallMovies} from "../../mocks/films.js";
 
 const initialState = {
   currentGenre: `All genres`,
@@ -19,15 +18,6 @@ const ActionCreator = {
     payload: currentGenre
   }),
 
-  getFilteredMovies: (currentGenre) => {
-    const filteredMovies = currentGenre === `All genres` ? smallMovies : getFilteredMovies(smallMovies, currentGenre);
-
-    return {
-      type: ActionType.FILTERED_MOVIES,
-      payload: filteredMovies,
-    };
-  },
-
   showMoreMovies: () => ({
     type: ActionType.SHOW_MORE,
     payload: MOVIES_TO_SHOW,
@@ -40,12 +30,6 @@ const reducer = (state = initialState, action) => {
     case ActionType.FILTER_CHANGE:
       return extend(state, {
         currentGenre: action.payload,
-      });
-
-    case ActionType.FILTERED_MOVIES:
-      return extend(state, {
-        movies: action.payload,
-        shownMoviesNumber: MOVIES_TO_SHOW,
       });
 
     case ActionType.SHOW_MORE:

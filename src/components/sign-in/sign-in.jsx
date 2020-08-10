@@ -30,12 +30,6 @@ class SignIn extends PureComponent {
     });
   }
 
-  _showError() {
-    return (
-      <h1>Incorrect email or password. Please, try again</h1>
-    );
-  }
-
   render() {
     const {authorizationStatus, isAuthError} = this.props;
     const isAuthorized = authorizationStatus === AuthorizationStatus.AUTH;
@@ -43,7 +37,6 @@ class SignIn extends PureComponent {
     if (isAuthorized) {
       return <Redirect to={AppRoute.ROOT} />;
     }
-
 
     return (
       <div className="user-page">
@@ -66,7 +59,9 @@ class SignIn extends PureComponent {
             className="sign-in__form"
             onSubmit={this._handleSubmit}
           >
-            {isAuthError && this._showError()}
+            {isAuthError ? <div className="sign-in__message">
+              <p>Incorrect email or password. Please, try again</p>
+            </div> : ``}
             <div className="sign-in__fields">
               <div className="sign-in__field">
                 <input
@@ -76,6 +71,7 @@ class SignIn extends PureComponent {
                   name="user-email"
                   id="user-email"
                   ref={this.loginRef}
+                  required
                 />
                 <label className="sign-in__label visually-hidden" htmlFor="user-email">Email address</label>
               </div>

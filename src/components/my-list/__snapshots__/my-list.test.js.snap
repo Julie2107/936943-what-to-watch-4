@@ -90,7 +90,7 @@ exports[`Render myList 1`] = `
         >
           <a
             className="small-movie-card__link"
-            href="/films/undefined"
+            href="/films/0"
             onClick={[Function]}
           >
             Mindhunter
@@ -119,7 +119,7 @@ exports[`Render myList 1`] = `
         >
           <a
             className="small-movie-card__link"
-            href="/films/undefined"
+            href="/films/1"
             onClick={[Function]}
           >
             Aviator
@@ -148,7 +148,7 @@ exports[`Render myList 1`] = `
         >
           <a
             className="small-movie-card__link"
-            href="/films/undefined"
+            href="/films/2"
             onClick={[Function]}
           >
             Pulp Fiction
@@ -177,10 +177,126 @@ exports[`Render myList 1`] = `
         >
           <a
             className="small-movie-card__link"
-            href="/films/undefined"
+            href="/films/3"
             onClick={[Function]}
           >
             Midnight Special
+          </a>
+        </h3>
+      </article>
+      <article
+        className="small-movie-card catalog__movies-card"
+        onMouseEnter={[Function]}
+        onMouseLeave={[Function]}
+      >
+        <div
+          className="small-movie-card__image"
+          onClick={[Function]}
+        >
+          <video
+            className="player__video"
+            muted={true}
+            poster="http://placekitten.com/245/175"
+            src=""
+          />
+        </div>
+        <h3
+          className="small-movie-card__title"
+          onClick={[Function]}
+        >
+          <a
+            className="small-movie-card__link"
+            href="/films/4"
+            onClick={[Function]}
+          >
+            Fantastic Beasts: The Crimes of Grindelwald
+          </a>
+        </h3>
+      </article>
+      <article
+        className="small-movie-card catalog__movies-card"
+        onMouseEnter={[Function]}
+        onMouseLeave={[Function]}
+      >
+        <div
+          className="small-movie-card__image"
+          onClick={[Function]}
+        >
+          <video
+            className="player__video"
+            muted={true}
+            poster="http://placekitten.com/245/175"
+            src=""
+          />
+        </div>
+        <h3
+          className="small-movie-card__title"
+          onClick={[Function]}
+        >
+          <a
+            className="small-movie-card__link"
+            href="/films/5"
+            onClick={[Function]}
+          >
+            No Country for Old Men
+          </a>
+        </h3>
+      </article>
+      <article
+        className="small-movie-card catalog__movies-card"
+        onMouseEnter={[Function]}
+        onMouseLeave={[Function]}
+      >
+        <div
+          className="small-movie-card__image"
+          onClick={[Function]}
+        >
+          <video
+            className="player__video"
+            muted={true}
+            poster="http://placekitten.com/245/175"
+            src=""
+          />
+        </div>
+        <h3
+          className="small-movie-card__title"
+          onClick={[Function]}
+        >
+          <a
+            className="small-movie-card__link"
+            href="/films/6"
+            onClick={[Function]}
+          >
+            Orlando
+          </a>
+        </h3>
+      </article>
+      <article
+        className="small-movie-card catalog__movies-card"
+        onMouseEnter={[Function]}
+        onMouseLeave={[Function]}
+      >
+        <div
+          className="small-movie-card__image"
+          onClick={[Function]}
+        >
+          <video
+            className="player__video"
+            muted={true}
+            poster="http://placekitten.com/245/175"
+            src=""
+          />
+        </div>
+        <h3
+          className="small-movie-card__title"
+          onClick={[Function]}
+        >
+          <a
+            className="small-movie-card__link"
+            href="/films/7"
+            onClick={[Function]}
+          >
+            Macbeth
           </a>
         </h3>
       </article>

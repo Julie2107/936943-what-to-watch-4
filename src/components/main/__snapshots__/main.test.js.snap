@@ -10,6 +10,7 @@ Array [
     >
       <img
         alt="Mindhunter"
+        src=""
       />
     </div>
     <h1
@@ -49,11 +50,19 @@ Array [
         className="user-block"
       >
         <a
-          className="user-block__link"
-          href="/login"
+          href="/mylist"
           onClick={[Function]}
         >
-          Sign in
+          <div
+            className="user-block__avatar"
+          >
+            <img
+              alt="User avatar"
+              height="63"
+              src="/img/avatar.jpg"
+              width="63"
+            />
+          </div>
         </a>
       </div>
     </header>
@@ -100,7 +109,7 @@ Array [
           >
             <a
               className="btn btn--play movie-card__button"
-              href="/films/undefined/player"
+              href="/films/5/player"
               onClick={[Function]}
               type="button"
             >

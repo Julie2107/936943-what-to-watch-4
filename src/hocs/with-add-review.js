@@ -43,10 +43,8 @@ const withAddReview = (Component) => {
     }
 
     _validateForm(target) {
-      if (ReviewValue.MIN_VALUE < target || target > ReviewValue.MAX_VALUE) {
-        return false;
-      }
-      return true;
+      const validValue = (target.length > ReviewValue.MIN_VALUE && target.length < ReviewValue.MAX_VALUE) ? true : false;
+      return validValue;
     }
 
     render() {

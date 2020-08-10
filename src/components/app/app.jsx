@@ -108,9 +108,9 @@ const App = ({login, movies, isLoading, isError, onFormSubmit}) => {
 
 App.propTypes = {
   movies: PropTypes.array.isRequired,
-  movie: PropTypes.oneOfType([
-    PropTypes.number,
+  movie:
     PropTypes.shape({
+      id: PropTypes.number.isRequired,
       title: PropTypes.string.isRequired,
       poster: PropTypes.string.isRequired,
       cover: PropTypes.string.isRequired,
@@ -122,16 +122,8 @@ App.propTypes = {
       ratingValue: PropTypes.string.isRequired,
       starring: PropTypes.arrayOf(PropTypes.string.isRequired),
       director: PropTypes.string.isRequired,
-      reviews: PropTypes.arrayOf(
-          PropTypes.shape({
-            message: PropTypes.string.isRequired,
-            rating: PropTypes.number.isRequired,
-            date: PropTypes.string.isRequired,
-            author: PropTypes.string.isRequired,
-          })
-      ).isRequired
-    })
-  ]),
+      backgroundImage: PropTypes.string.isRequired,
+    }),
   login: PropTypes.func.isRequired,
   isLoading: PropTypes.bool.isRequired,
   isError: PropTypes.bool.isRequired,

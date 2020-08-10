@@ -1,6 +1,7 @@
 import {reducer, ActionCreator, ActionType} from './state.js';
 import {MOVIES_TO_SHOW} from "../../consts.js";
 
+
 it(`reducer returns the right genre value`, () => {
   expect(reducer({
     currentGenre: `All genres`
