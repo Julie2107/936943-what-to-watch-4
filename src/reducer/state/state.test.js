@@ -21,8 +21,12 @@ it(`Action creator gets the right genre`, () => {
 });
 
 it(`Action creator gives th right number of shownMoviesNumber`, () => {
-  expect(ActionCreator.showMoreMovies()).toEqual({
+  expect(reducer({
+    shownMoviesNumber: MOVIES_TO_SHOW,
+  }, {
     type: ActionType.SHOW_MORE,
     payload: MOVIES_TO_SHOW,
+  })).toEqual({
+    shownMoviesNumber: MOVIES_TO_SHOW + MOVIES_TO_SHOW,
   });
 });

@@ -20,7 +20,7 @@ const mockMovies = [
   {title: `Macbeth`, poster: `http://placekitten.com/245/175`, cover: `img/bg-the-grand-budapest-hotel.jpg`, genre: `drama`, releaseYear: 2000, src: ``, rating: 5, ratingNumber: 100, ratingValue: ``, starring: [``, `1`, `3`], director: ``, reviews: []},
 ];
 
-const movie = {id: 5, title: `Mindhunter`, isFavorite: false, backgroundImage: ``, poster: `http://placekitten.com/245/175`, cover: `img/bg-the-grand-budapest-hotel.jpg`, genre: `drama`, releaseYear: 2000, src: ``, rating: 5, ratingNumber: 100, ratingValue: ``, starring: [``, `1`, `3`], director: ``, reviews: [{author: `Amanda Greever`,
+const mockMovie = {id: 5, title: `Mindhunter`, isFavorite: false, backgroundImage: ``, poster: `http://placekitten.com/245/175`, cover: `img/bg-the-grand-budapest-hotel.jpg`, genre: `drama`, releaseYear: 2000, src: ``, rating: 5, ratingNumber: 100, ratingValue: ``, starring: [``, `1`, `3`], director: ``, reviews: [{author: `Amanda Greever`,
   date: `November 18, 2015`,
   id: 1,
   message: `The mannered, madcap proceedings are often delightful, occasionally silly, and here and there, gruesome and/or heartbreaking.`,
@@ -42,7 +42,8 @@ it(`Render Main`, () => {
     },
     [NameSpace.DATA]: {
       movies: mockMovies,
-      promoMovie: movie,
+      promoMovie: mockMovie,
+      movie: mockMovie,
     },
     [NameSpace.USER]: {
       authorizationStatus: `AUTH`
@@ -53,8 +54,9 @@ it(`Render Main`, () => {
         <Router history={history}>
           <Provider store={store}>
             <Main
-              promoMovie={movie}
+              promoMovie={mockMovie}
               movies = {mockMovies}
+              movie = {mockMovie}
               onTitleClick = {() => {}}
               genresList = {mockGenres}
               onFilterChange = {() => {}}

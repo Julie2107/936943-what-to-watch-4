@@ -14,7 +14,7 @@ const mockMovie = {id: 1, backgroundImage: ``, title: `Mindhunter`, poster: `htt
 it(`Render Add Review`, () => {
   const store = mockStore({
     [NameSpace.DATA]: {
-      isSending: false,
+      sendingReviewStatus: false,
     },
     [NameSpace.USER]: {
       authorizationStatus: `AUTH`,

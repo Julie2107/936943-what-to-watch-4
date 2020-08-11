@@ -21,7 +21,7 @@ export const MIN_PER_HOUR = 60;
 
 export const VIDEO_PROGRESS = 100;
 
-export const DEFAULT_VALUE = 3;
+export const DEFAULT_VALUE = 5;
 
 export const ReviewValue = {
   MIN_VALUE: 50,
