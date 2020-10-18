@@ -1,7 +1,7 @@
 # Личный проект «Что посмотреть» [![Build status][travis-image]][travis-url]
 
-* Студент: [Julia Gankina](https://htmlacademy.ru/profile/id936943).
-* Наставник: [Артём Рудов](https://htmlacademy.ru/profile/artrudov).
+* Студент: [Julia Gankina](https://htmlacademy.ru/profile/id936943)
+* Наставник: [Артём Рудов](https://htmlacademy.ru/profile/artrudov)
 
 ---
 
